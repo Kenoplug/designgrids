@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DesignGrids - Premium UI/UX Studio. We design high-performance Figma design systems, dashboards, and mobile apps.">
+  <title>DesignGrids - Premium UI/UX Design Studio</title>
+
+  <!-- Fonts: Inter (sans), DM Serif Display (Instrument Serif substitute), JetBrains Mono (Fragment Mono substitute) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:    '#fafafa',
+            hairline:  '#e5e7eb',
+            card:      '#ededed',
+            'divider-mid': '#dadada',
+            graphite:  '#242424',
+            ink:       '#171717',
+            pencil:    '#5c5c5c',
+            faint:     '#a3a3a3',
+          },
+          fontFamily: {
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            mono:  ['JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
+          },
+          borderRadius: {
+            'card': '24px',
+            'btn':  '16px',
+            'pill': '9999px',
+          },
+          letterSpacing: {
+            'display': '-0.05em',
+            'heading': '-0.025em',
+            'body':    '-0.005em',
+          },
+          maxWidth: {
+            'page': '1200px',
+          },
+          spacing: {
+            'section': '64px',
+            'section-sm': '48px',
+            'card': '24px',
+            'elem':  '8px',
+          },
+          fontSize: {
+            'display': ['128px', { lineHeight: '1', letterSpacing: '-0.05em' }],
+            'hero':    ['96px',  { lineHeight: '1', letterSpacing: '-0.05em' }],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==============================================
+       SUBFRAME DESIGN SYSTEM - CUSTOM TOKENS & UTILITIES
+       ============================================== */
+
+    /* ----- Base ----- */
+    body {
+      font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ----- Dark Filled Button - the signature interactive element ----- */
+    .btn-primary {
+      background: #242424;
+      color: #fafafa;
+      border-radius: 16px;
+      padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow:
+        inset 0 4px 4px -2px rgba(255,255,255,0.25),
+        inset 0 -4px 4px -2px rgba(0,0,0,0.25),
+        inset -2px 0 2px -2px rgba(255,255,255,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn-primary:hover {
+      background: #171717;
+      transform: translateY(-1px);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow:
+        inset 0 2px 2px -1px rgba(0,0,0,0.3),
+        inset 0 -2px 2px -1px rgba(255,255,255,0.05);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid #242424;
+      outline-offset: 2px;
+    }
+
+    /* ----- Ghost / Outlined Button ----- */
+    .btn-ghost {
+      background: transparent;
+      color: #171717;
+      border-radius: 16px;
+      padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn-ghost:hover {
+      border-color: #171717;
+      background: rgba(23,23,23,0.03);
+    }
+    .btn-ghost:focus-visible {
+      outline: 2px solid #242424;
+      outline-offset: 2px;
+    }
+
+    /* ----- Pill Nav Group ----- */
+    .pill-group {
+      display: inline-flex;
+      background: #242424;
+      border-radius: 9999px;
+      padding: 4px;
+      gap: 2px;
+    }
+    .pill-option {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      color: #fafafa;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .pill-option.active {
+      background: #fafafa;
+      color: #171717;
+    }
+    .pill-option:not(.active):hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ----- Section Heading ----- */
+    .section-heading {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.13;
+      letter-spacing: -0.025em;
+      color: #171717;
+    }
+    .section-subhead {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.33;
+      letter-spacing: -0.005em;
+      color: #5c5c5c;
+      max-width: 560px;
+    }
+
+    /* ----- Serif Accent ----- */
+    .serif-accent {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.025em;
+      color: #171717;
+    }
+
+    /* ----- Section container ----- */
+    .section-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* ----- Card Surface ----- */
+    .card-surface {
+      background: #ededed;
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    /* ----- Image Frame ----- */
+    .img-frame {
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+
+    /* ----- Header blur ----- */
+    .header-blur {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(250,250,250,0.82);
+      border-bottom: 1px solid #e5e7eb;
+      transition: transform 0.3s ease;
+    }
+    .header-blur.hidden-up {
+      transform: translateY(-100%);
+    }
+
+    /* ----- Hero grid background ----- */
+    .hero-grid-bg {
+      background-image:
+        linear-gradient(#e5e7eb 1px, transparent 1px),
+        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: center center;
+    }
+
+    /* ----- Dot grid pattern (used in subtle areas) ----- */
+    .dot-grid {
+      background-image: radial-gradient(circle, #dadada 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* ----- Client ticker ----- */
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker-scroll 32s linear infinite;
+    }
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* ----- FAQ accordion ----- */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-answer.open {
+      max-height: 400px;
+    }
+    .faq-answer-inner {
+      padding-bottom: 24px;
+    }
+
+    /* ----- Modal overlay ----- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(23,23,23,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-panel {
+      background: #fafafa;
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      max-width: 680px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+    }
+
+    /* ----- Form elements ----- */
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      color: #171717;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+    .input-field::placeholder {
+      color: #a3a3a3;
+    }
+    .input-field:focus {
+      border-color: #242424;
+      box-shadow: 0 0 0 3px rgba(36,36,36,0.08);
+    }
+    textarea.input-field {
+      resize: vertical;
+      min-height: 120px;
+    }
+    select.input-field {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 44px;
+    }
+
+    /* ----- Status metric ----- */
+    .metric-value {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.13;
+      letter-spacing: -0.025em;
+      color: #171717;
+    }
+    .metric-label {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      color: #5c5c5c;
+    }
+
+    /* ----- Tag / Metadata badge ----- */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', monospace;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.33;
+      letter-spacing: -0.025em;
+      color: #5c5c5c;
+      background: #ededed;
+      border: 1px solid #e5e7eb;
+    }
+    .tag-dark {
+      color: #fafafa;
+      background: #242424;
+      border: none;
+    }
+
+    /* ----- Mobile nav ----- */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background: #fafafa;
+      border-left: 1px solid #e5e7eb;
+      z-index: 90;
+      padding: 24px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+    .mobile-nav-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(23,23,23,0.4);
+      z-index: 89;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-nav-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ----- Scrollbar (subtle) ----- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #dadada; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+
+    /* ----- Responsive adjustments ----- */
+    @media (max-width: 768px) {
+      .section-heading {
+        font-size: 36px;
+      }
+      .btn-primary, .btn-ghost {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
+      .modal-panel {
+        padding: 24px;
+        max-height: 90vh;
+      }
+      .metric-value {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-canvas text-ink font-sans font-[500] antialiased">
+
+  <!-- ==============================================
+       A. GLOBAL HEADER - Fixed, blur backdrop
+       ============================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 header-blur">
+    <div class="section-container flex items-center justify-between h-[64px]">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-[8px] shrink-0" aria-label="DesignGrids Home">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="10" height="10" rx="4"/>
+          <rect x="16" y="2" width="10" height="10" rx="4"/>
+          <rect x="2" y="16" width="10" height="10" rx="4"/>
+          <rect x="16" y="16" width="10" height="10" rx="4"/>
+        </svg>
+        <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink hidden sm:inline">DesignGrids</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <nav class="hidden lg:flex items-center gap-[32px]" aria-label="Main navigation">
+        <a href="portfolio/index.html"   class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Portfolio</a>
+        <a href="store/index.html"    class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Store</a>
+        <a href="about.html"       class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">About</a>
+        <a href="#pricing"     class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Pricing</a>
+        <a href="#faq"         class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <div class="hidden lg:flex items-center gap-[12px]">
+        <a href="#contact" class="btn-primary">Book a Call</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-[40px] h-[40px] rounded-btn border border-hairline bg-transparent" aria-label="Open menu" aria-expanded="false">
+        <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="menu-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" class="hidden">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile nav backdrop -->
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop"></div>
+
+  <!-- Mobile nav panel -->
+  <div id="mobile-nav" class="mobile-nav lg:hidden">
+    <nav class="flex flex-col gap-[8px]" aria-label="Mobile navigation">
+      <a href="portfolio/index.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Portfolio</a>
+      <a href="store/index.html"  class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Store</a>
+      <a href="about.html"     class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">About</a>
+      <a href="#pricing"   class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Pricing</a>
+      <a href="#faq"       class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">FAQ</a>
+    </nav>
+    <div class="mt-[24px] pt-[24px] border-t border-hairline">
+      <a href="#contact" class="btn-primary w-full text-center mobile-nav-link">Book a Call</a>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MAIN CONTENT
+       ============================================== -->
+  <main>
+
+    <!-- ==============================================
+         B. HERO SECTION
+         ============================================== -->
+    <section class="relative pt-[120px] pb-[64px] md:pt-[160px] md:pb-section overflow-hidden hero-grid-bg">
+      <div class="section-container relative z-10">
+        <!-- Eyebrow label -->
+        <p class="text-center md:text-left text-[12px] font-mono tracking-[-0.025em] text-faint mb-[20px] uppercase">Design Systems &middot; Dashboards &middot; Mobile Apps</p>
+
+        <!-- H1 Headline -->
+        <h1 class="text-center md:text-left font-sans font-bold text-[40px] md:text-[60px] lg:text-[80px] leading-[1.05] tracking-[-0.05em] text-ink max-w-[800px]">
+          We Design <span class="serif-accent text-[48px] md:text-[68px] lg:text-[88px]">High-Performance</span> Digital&nbsp;Products.
+        </h1>
+
+        <!-- Subhead -->
+        <p class="text-center md:text-left mt-[24px] md:mt-[32px] text-[18px] leading-[1.33] tracking-[-0.005em] text-pencil max-w-[520px]">
+          A premium UI/UX studio shipping Figma design systems, dashboards, and mobile apps for teams that demand precision engineering in every pixel.
+        </p>
+
+        <!-- Dual CTA buttons -->
+        <div class="flex flex-col sm:flex-row items-center md:items-start gap-[12px] mt-[32px]">
+          <a href="portfolio/index.html" class="btn-primary text-[15px] px-[24px] py-[10px]">View Our Work</a>
+          <a href="store/index.html" class="btn-ghost text-[15px] px-[24px] py-[10px]">Explore Freebies</a>
+        </div>
+      </div>
+
+      <!-- Subtle bottom fade for grid -->
+      <div class="absolute bottom-0 left-0 right-0 h-[80px] bg-gradient-to-t from-canvas to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- ==============================================
+         CLIENT TICKER - Social Proof
+         ============================================== -->
+    <div class="py-[32px] md:py-[48px] overflow-hidden border-b border-hairline">
+      <div class="ticker-track flex items-center gap-[48px] md:gap-[64px]">
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Apollo</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">The New Parts</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Octave</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Shopify</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Figma</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Bachs</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">KenoVault</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Apollo</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">The New Parts</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Octave</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Shopify</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Figma</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">Bachs</span>
+        <span class="text-[18px] font-semibold tracking-[-0.025em] text-faint whitespace-nowrap">KenoVault</span>
+      </div>
+    </div>
+
+    <!-- ==============================================
+         C. PORTFOLIO / CASE STUDIES
+         ============================================== -->
+    <section id="portfolio" class="py-section md:py-section">
+      <div class="section-container">
+        <!-- Section heading -->
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-[16px]">
+          <div>
+            <h2 class="section-heading">Selected <span class="serif-accent text-[56px] md:text-[64px]">Work</span></h2>
+            <p class="section-subhead mt-[16px]">
+              Case studies from our portfolio - design systems, dashboards, and mobile experiences engineered for scale.
+            </p>
+          </div>
+          <a href="portfolio/index.html" class="btn-ghost shrink-0">View Full Portfolio</a>
+        </div>
+
+        <!-- 2-col masonry grid -->
+        <div class="mt-[48px] columns-1 md:columns-2 gap-[24px] space-y-[24px]">
+          <!-- Project 1 - links to case study -->
+          <article class="break-inside-avoid card-surface group cursor-pointer">
+            <a href="portfolio/finpilot.html" class="block">
+              <div class="img-frame bg-[#fafafa] aspect-[16/10] flex items-center justify-center relative overflow-hidden">
+                <div class="dot-grid absolute inset-0 opacity-40"></div>
+                <div class="relative z-10 w-[75%] bg-white rounded-[12px] border border-hairline p-[16px]">
+                  <div class="flex items-center gap-[6px] mb-[12px]">
+                    <div class="w-[8px] h-[8px] rounded-full bg-hairline"></div>
+                    <div class="w-[8px] h-[8px] rounded-full bg-hairline"></div>
+                    <div class="w-[8px] h-[8px] rounded-full bg-hairline"></div>
+                    <span class="text-[10px] text-faint ml-auto font-mono">Dashboard v2</span>
+                  </div>
+                  <div class="space-y-[6px]">
+                    <div class="h-[6px] bg-card rounded-[3px] w-full"></div>
+                    <div class="h-[6px] bg-card rounded-[3px] w-[70%]"></div>
+                    <div class="h-[6px] bg-card rounded-[3px] w-[85%]"></div>
+                    <div class="flex gap-[6px] mt-[8px]">
+                      <div class="h-[40px] bg-card rounded-[8px] flex-1"></div>
+                      <div class="h-[40px] bg-card rounded-[8px] flex-1"></div>
+                      <div class="h-[40px] bg-card rounded-[8px] flex-1"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="mt-[20px] flex items-start justify-between gap-[12px]">
+              <div>
+                <a href="portfolio/finpilot.html" class="block hover:text-pencil transition-colors"><h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">FinPilot Analytics</h3></a>
+                <p class="text-[14px] text-pencil leading-[1.43] mt-[4px]">Financial dashboard design system with 200+ auto-layout components.</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-[8px] mt-[16px]">
+              <span class="tag">Dashboard</span>
+              <span class="tag">Design System</span>
+              <span class="tag">Figma</span>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="break-inside-avoid card-surface group cursor-pointer">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-40"></div>
+              <div class="relative z-10 w-[65%] bg-white rounded-[12px] border border-hairline p-[16px] shadow-sm">
+                <div class="flex gap-[8px] mb-[10px]">
+                  <div class="h-[80px] bg-card rounded-[8px] w-[48px]"></div>
+                  <div class="flex-1 space-y-[6px]">
+                    <div class="h-[6px] bg-card rounded-[3px] w-[60%]"></div>
+                    <div class="h-[6px] bg-card rounded-[3px] w-[90%]"></div>
+                    <div class="h-[6px] bg-card rounded-[3px] w-[75%]"></div>
+                  </div>
+                </div>
+                <div class="h-[6px] bg-card rounded-[3px] w-full mt-[6px]"></div>
+                <div class="flex gap-[6px] mt-[10px]">
+                  <div class="h-[36px] bg-graphite rounded-[8px] flex-1"></div>
+                  <div class="h-[36px] bg-card rounded-[8px] flex-1 border border-hairline"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[20px]">
+              <h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">MedTrack Mobile</h3>
+              <p class="text-[14px] text-pencil leading-[1.43] mt-[4px]">Cross-platform health tracking app with custom icon system and dark mode.</p>
+            </div>
+            <div class="flex flex-wrap gap-[8px] mt-[16px]">
+              <span class="tag">Mobile App</span>
+              <span class="tag">Healthcare</span>
+              <span class="tag">iOS + Android</span>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="break-inside-avoid card-surface group cursor-pointer">
+            <div class="img-frame bg-[#fafafa] aspect-[16/11] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-40"></div>
+              <div class="relative z-10 w-[80%] bg-white rounded-[12px] border border-hairline p-[16px] shadow-sm">
+                <div class="flex items-center gap-[8px] mb-[10px]">
+                  <div class="w-[24px] h-[24px] rounded-[6px] bg-graphite"></div>
+                  <span class="text-[12px] font-semibold text-ink">SaaSphere</span>
+                  <span class="tag text-[10px] ml-auto">Admin</span>
+                </div>
+                <div class="grid grid-cols-3 gap-[6px]">
+                  <div class="col-span-2 h-[16px] bg-card rounded-[4px]"></div>
+                  <div class="h-[16px] bg-graphite rounded-[4px]"></div>
+                  <div class="col-span-3 h-[50px] bg-card rounded-[8px]"></div>
+                  <div class="col-span-3 h-[50px] bg-card rounded-[8px]"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[20px]">
+              <h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">SaaSphere Platform</h3>
+              <p class="text-[14px] text-pencil leading-[1.43] mt-[4px]">Enterprise SaaS admin suite - 58 screen layouts, 400+ interactive components.</p>
+            </div>
+            <div class="flex flex-wrap gap-[8px] mt-[16px]">
+              <span class="tag">SaaS</span>
+              <span class="tag">Enterprise</span>
+              <span class="tag">Design System</span>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="break-inside-avoid card-surface group cursor-pointer">
+            <div class="img-frame bg-[#fafafa] aspect-[16/10] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-40"></div>
+              <div class="relative z-10 w-[70%] bg-white rounded-[12px] border border-hairline p-[12px] shadow-sm flex gap-[10px]">
+                <div class="w-[40%] space-y-[6px]">
+                  <div class="h-[6px] bg-card rounded-[3px] w-[80%]"></div>
+                  <div class="h-[40px] bg-card rounded-[8px]"></div>
+                  <div class="h-[40px] bg-card rounded-[8px]"></div>
+                  <div class="h-[40px] bg-card rounded-[8px] border-2 border-graphite"></div>
+                </div>
+                <div class="flex-1 bg-card rounded-[8px] flex items-center justify-center">
+                  <div class="w-[32px] h-[32px] rounded-full border-2 border-hairline"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[20px]">
+              <h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">FlowState E-Commerce</h3>
+              <p class="text-[14px] text-pencil leading-[1.43] mt-[4px]">Conversion-optimized checkout flow redesign - 23% lift in completed transactions.</p>
+            </div>
+            <div class="flex flex-wrap gap-[8px] mt-[16px]">
+              <span class="tag">E-Commerce</span>
+              <span class="tag">CRO</span>
+              <span class="tag">Web App</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         D. DESIGN STORE / PRODUCTS
+         ============================================== -->
+    <section id="products" class="py-section md:py-section border-t border-hairline">
+      <div class="section-container">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-[16px]">
+          <div>
+            <h2 class="section-heading">Design <span class="serif-accent text-[56px] md:text-[64px]">Store</span></h2>
+            <p class="section-subhead mt-[16px]">
+              Premium Figma resources, UI kits, and design systems - built for teams that ship fast.
+            </p>
+          </div>
+          <a href="store/index.html" class="btn-ghost shrink-0">Browse All Resources</a>
+        </div>
+
+        <!-- Filter pills -->
+        <div class="mt-[40px] flex flex-wrap gap-[12px] items-center">
+          <div class="pill-group" id="product-filter-group">
+            <button class="pill-option active" data-filter="all">All Resources</button>
+            <button class="pill-option" data-filter="premium">Premium</button>
+            <button class="pill-option" data-filter="freebies">Freebies</button>
+          </div>
+        </div>
+
+        <!-- 3-col product grid -->
+        <div class="mt-[40px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px]" id="product-grid">
+          <!-- Product 1 - Premium -->
+          <article class="card-surface flex flex-col" data-category="premium">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[85%] bg-white rounded-[10px] border border-hairline p-[12px]">
+                <div class="grid grid-cols-12 gap-[4px]">
+                  <div class="col-span-3 h-[8px] bg-card rounded-[2px]"></div>
+                  <div class="col-span-9 h-[8px] bg-card rounded-[2px]"></div>
+                  <div class="col-span-12 h-[4px] bg-hairline rounded-[2px] mt-[4px]"></div>
+                  <div class="col-span-4 h-[28px] bg-card rounded-[6px]"></div>
+                  <div class="col-span-4 h-[28px] bg-card rounded-[6px]"></div>
+                  <div class="col-span-4 h-[28px] bg-graphite rounded-[6px]"></div>
+                  <div class="col-span-12 h-[4px] bg-hairline rounded-[2px] mt-[4px]"></div>
+                  <div class="col-span-6 h-[20px] bg-card rounded-[4px]"></div>
+                  <div class="col-span-6 h-[20px] bg-card rounded-[4px]"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Atlas Design System</h3>
+              <span class="tag-dark shrink-0">$89</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                600+ auto-layout components
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Light & dark mode tokens
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                48 responsive screen layouts
+              </li>
+            </ul>
+            <button class="btn-primary w-full mt-[20px]">Buy Resource</button>
+          </article>
+
+          <!-- Product 2 - Freebie -->
+          <article class="card-surface flex flex-col" data-category="freebies">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[75%] bg-white rounded-[10px] border border-hairline p-[12px]">
+                <div class="flex gap-[6px]">
+                  <div class="w-[20px] h-[20px] rounded-full border-2 border-hairline"></div>
+                  <div class="w-[20px] h-[20px] rounded-full border-2 border-hairline"></div>
+                  <div class="w-[20px] h-[20px] rounded-full bg-graphite"></div>
+                  <div class="w-[20px] h-[20px] rounded-full border-2 border-hairline"></div>
+                </div>
+                <div class="mt-[8px] space-y-[4px]">
+                  <div class="h-[6px] bg-card rounded-[3px] w-[90%]"></div>
+                  <div class="h-[6px] bg-card rounded-[3px] w-[60%]"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Wireframe Kit</h3>
+              <span class="tag">FREE</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                120 lo-fi layout blocks
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Grid-aligned, 4px base
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Figma Community file
+              </li>
+            </ul>
+            <button class="btn-ghost w-full mt-[20px]">Duplicate in Figma</button>
+          </article>
+
+          <!-- Product 3 - Premium -->
+          <article class="card-surface flex flex-col" data-category="premium">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[80%] bg-white rounded-[10px] border border-hairline p-[12px]">
+                <div class="flex items-center gap-[4px] mb-[8px]">
+                  <div class="w-[6px] h-[6px] rounded-full bg-graphite"></div>
+                  <div class="h-[4px] bg-card rounded-[2px] w-[40px]"></div>
+                </div>
+                <div class="space-y-[4px]">
+                  <div class="flex gap-[4px]"><div class="h-[20px] bg-card rounded-[4px] flex-1"></div><div class="h-[20px] bg-card rounded-[4px] w-[32px]"></div></div>
+                  <div class="flex gap-[4px]"><div class="h-[20px] bg-card rounded-[4px] flex-1"></div><div class="h-[20px] bg-graphite rounded-[4px] w-[32px]"></div></div>
+                  <div class="flex gap-[4px]"><div class="h-[20px] bg-card rounded-[4px] flex-1"></div><div class="h-[20px] bg-card rounded-[4px] w-[32px]"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Dashboard UI Kit</h3>
+              <span class="tag-dark shrink-0">$129</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                24 dashboard templates
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                80+ chart & data widgets
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Tailored for fintech & SaaS
+              </li>
+            </ul>
+            <button class="btn-primary w-full mt-[20px]">Buy Resource</button>
+          </article>
+
+          <!-- Product 4 - Freebie -->
+          <article class="card-surface flex flex-col" data-category="freebies">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[70%] bg-white rounded-[10px] border border-hairline p-[12px] space-y-[6px]">
+                <div class="flex gap-[6px]"><div class="h-[28px] bg-card rounded-[6px] w-[28px]"></div><div class="h-[28px] bg-card rounded-[6px] w-[28px]"></div><div class="h-[28px] bg-card rounded-[6px] w-[28px]"></div><div class="h-[28px] bg-card rounded-[6px] w-[28px]"></div></div>
+                <div class="h-[16px] bg-card rounded-[4px] w-[50%]"></div>
+                <div class="h-[16px] bg-card rounded-[4px] w-[75%]"></div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Icon System</h3>
+              <span class="tag">FREE</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                320 stroke-style icons
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                24px & 20px grid variants
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                SVG + Figma component set
+              </li>
+            </ul>
+            <button class="btn-ghost w-full mt-[20px]">Duplicate in Figma</button>
+          </article>
+
+          <!-- Product 5 - Premium -->
+          <article class="card-surface flex flex-col" data-category="premium">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[85%] bg-white rounded-[10px] border border-hairline p-[12px]">
+                <div class="flex gap-[8px]">
+                  <div class="flex-1 space-y-[4px]">
+                    <div class="h-[4px] bg-card rounded-[2px] w-[50%]"></div>
+                    <div class="h-[32px] bg-card rounded-[6px]"></div>
+                    <div class="h-[32px] bg-card rounded-[6px]"></div>
+                    <div class="h-[32px] bg-card rounded-[6px]"></div>
+                  </div>
+                  <div class="w-[45%] bg-card rounded-[8px] flex items-center justify-center">
+                    <div class="w-[24px] h-[24px] rounded-full bg-graphite"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Mobile App Kit</h3>
+              <span class="tag-dark shrink-0">$149</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                36 iOS & Android screens
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Native navigation patterns
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Haptic & gesture docs included
+              </li>
+            </ul>
+            <button class="btn-primary w-full mt-[20px]">Buy Resource</button>
+          </article>
+
+          <!-- Product 6 - Freebie -->
+          <article class="card-surface flex flex-col" data-category="freebies">
+            <div class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+              <div class="dot-grid absolute inset-0 opacity-30"></div>
+              <div class="relative z-10 w-[72%] bg-white rounded-[10px] border border-hairline p-[12px]">
+                <div class="flex items-center justify-center gap-[8px]">
+                  <div class="w-[8px] h-[8px] rounded-[2px] bg-hairline"></div>
+                  <div class="h-[2px] bg-hairline w-[60px]"></div>
+                  <div class="w-[8px] h-[8px] rounded-[2px] bg-graphite"></div>
+                  <div class="h-[2px] bg-hairline w-[40px]"></div>
+                  <div class="w-[8px] h-[8px] rounded-[2px] bg-hairline"></div>
+                </div>
+                <div class="mt-[8px] grid grid-cols-5 gap-[4px]">
+                  <div class="h-[16px] bg-card rounded-[4px]"></div>
+                  <div class="h-[16px] bg-card rounded-[4px]"></div>
+                  <div class="h-[16px] bg-card rounded-[4px]"></div>
+                  <div class="h-[16px] bg-card rounded-[4px]"></div>
+                  <div class="h-[16px] bg-card rounded-[4px]"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-[16px] flex items-start justify-between gap-[8px]">
+              <h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Typography Scale</h3>
+              <span class="tag">FREE</span>
+            </div>
+            <ul class="mt-[12px] space-y-[6px] flex-1">
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                12-step modular type scale
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Inter + mono pairings
+              </li>
+              <li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Figma text styles export
+              </li>
+            </ul>
+            <button class="btn-ghost w-full mt-[20px]">Duplicate in Figma</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         F. SUBSCRIPTION PRICING
+         ============================================== -->
+    <section id="pricing" class="py-section md:py-section border-t border-hairline">
+      <div class="section-container">
+        <h2 class="section-heading">Transparent <span class="serif-accent text-[56px] md:text-[64px]">Pricing</span></h2>
+        <p class="section-subhead mt-[16px]">
+          Two clear paths - subscribe for ongoing design needs, or scope a fixed-fee build. No hidden costs, no surprises.
+        </p>
+
+        <div class="mt-[48px] grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <!-- Tier 1: Design on Demand -->
+          <article class="card-surface relative flex flex-col">
+            <div class="absolute top-[24px] right-[24px]">
+              <span class="tag-dark text-[12px]">Most Popular</span>
+            </div>
+            <h3 class="text-[28px] font-bold tracking-[-0.025em] text-ink leading-[1.14]">Design on Demand</h3>
+            <p class="text-[14px] text-pencil mt-[8px] leading-[1.43]">Monthly subscription - pause or cancel anytime.</p>
+
+            <div class="mt-[24px] flex items-baseline gap-[4px]">
+              <span class="text-[48px] font-bold tracking-[-0.025em] text-ink leading-[1.0]">$4,999</span>
+              <span class="text-[18px] text-pencil">/month</span>
+            </div>
+
+            <ul class="mt-[32px] space-y-[12px] flex-1">
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">48-hour turnarounds</strong> on most design requests</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Unlimited active queue</strong> - request as many tasks as you need</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Pause capability</strong> - freeze your subscription between sprints</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Figma source files</strong> included with every delivery</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Dedicated design lead</strong> assigned to your account</span>
+              </li>
+            </ul>
+
+            <button class="btn-primary w-full mt-[32px] py-[12px] text-[15px]">Subscribe Now</button>
+            <p class="text-center text-[12px] text-faint mt-[12px]">No lock-in. Pause or cancel anytime.</p>
+          </article>
+
+          <!-- Tier 2: Custom Scope -->
+          <article class="card-surface flex flex-col">
+            <h3 class="text-[28px] font-bold tracking-[-0.025em] text-ink leading-[1.14]">Custom Scope</h3>
+            <p class="text-[14px] text-pencil mt-[8px] leading-[1.43]">Fixed-fee engagement - ideal for full platform builds.</p>
+
+            <div class="mt-[24px] flex items-baseline gap-[4px]">
+              <span class="text-[48px] font-bold tracking-[-0.025em] text-ink leading-[1.0]">Project</span>
+              <span class="text-[18px] text-pencil">-based</span>
+            </div>
+
+            <ul class="mt-[32px] space-y-[12px] flex-1">
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Full multi-platform architecture</strong> - web, iOS, Android design systems</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Custom user research</strong> - interviews, usability testing, journey mapping</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Strategic discovery track</strong> - stakeholder workshops & competitive audit</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Design token architecture</strong> - code-ready variables for dev handoff</span>
+              </li>
+              <li class="flex items-start gap-[10px] text-[14px] text-pencil leading-[1.43]">
+                <svg class="w-[16px] h-[16px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-ink font-semibold">Post-launch support</strong> - 90-day refinement window included</span>
+              </li>
+            </ul>
+
+            <button class="btn-ghost w-full mt-[32px] py-[12px] text-[15px]">Book a Discovery Call</button>
+            <p class="text-center text-[12px] text-faint mt-[12px]">Scoped proposal within 3 business days.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         G. INTERACTIVE FAQ
+         ============================================== -->
+    <section id="faq" class="py-section md:py-section border-t border-hairline">
+      <div class="section-container max-w-[800px]">
+        <h2 class="section-heading text-center">Frequently <span class="serif-accent text-[56px] md:text-[64px]">Asked</span></h2>
+        <p class="section-subhead mt-[16px] text-center mx-auto">
+          Everything you need to know about working with DesignGrids.
+        </p>
+
+        <div class="mt-[48px] space-y-[0px] divide-y divide-hairline border-t border-b border-hairline">
+          <!-- FAQ Item 1 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">How does the subscription pause work?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                You can pause your Design on Demand subscription at any time - no questions asked. When paused, your queue is preserved, your dedicated design lead remains assigned, and billing stops immediately. Resume when you're ready to pick up where you left off. Pauses can last up to 90 days before your queue is archived (you'll get a reminder at day 75).
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">What's the typical delivery turnaround?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                Most design requests are delivered within <strong class="text-ink font-semibold">48 hours</strong>. Single-screen UI designs or component updates often land within 24 hours. Larger requests - full page builds, design system expansions, or multi-screen flows - may take 3–5 business days. We'll always give you an estimated delivery window when you submit a request, and you can track progress in your project dashboard.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">Do you hand off Figma source files?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                <strong class="text-ink font-semibold">Yes - always.</strong> Every deliverable includes the complete Figma source file with organized pages, named layers, auto-layout constraints, component properties, and style libraries intact. You own everything we produce. For Custom Scope engagements, we also deliver design token JSON exports and developer documentation alongside the Figma files. No locked files, no watermarked previews - you get full access from day one.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">What's included in the Design on Demand queue?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                Your queue can include UI screen designs, component libraries, design system updates, Figma file organization, prototyping, icon design, landing pages, dashboard layouts, mobile app screens, style guide creation, and UX audits. Essentially, <strong class="text-ink font-semibold">any design task that lives in Figma</strong>. We work through your queue sequentially - as one task is completed, the next begins. You can reorder priorities anytime via your dashboard.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">How do revisions work?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                <strong class="text-ink font-semibold">Unlimited revisions are included</strong> in both tiers. We iterate until you're satisfied. For Design on Demand subscribers, revision rounds count as queue items - so a revision request gets the same 48-hour turnaround as a new task. For Custom Scope engagements, the revision process is mapped out during scoping, with defined milestone reviews built into the timeline. We don't nickel-and-dime on feedback rounds.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+          <div class="faq-item">
+            <button class="faq-trigger w-full flex items-center justify-between py-[24px] text-left group" aria-expanded="false">
+              <span class="text-[18px] font-semibold tracking-[-0.025em] text-ink pr-[16px]">Can I switch between plans?</span>
+              <span class="faq-icon shrink-0 w-[32px] h-[32px] rounded-full border border-hairline flex items-center justify-center transition-transform duration-300">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner text-[16px] leading-[1.43] text-pencil tracking-[-0.005em]">
+                Yes - many clients start with a Custom Scope engagement for their initial platform build, then switch to Design on Demand for ongoing iteration and maintenance. If you're mid-subscription and want to scope a larger project, we can pause your subscription while we deliver the fixed-fee engagement. There's no penalty for switching - we'll help you choose the right model for each phase of your product.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================================
+         H. DESIGN BRIEF DISCOVERY FORM (CONTACT)
+         ============================================== -->
+    <section id="contact" class="py-section md:py-section border-t border-hairline">
+      <div class="section-container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-[48px] lg:gap-[64px]">
+          <!-- Left: Contact metadata -->
+          <div>
+            <h2 class="section-heading">Start a <span class="serif-accent text-[56px] md:text-[64px]">Project</span></h2>
+            <p class="section-subhead mt-[16px]">
+              Tell us about your product. We'll put together a tailored proposal within 48 hours - no obligation, no hard sell.
+            </p>
+
+            <div class="mt-[40px] space-y-[24px]">
+              <div class="flex items-start gap-[14px]">
+                <div class="w-[40px] h-[40px] rounded-card border border-hairline flex items-center justify-center shrink-0 bg-canvas">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                </div>
+                <div>
+                  <div class="text-[14px] font-semibold tracking-[-0.005em] text-ink">Email</div>
+                  <a href="mailto:hello@designgrids.studio" class="text-[14px] text-pencil hover:text-ink transition-colors">hello@designgrids.studio</a>
+                </div>
+              </div>
+              <div class="flex items-start gap-[14px]">
+                <div class="w-[40px] h-[40px] rounded-card border border-hairline flex items-center justify-center shrink-0 bg-canvas">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.4 8 12 8 12s8-6.6 8-12a8 8 0 0 0-8-8z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[14px] font-semibold tracking-[-0.005em] text-ink">Studio</div>
+                  <div class="text-[14px] text-pencil">Remote-first · Serving clients worldwide</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-[14px]">
+                <div class="w-[40px] h-[40px] rounded-card border border-hairline flex items-center justify-center shrink-0 bg-canvas">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <div class="text-[14px] font-semibold tracking-[-0.005em] text-ink">Response Time</div>
+                  <div class="text-[14px] text-pencil">Within 24 hours, typically sooner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Contact form -->
+          <div class="card-surface">
+            <form id="contact-form" class="space-y-[20px]" novalidate>
+              <div>
+                <label for="client-name" class="block text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[6px]">Client Name</label>
+                <input type="text" id="client-name" name="name" class="input-field" placeholder="Your full name" required autocomplete="name">
+              </div>
+
+              <div>
+                <label for="client-email" class="block text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[6px]">Email Address</label>
+                <input type="email" id="client-email" name="email" class="input-field" placeholder="you@company.com" required autocomplete="email">
+              </div>
+
+              <div>
+                <label for="budget-range" class="block text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[6px]">Budget Range</label>
+                <select id="budget-range" name="budget" class="input-field" required>
+                  <option value="" disabled selected>Select a budget range</option>
+                  <option value="under-5k">Under $5,000</option>
+                  <option value="5k-15k">$5,000 – $15,000</option>
+                  <option value="15k-30k">$15,000 – $30,000</option>
+                  <option value="30k-75k">$30,000 – $75,000</option>
+                  <option value="75k-plus">$75,000+</option>
+                  <option value="not-sure">Not sure yet - help me scope</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="project-details" class="block text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[6px]">Project Details</label>
+                <textarea id="project-details" name="details" class="input-field" rows="5" placeholder="Describe your product, the design challenges you're facing, and what success looks like for this engagement..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary w-full py-[12px] text-[15px]">Submit Design Brief</button>
+
+              <p id="form-feedback" class="text-center text-[14px] text-pencil hidden"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==============================================
+       I. COMPREHENSIVE SYSTEM FOOTER
+       ============================================== -->
+  <footer class="border-t border-hairline py-section md:py-section">
+    <div class="section-container">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-[32px] md:gap-[48px]">
+        <!-- Brand col -->
+        <div class="lg:col-span-1">
+          <a href="index.html" class="flex items-center gap-[8px]" aria-label="DesignGrids Home">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="10" height="10" rx="4"/>
+              <rect x="16" y="2" width="10" height="10" rx="4"/>
+              <rect x="2" y="16" width="10" height="10" rx="4"/>
+              <rect x="16" y="16" width="10" height="10" rx="4"/>
+            </svg>
+            <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink">DesignGrids</span>
+          </a>
+          <p class="text-[14px] text-pencil leading-[1.43] mt-[16px] max-w-[220px]">
+            Premium UI/UX studio shipping Figma design systems, dashboards, and mobile apps.
+          </p>
+        </div>
+
+        <!-- Navigation col -->
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Navigate</h4>
+          <nav class="space-y-[10px]" aria-label="Footer navigation">
+            <a href="portfolio/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Portfolio</a>
+            <a href="store/index.html"  class="block text-[14px] text-pencil hover:text-ink transition-colors">Store</a>
+            <a href="about.html"     class="block text-[14px] text-pencil hover:text-ink transition-colors">About</a>
+            <a href="#pricing"   class="block text-[14px] text-pencil hover:text-ink transition-colors">Pricing</a>
+            <a href="#faq"       class="block text-[14px] text-pencil hover:text-ink transition-colors">FAQ</a>
+            <a href="#contact"   class="block text-[14px] text-pencil hover:text-ink transition-colors">Contact</a>
+          </nav>
+        </div>
+
+        <!-- Resources col -->
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Resources</h4>
+          <nav class="space-y-[10px]" aria-label="Footer resources">
+            <a href="store/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Freebies</a>
+            <a href="store/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Premium Kits</a>
+            <a href="#faq"      class="block text-[14px] text-pencil hover:text-ink transition-colors">How It Works</a>
+          </nav>
+        </div>
+
+        <!-- Legal col -->
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Legal</h4>
+          <nav class="space-y-[10px]" aria-label="Footer legal">
+            <button class="policy-trigger block text-[14px] text-pencil hover:text-ink transition-colors text-left" data-policy="privacy">Privacy Policy</button>
+            <button class="policy-trigger block text-[14px] text-pencil hover:text-ink transition-colors text-left" data-policy="terms">Terms &amp; Conditions</button>
+            <button class="policy-trigger block text-[14px] text-pencil hover:text-ink transition-colors text-left" data-policy="refund">Refund Policy</button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-[48px] pt-[24px] border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-[12px]">
+        <p class="text-[12px] text-faint">&copy; 2026 DesignGrids Studio. All rights reserved.</p>
+        <p class="text-[12px] text-faint">Built for designers, developers, and startups. Every pixel accounted for.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==============================================
+       POLICY MODALS
+       ============================================== -->
+
+  <!-- Privacy Policy Modal -->
+  <div id="modal-privacy" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+    <div class="modal-panel">
+      <div class="flex items-center justify-between mb-[24px]">
+        <h3 id="privacy-title" class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Privacy Policy</h3>
+        <button class="modal-close w-[36px] h-[36px] rounded-full border border-hairline flex items-center justify-center hover:bg-card transition-colors" aria-label="Close modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="text-[14px] leading-[1.6] text-pencil space-y-[16px] max-h-[55vh] overflow-y-auto pr-[8px]">
+        <p><strong class="text-ink font-semibold">Effective Date:</strong> January 1, 2026</p>
+        <p>DesignGrids Studio ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our design services.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">1. Information We Collect</h4>
+        <p>We collect information you provide directly: name, email address, company name, project details, and budget range when you submit a design brief or contact form. We also collect standard web analytics data (pages visited, time on site, referral source) via privacy-respecting analytics that do not use cookies for tracking individuals.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">2. How We Use Your Information</h4>
+        <p>We use the information we collect to respond to your inquiries, prepare project proposals, deliver design services, send project updates and invoices, and improve our website experience. We never sell, rent, or trade your personal information to third parties.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">3. Data Storage & Security</h4>
+        <p>Client data is stored in encrypted databases with access limited to the design lead assigned to your account. Figma source files are stored in Figma's cloud infrastructure with enterprise-grade security. We retain project files for 24 months after project completion unless you request earlier deletion.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">4. Your Rights</h4>
+        <p>You may request a copy of your data, ask us to correct inaccuracies, or request deletion at any time by emailing privacy@designgrids.studio. We respond to all data requests within 30 calendar days.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">5. Contact</h4>
+        <p>For privacy-related inquiries, contact us at privacy@designgrids.studio.</p>
+        <p class="text-[12px] text-faint mt-[24px]">Last updated: January 1, 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms & Conditions Modal -->
+  <div id="modal-terms" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+    <div class="modal-panel">
+      <div class="flex items-center justify-between mb-[24px]">
+        <h3 id="terms-title" class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Terms &amp; Conditions</h3>
+        <button class="modal-close w-[36px] h-[36px] rounded-full border border-hairline flex items-center justify-center hover:bg-card transition-colors" aria-label="Close modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="text-[14px] leading-[1.6] text-pencil space-y-[16px] max-h-[55vh] overflow-y-auto pr-[8px]">
+        <p><strong class="text-ink font-semibold">Effective Date:</strong> January 1, 2026</p>
+        <p>These Terms and Conditions govern your use of the DesignGrids Studio website and the purchase and delivery of our design services. By engaging our services, you agree to these terms in full.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">1. Services</h4>
+        <p>DesignGrids provides UI/UX design services including but not limited to Figma design systems, dashboard design, mobile app design, wireframing, prototyping, and design consultation. The specific scope of work for each engagement is defined in a separate Statement of Work (SOW) or subscription agreement.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">2. Intellectual Property</h4>
+        <p>Upon full payment, all design deliverables produced for a client engagement become the exclusive intellectual property of the client. DesignGrids retains the right to display completed work in our portfolio unless a non-disclosure agreement (NDA) specifies otherwise. We reserve the right to reuse generic design patterns, methods, and internal component libraries developed during your project.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">3. Payment Terms</h4>
+        <p>For Design on Demand subscriptions, payment is due at the start of each billing cycle. For Custom Scope engagements, payment follows a milestone schedule defined in the SOW - typically 50% upfront and 50% upon delivery. Late payments may result in paused work.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">4. Cancellation & Termination</h4>
+        <p>Design on Demand subscriptions may be cancelled or paused at any time. Upon cancellation, you retain access to all deliverables produced up to that point. Custom Scope engagements follow the cancellation terms defined in the project SOW.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">5. Limitation of Liability</h4>
+        <p>DesignGrids' liability is limited to the total fees paid for the specific engagement. We are not liable for indirect or consequential damages arising from the use of our deliverables.</p>
+        <p class="text-[12px] text-faint mt-[24px]">Last updated: January 1, 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Refund Policy Modal -->
+  <div id="modal-refund" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="refund-title">
+    <div class="modal-panel">
+      <div class="flex items-center justify-between mb-[24px]">
+        <h3 id="refund-title" class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">Refund Policy</h3>
+        <button class="modal-close w-[36px] h-[36px] rounded-full border border-hairline flex items-center justify-center hover:bg-card transition-colors" aria-label="Close modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="text-[14px] leading-[1.6] text-pencil space-y-[16px] max-h-[55vh] overflow-y-auto pr-[8px]">
+        <p><strong class="text-ink font-semibold">Effective Date:</strong> January 1, 2026</p>
+        <p>We stand behind the quality of our design work. This Refund Policy outlines the circumstances under which refunds may be issued for our services and digital products.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">1. Design on Demand Subscriptions</h4>
+        <p>You may cancel your subscription at any time. Refunds are issued for the unused portion of the current billing cycle if requested within 7 days of the most recent charge. If you are unsatisfied with a specific deliverable, we will revise it at no additional cost - refunds for completed design work are evaluated on a case-by-case basis.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">2. Custom Scope Engagements</h4>
+        <p>Refund terms for fixed-fee projects are defined in the project SOW. Generally, the upfront deposit is non-refundable once work has commenced. If DesignGrids fails to deliver against the agreed-upon scope, you may be entitled to a partial or full refund of fees paid, proportional to the undelivered portion of work.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">3. Digital Products (Figma Kits & Resources)</h4>
+        <p>Due to the digital nature of our design resources, all sales of downloadable products (UI kits, design systems, icon sets, templates) are final. If you encounter a technical issue with a file - corruption, missing components, or broken auto-layout - contact us within 14 days and we will provide a corrected file or a full refund.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">4. How to Request a Refund</h4>
+        <p>Email billing@designgrids.studio with your order or invoice reference and a brief explanation. We review all requests within 3 business days and respond with a determination. Approved refunds are processed within 5–10 business days to the original payment method.</p>
+        <h4 class="text-[16px] font-semibold text-ink mt-[20px]">5. Chargebacks</h4>
+        <p>We ask that you contact us before initiating a chargeback with your bank or payment provider. Most issues can be resolved quickly through direct communication - we're committed to making things right.</p>
+        <p class="text-[12px] text-faint mt-[24px]">Last updated: January 1, 2026</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================================
+       JAVASCRIPT - All interactive behaviors
+       ============================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ── DOM references ──────────────────────────────────
+
+      // Mobile nav
+      const mobileMenuBtn   = document.getElementById('mobile-menu-btn');
+      const mobileNav       = document.getElementById('mobile-nav');
+      const mobileBackdrop  = document.getElementById('mobile-nav-backdrop');
+      const menuIconOpen    = document.getElementById('menu-icon-open');
+      const menuIconClose   = document.getElementById('menu-icon-close');
+      const mobileNavLinks  = document.querySelectorAll('.mobile-nav-link');
+
+      // FAQ
+      const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+      // Product filter
+      const filterGroup  = document.getElementById('product-filter-group');
+      const productGrid  = document.getElementById('product-grid');
+      const productCards = productGrid ? productGrid.querySelectorAll('[data-category]') : [];
+
+      // Policy modals
+      const policyTriggers = document.querySelectorAll('.policy-trigger');
+      const modalCloseBtns = document.querySelectorAll('.modal-close');
+      const modals = document.querySelectorAll('.modal-overlay');
+
+      // Contact form
+      const contactForm   = document.getElementById('contact-form');
+      const formFeedback  = document.getElementById('form-feedback');
+
+      // ── Mobile Navigation ──────────────────────────────
+
+      let mobileOpen = false;
+
+      function openMobileNav() {
+        mobileOpen = true;
+        mobileNav.classList.add('open');
+        mobileBackdrop.classList.add('open');
+        menuIconOpen.classList.add('hidden');
+        menuIconClose.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileNav() {
+        mobileOpen = false;
+        mobileNav.classList.remove('open');
+        mobileBackdrop.classList.remove('open');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      mobileMenuBtn.addEventListener('click', function() {
+        if (mobileOpen) { closeMobileNav(); } else { openMobileNav(); }
+      });
+
+      mobileBackdrop.addEventListener('click', closeMobileNav);
+
+      mobileNavLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+          closeMobileNav();
+        });
+      });
+
+      // Close mobile nav on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileOpen) {
+          closeMobileNav();
+        }
+      });
+
+      // ── FAQ Accordion ──────────────────────────────────
+
+      faqTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          var faqItem  = trigger.closest('.faq-item');
+          var answer   = faqItem.querySelector('.faq-answer');
+          var icon     = trigger.querySelector('.faq-icon');
+          var isOpen   = answer.classList.contains('open');
+
+          // Close all others
+          document.querySelectorAll('.faq-answer.open').forEach(function(openAnswer) {
+            if (openAnswer !== answer) {
+              openAnswer.classList.remove('open');
+              var otherTrigger = openAnswer.closest('.faq-item').querySelector('.faq-trigger');
+              otherTrigger.setAttribute('aria-expanded', 'false');
+              var otherIcon = otherTrigger.querySelector('.faq-icon');
+              if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+            }
+          });
+
+          // Toggle current
+          if (isOpen) {
+            answer.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            answer.classList.add('open');
+            trigger.setAttribute('aria-expanded', 'true');
+            icon.style.transform = 'rotate(45deg)';
+          }
+        });
+      });
+
+      // ── Product Store Filter ───────────────────────────
+
+      if (filterGroup) {
+        var filterButtons = filterGroup.querySelectorAll('.pill-option');
+
+        filterButtons.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var filter = btn.getAttribute('data-filter');
+
+            // Update active state
+            filterButtons.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+
+            // Filter cards
+            productCards.forEach(function(card) {
+              var category = card.getAttribute('data-category');
+              if (filter === 'all' || category === filter) {
+                card.style.display = '';
+                card.style.opacity = '1';
+              } else {
+                card.style.display = 'none';
+                card.style.opacity = '0';
+              }
+            });
+          });
+        });
+      }
+
+      // ── Policy Modals ──────────────────────────────────
+
+      function openModal(modalId) {
+        var modal = document.getElementById('modal-' + modalId);
+        if (!modal) return;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Focus the close button
+        var closeBtn = modal.querySelector('.modal-close');
+        if (closeBtn) setTimeout(function() { closeBtn.focus(); }, 100);
+      }
+
+      function closeModal(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function closeAllModals() {
+        modals.forEach(function(m) { closeModal(m); });
+      }
+
+      policyTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function() {
+          var policy = trigger.getAttribute('data-policy');
+          openModal(policy);
+        });
+      });
+
+      modalCloseBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var modal = btn.closest('.modal-overlay');
+          closeModal(modal);
+        });
+      });
+
+      // Close modal on backdrop click
+      modals.forEach(function(modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeModal(modal);
+          }
+        });
+      });
+
+      // Close modal on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var openModal = document.querySelector('.modal-overlay.active');
+          if (openModal) closeModal(openModal);
+        }
+      });
+
+      // ── Contact Form ───────────────────────────────────
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          // Basic validation
+          var name    = document.getElementById('client-name').value.trim();
+          var email   = document.getElementById('client-email').value.trim();
+          var budget  = document.getElementById('budget-range').value;
+          var details = document.getElementById('project-details').value.trim();
+          var errors  = [];
+
+          if (!name) errors.push('Please enter your name.');
+          if (!email) errors.push('Please enter your email address.');
+          else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push('Please enter a valid email address.');
+          if (!budget) errors.push('Please select a budget range.');
+          if (!details) errors.push('Please describe your project.');
+
+          if (errors.length > 0) {
+            formFeedback.textContent = errors.join(' ');
+            formFeedback.classList.remove('hidden');
+            formFeedback.style.color = '#5c5c5c';
+            return;
+          }
+
+          // Simulate submission (replace with real endpoint)
+          var submitBtn = contactForm.querySelector('button[type="submit"]');
+          var originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
+
+          setTimeout(function() {
+            formFeedback.textContent = 'Thank you! We\'ve received your brief and will respond within 24 hours.';
+            formFeedback.classList.remove('hidden');
+            formFeedback.style.color = '#171717';
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            contactForm.reset();
+          }, 1200);
+        });
+      }
+
+      // ── Smooth scroll offset for fixed header ──────────
+
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var href = this.getAttribute('href');
+          if (href === '#') return;
+          var target = document.querySelector(href);
+          if (!target) return;
+          e.preventDefault();
+          var headerHeight = 64;
+          var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        });
+      });
+
+    })();
+  </script>
+
+  <!-- Dynamic data loaders - sync from admin localStorage -->
+  <script>
+  // Portfolio preview - always render dynamically
+    (function(){
+    var DEFP = [{slug:'finpilot',name:'FinPilot Analytics',tags:'Dashboard,Design System,Figma',description:'Financial dashboard design system with 200+ auto-layout components.'},{slug:'medtrack',name:'MedTrack Mobile',tags:'Mobile App,Healthcare',description:'Cross-platform health tracking app with custom icon system.'},{slug:'saasphere',name:'SaaSphere Platform',tags:'SaaS,Enterprise',description:'Enterprise SaaS admin suite spanning 58 screen layouts.'},{slug:'flowstate',name:'FlowState E-Commerce',tags:'E-Commerce,CRO',description:'Conversion-optimized checkout redesign - 23% CVR lift.'}];
+    var projects;
+    try { var raw = localStorage.getItem('dg_projects'); projects = raw ? JSON.parse(raw) : null; } catch(e) { projects = null; }
+    if (!projects || !projects.length) { projects = DEFP; try { localStorage.setItem('dg_projects', JSON.stringify(DEFP)); } catch(e) {} }
+    projects.forEach(function(p) { if (!p.slug) p.slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); });
+    var portfolioSection = document.querySelector('#portfolio .columns-1');
+    if (portfolioSection) {
+      portfolioSection.innerHTML = '';
+      projects.slice(0,4).forEach(function(p) {
+              var slug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-+$/,'');
+              var tags = (p.tags||'').split(',').filter(function(t){return t.trim();});
+              var article = document.createElement('article');
+              article.className = 'break-inside-avoid card-surface group cursor-pointer';
+              article.innerHTML = '<a href="portfolio/project.html#'+slug+'" class="block">'+
+                '<div class="img-frame bg-[#fafafa] aspect-[16/10] flex items-center justify-center relative overflow-hidden">'+
+                '<div class="dot-grid absolute inset-0 opacity-40"></div>'+
+                '<div class="relative z-10 w-[75%] bg-white rounded-[12px] border border-hairline p-[16px]">'+
+                '<div class="flex items-center gap-[6px] mb-[12px]"><div class="w-[8px] h-[8px] rounded-full bg-hairline"></div><div class="w-[8px] h-[8px] rounded-full bg-hairline"></div><div class="w-[8px] h-[8px] rounded-full bg-hairline"></div><span class="text-[10px] text-faint ml-auto font-mono">Preview</span></div>'+
+                ''+((p.images&&p.images[0])||p.image?'<img src="'+esc((p.images&&p.images[0])||p.image)+'" alt="" style="width:100%;height:100%;object-fit:contain;display:block">':'<div class="space-y-[6px]"><div class="h-[6px] bg-card rounded-[3px] w-full"></div><div class="h-[6px] bg-card rounded-[3px] w-[70%]"></div><div class="h-[6px] bg-card rounded-[3px] w-[85%]"></div></div>')+''+
+                '</div></div></a>'+
+                '<div class="mt-[20px] flex items-start justify-between gap-[12px]"><div>'+
+                '<a href="portfolio/project.html#'+slug+'" class="block hover:text-pencil transition-colors"><h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">'+esc(p.name)+'</h3></a>'+
+                '<p class="text-[14px] text-pencil leading-[1.43] mt-[4px]">'+esc(p.description||'')+'</p>'+
+                '</div></div>'+
+                '<div class="flex flex-wrap gap-[8px] mt-[16px]">'+tags.map(function(t){return '<span class="tag">'+esc(t.trim())+'</span>';}).join('')+'</div>';
+              portfolioSection.appendChild(article);
+            });
+    }
+    function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    })();
+
+    // Product preview - always render dynamically
+    (function(){
+    var DEFPR = [{slug:'atlas-design-system',name:'Atlas Design System',price:89,license:'premium',version:'v3.2',date:'Jun 2026',tags:'Design System,Figma'},{slug:'dashboard-ui-kit',name:'Dashboard UI Kit',price:129,license:'premium',version:'v2.8',date:'May 2026',tags:'UI Kit,Dashboard'},{slug:'mobile-app-kit',name:'Mobile App Kit',price:149,license:'premium',version:'v1.5',date:'Apr 2026',tags:'UI Kit,Mobile'},{slug:'wireframe-kit',name:'Wireframe Kit',price:0,license:'freebies',version:'v2.0',date:'Mar 2026',tags:'Template,Wireframe'},{slug:'icon-system',name:'Icon System',price:0,license:'freebies',version:'v1.8',date:'Jun 2026',tags:'Icons,Figma'},{slug:'typography-scale',name:'Typography Scale',price:0,license:'freebies',version:'v1.2',date:'Jan 2026',tags:'Template,Typography'}];
+    var products;
+    try { var rawP = localStorage.getItem('dg_products'); products = rawP ? JSON.parse(rawP) : null; } catch(e) { products = null; }
+    if (!products || !products.length) { products = DEFPR; try { localStorage.setItem('dg_products', JSON.stringify(DEFPR)); } catch(e) {} }
+    products.forEach(function(p) { if (!p.slug) p.slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); });
+    var productSection = document.querySelector('#products .grid');
+    if (productSection) {
+      productSection.innerHTML = '';
+      products.slice(0,6).forEach(function(p) {
+              var slug = p.slug || p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-+$/,'');
+              var isFree = (parseInt(p.price)||0) === 0;
+              var tags = (p.tags||'').split(',').filter(function(t){return t.trim();});
+              var article = document.createElement('article');
+              article.className = 'card-surface flex flex-col';
+              article.innerHTML = '<a href="store/product.html#'+slug+'" class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden block group cursor-pointer">'+
+                '<div class="dot-grid absolute inset-0 opacity-30"></div>'+
+                '<div class="relative z-10 w-[80%] bg-white rounded-[10px] border border-hairline p-[12px] transition-transform duration-300 group-hover:scale-[1.02]">'+
+                ''+((p.images&&p.images[0])||p.image?'<img src="'+esc((p.images&&p.images[0])||p.image)+'" alt="" style="width:100%;height:100%;object-fit:contain;display:block">':'<div class="h-[6px] bg-card rounded-[3px] w-[60%]"></div><div class="h-[40px] bg-card rounded-[6px] mt-[8px]"></div>')+'</div></a>'+
+                '<div class="mt-[16px] flex items-start justify-between gap-[8px]"><div>'+
+                '<h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">'+esc(p.name)+'</h3>'+
+                '<p class="text-[12px] text-faint font-mono mt-[2px]">'+(p.version||'')+' · Updated '+(p.date||'')+'</p>'+
+                '</div>'+(isFree?'<span class="tag shrink-0">FREE</span>':'<span class="tag-dark shrink-0">$'+p.price+'</span>')+'</div>'+
+                '<div class="flex flex-wrap gap-[8px] mt-[12px]">'+tags.map(function(t){return '<span class="tag">'+esc(t.trim())+'</span>';}).join('')+'</div>'+
+                '<div class="mt-auto pt-[16px]">'+(isFree?'<button class="btn-ghost w-full">Duplicate in Figma</button>':'<button class="btn-primary w-full">Buy - $'+p.price+'</button>')+'</div>';
+              productSection.appendChild(article);
+            });
+    }
+    function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    })();
+  </script>
+
+<script>;var hdr=document.querySelector(".header-blur");var ls=0;window.addEventListener("scroll",function(){var cur=window.pageYOffset;if(cur<=64)hdr.classList.remove("hidden-up");else if(cur>ls&&cur>100)hdr.classList.add("hidden-up");else if(cur<ls)hdr.classList.remove("hidden-up");ls=cur},{passive:true})</script></body>
+</html>

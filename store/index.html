@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DesignGrids Store - Premium Figma design systems, UI kits, and free design resources.">
+  <title>Design Store - DesignGrids</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:    '#fafafa',
+            hairline:  '#e5e7eb',
+            card:      '#ededed',
+            'divider-mid': '#dadada',
+            graphite:  '#242424',
+            ink:       '#171717',
+            pencil:    '#5c5c5c',
+            faint:     '#a3a3a3',
+          },
+          fontFamily: {
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            mono:  ['JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
+          },
+          borderRadius: {
+            'card': '24px',
+            'btn':  '16px',
+            'pill': '9999px',
+          },
+          letterSpacing: {
+            'display': '-0.05em',
+            'heading': '-0.025em',
+            'body':    '-0.005em',
+          },
+          maxWidth: {
+            'page': '1200px',
+          },
+          spacing: {
+            'section': '64px',
+            'section-sm': '48px',
+            'card': '24px',
+            'elem':  '8px',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .btn-primary {
+      background: #242424;
+      color: #fafafa;
+      border-radius: 16px;
+      padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow:
+        inset 0 4px 4px -2px rgba(255,255,255,0.25),
+        inset 0 -4px 4px -2px rgba(0,0,0,0.25),
+        inset -2px 0 2px -2px rgba(255,255,255,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn-primary:hover { background: #171717; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); box-shadow: inset 0 2px 2px -1px rgba(0,0,0,0.3), inset 0 -2px 2px -1px rgba(255,255,255,0.05); }
+    .btn-primary:focus-visible { outline: 2px solid #242424; outline-offset: 2px; }
+
+    .btn-ghost {
+      background: transparent;
+      color: #171717;
+      border-radius: 16px;
+      padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn-ghost:hover { border-color: #171717; background: rgba(23,23,23,0.03); }
+    .btn-ghost:focus-visible { outline: 2px solid #242424; outline-offset: 2px; }
+
+    .pill-group {
+      display: inline-flex;
+      background: #242424;
+      border-radius: 9999px;
+      padding: 4px;
+      gap: 2px;
+    }
+    .pill-option {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      color: #fafafa;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .pill-option.active { background: #fafafa; color: #171717; }
+    .pill-option:not(.active):hover { background: rgba(255,255,255,0.1); }
+
+    .section-heading {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 1.13;
+      letter-spacing: -0.025em;
+      color: #171717;
+    }
+    .section-subhead {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.33;
+      letter-spacing: -0.005em;
+      color: #5c5c5c;
+      max-width: 560px;
+    }
+    .serif-accent {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.025em;
+      color: #171717;
+    }
+    .section-container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .card-surface {
+      background: #ededed;
+      border-radius: 24px;
+      padding: 24px;
+    }
+    .img-frame {
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+    }
+    .header-blur {
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(250,250,250,0.82);
+      border-bottom: 1px solid #e5e7eb;
+      transition: transform 0.3s ease;
+    }
+    .dot-grid {
+      background-image: radial-gradient(circle, #dadada 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .hero-grid-bg {
+      background-image:
+        linear-gradient(#e5e7eb 1px, transparent 1px),
+        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: center center;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', monospace;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.33;
+      letter-spacing: -0.025em;
+      color: #5c5c5c;
+      background: #ededed;
+      border: 1px solid #e5e7eb;
+    }
+    .tag-dark {
+      color: #fafafa;
+      background: #242424;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', monospace;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.33;
+      letter-spacing: -0.025em;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.43;
+      letter-spacing: -0.005em;
+      color: #171717;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+    .input-field::placeholder { color: #a3a3a3; }
+    .input-field:focus { border-color: #242424; box-shadow: 0 0 0 3px rgba(36,36,36,0.08); }
+    select.input-field {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c5c5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 44px;
+    }
+
+    .mobile-nav {
+      position: fixed;
+      top: 0; right: 0;
+      width: 280px; height: 100vh;
+      background: #fafafa;
+      border-left: 1px solid #e5e7eb;
+      z-index: 90;
+      padding: 24px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(23,23,23,0.4);
+      z-index: 89;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-nav-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .product-card { transition: opacity 0.3s ease, transform 0.3s ease; }
+    .product-card.hidden-card { display: none; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #dadada; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease forwards; }
+
+    @media (max-width: 768px) {
+      .section-heading { font-size: 36px; }
+    }
+  .header-blur.hidden-up{transform:translateY(-100%)}</style>
+</head>
+<body class="bg-canvas text-ink font-sans font-[500] antialiased">
+
+  <!-- ==============================================
+       GLOBAL HEADER
+       ============================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 header-blur">
+    <div class="section-container flex items-center justify-between h-[64px]">
+      <a href="../index.html" class="flex items-center gap-[8px] shrink-0" aria-label="DesignGrids Home">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="10" height="10" rx="4"/><rect x="16" y="2" width="10" height="10" rx="4"/>
+          <rect x="2" y="16" width="10" height="10" rx="4"/><rect x="16" y="16" width="10" height="10" rx="4"/>
+        </svg>
+        <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink hidden sm:inline">DesignGrids</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-[32px]" aria-label="Main navigation">
+        <a href="../portfolio/index.html" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Portfolio</a>
+        <a href="index.html" class="text-[14px] font-medium tracking-[-0.005em] text-ink transition-colors">Store</a>
+        <a href="../about.html" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">About</a>
+        <a href="../index.html#pricing" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Pricing</a>
+        <a href="../index.html#faq" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">FAQ</a>
+      </nav>
+      <div class="hidden lg:flex items-center gap-[12px]">
+        <a href="../index.html#contact" class="btn-primary">Book a Call</a>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-[40px] h-[40px] rounded-btn border border-hairline bg-transparent" aria-label="Open menu" aria-expanded="false">
+        <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="menu-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop"></div>
+  <div id="mobile-nav" class="mobile-nav lg:hidden">
+    <nav class="flex flex-col gap-[8px]" aria-label="Mobile navigation">
+      <a href="../portfolio/index.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Portfolio</a>
+      <a href="index.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Store</a>
+      <a href="../about.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">About</a>
+      <a href="../index.html#pricing" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Pricing</a>
+      <a href="../index.html#faq" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">FAQ</a>
+    </nav>
+    <div class="mt-[24px] pt-[24px] border-t border-hairline">
+      <a href="../index.html#contact" class="btn-primary w-full text-center mobile-nav-link">Book a Call</a>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MAIN CONTENT
+       ============================================== -->
+  <main class="pt-[64px]">
+
+    <!-- Page Header -->
+    <section class="py-section relative overflow-hidden hero-grid-bg">
+      <div class="section-container relative z-10">
+        <h1 class="section-heading">Design <span class="serif-accent text-[56px] md:text-[64px]">Store</span></h1>
+        <p class="section-subhead mt-[16px]">
+          Premium Figma resources, UI kits, and design systems - every file built on strict 4px grids with auto-layout, component properties, and light/dark mode tokens.
+        </p>
+
+        <!-- Stats bar -->
+        <div class="flex flex-wrap gap-[24px] mt-[32px]">
+          <div class="flex items-center gap-[8px]">
+            <span class="text-[28px] font-bold tracking-[-0.025em] text-ink">24</span>
+            <span class="text-[14px] text-pencil">Resources</span>
+          </div>
+          <div class="w-[1px] bg-hairline shrink-0 hidden sm:block"></div>
+          <div class="flex items-center gap-[8px]">
+            <span class="text-[28px] font-bold tracking-[-0.025em] text-ink">8,200<span class="serif-accent text-[20px]">+</span></span>
+            <span class="text-[14px] text-pencil">Downloads</span>
+          </div>
+          <div class="w-[1px] bg-hairline shrink-0 hidden sm:block"></div>
+          <div class="flex items-center gap-[8px]">
+            <span class="text-[28px] font-bold tracking-[-0.025em] text-ink">4.9<span class="serif-accent text-[20px]">★</span></span>
+            <span class="text-[14px] text-pencil">Avg. Rating</span>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-[80px] bg-gradient-to-t from-canvas to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- Filter & Search Bar -->
+    <section class="pt-[16px] pb-[24px] border-b border-hairline sticky top-16 z-40 bg-canvas/90 backdrop-blur-sm" style="transition:top 0.3s ease" id="filter-bar">
+      <div class="section-container">
+        <div class="flex flex-col md:flex-row gap-[16px] items-start md:items-center justify-between">
+          <!-- Category pills -->
+          <div class="pill-group" id="category-filter-group">
+            <button class="pill-option active" data-category="all">All Resources</button>
+            <button class="pill-option" data-category="design-systems">Design Systems</button>
+            <button class="pill-option" data-category="ui-kits">UI Kits</button>
+            <button class="pill-option" data-category="icons">Icons</button>
+            <button class="pill-option" data-category="templates">Templates</button>
+          </div>
+
+          <!-- Right controls: search + sort + license filter -->
+          <div class="flex flex-wrap items-center gap-[12px] w-full md:w-auto">
+            <div class="relative flex-1 md:flex-none md:w-[220px]">
+              <svg class="absolute left-[14px] top-[50%] -translate-y-[50%] pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="product-search" class="input-field !pl-[40px]" placeholder="Search resources...">
+            </div>
+            <select id="license-filter" class="input-field !w-auto">
+              <option value="all">All Licenses</option>
+              <option value="premium">Premium</option>
+              <option value="freebies">Free</option>
+            </select>
+            <select id="sort-select" class="input-field !w-auto">
+              <option value="newest">Newest</option>
+              <option value="price-low">Price: Low → High</option>
+              <option value="price-high">Price: High → Low</option>
+              <option value="popular">Most Popular</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Active filter chips -->
+        <div id="active-filters" class="flex flex-wrap gap-[8px] mt-[16px] hidden">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Result count -->
+        <p id="result-count" class="text-[14px] text-faint mt-[12px]">Showing 24 resources</p>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="py-section">
+      <div class="section-container">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px]" id="product-grid">
+
+          
+	          <div class="col-span-full text-center py-[48px]"><p class="text-[14px] text-faint">Loading resources...</p></div>
+
+        </div>
+
+        <!-- Empty state -->
+        <div id="empty-state" class="hidden text-center py-section">
+          <div class="w-[64px] h-[64px] rounded-full border border-hairline flex items-center justify-center mx-auto">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <p class="text-[18px] font-semibold text-ink mt-[24px]">No resources match your filters</p>
+          <p class="text-[14px] text-pencil mt-[8px]">Try adjusting your search terms or clearing active filters.</p>
+          <button id="clear-filters-btn" class="btn-ghost mt-[20px]">Clear All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter / CTA strip -->
+    <section class="py-section border-t border-hairline">
+      <div class="section-container max-w-[640px] text-center">
+        <h2 class="text-[28px] font-bold tracking-[-0.025em] text-ink leading-[1.14]">New resources every <span class="serif-accent text-[36px]">month</span></h2>
+        <p class="text-[16px] text-pencil mt-[12px] leading-[1.43]">Drop your email to get notified when we release free kits, premium templates, and design tooling updates.</p>
+        <form class="flex flex-col sm:flex-row gap-[12px] mt-[24px] max-w-[440px] mx-auto" id="newsletter-form">
+          <input type="email" class="input-field flex-1" placeholder="you@company.com" required>
+          <button type="submit" class="btn-primary px-[24px] shrink-0">Subscribe</button>
+        </form>
+        <p class="text-[12px] text-faint mt-[12px]">No spam. Unsubscribe anytime. We send roughly 2 emails per month.</p>
+        <p id="newsletter-feedback" class="text-[14px] text-ink mt-[12px] hidden"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==============================================
+       FOOTER
+       ============================================== -->
+  <footer class="border-t border-hairline py-section">
+    <div class="section-container">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-[32px] md:gap-[48px]">
+        <div class="lg:col-span-1">
+          <a href="../index.html" class="flex items-center gap-[8px]" aria-label="DesignGrids Home">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="10" height="10" rx="4"/><rect x="16" y="2" width="10" height="10" rx="4"/>
+              <rect x="2" y="16" width="10" height="10" rx="4"/><rect x="16" y="16" width="10" height="10" rx="4"/>
+            </svg>
+            <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink">DesignGrids</span>
+          </a>
+          <p class="text-[14px] text-pencil leading-[1.43] mt-[16px] max-w-[220px]">Premium UI/UX studio shipping Figma design systems, dashboards, and mobile apps.</p>
+        </div>
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Navigate</h4>
+          <nav class="space-y-[10px]"><a href="../portfolio/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Portfolio</a><a href="index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Store</a><a href="../about.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">About</a><a href="../index.html#pricing" class="block text-[14px] text-pencil hover:text-ink transition-colors">Pricing</a><a href="../index.html#faq" class="block text-[14px] text-pencil hover:text-ink transition-colors">FAQ</a><a href="../index.html#contact" class="block text-[14px] text-pencil hover:text-ink transition-colors">Contact</a></nav>
+        </div>
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Resources</h4>
+          <nav class="space-y-[10px]"><a href="index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Freebies</a><a href="index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Premium Kits</a><a href="../index.html#faq" class="block text-[14px] text-pencil hover:text-ink transition-colors">How It Works</a></nav>
+        </div>
+        <div>
+          <h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Legal</h4>
+          <nav class="space-y-[10px]"><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Privacy Policy</a><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Terms &amp; Conditions</a><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Refund Policy</a></nav>
+        </div>
+      </div>
+      <div class="mt-[48px] pt-[24px] border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-[12px]">
+        <p class="text-[12px] text-faint">&copy; 2026 DesignGrids Studio. All rights reserved.</p>
+        <p class="text-[12px] text-faint">Built for designers, developers, and startups. Every pixel accounted for.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==============================================
+       JAVASCRIPT
+       ============================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // Mobile nav
+      var mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+      var mobileNav      = document.getElementById('mobile-nav');
+      var mobileBackdrop = document.getElementById('mobile-nav-backdrop');
+      var menuIconOpen   = document.getElementById('menu-icon-open');
+      var menuIconClose  = document.getElementById('menu-icon-close');
+      var mobileLinks    = document.querySelectorAll('.mobile-nav-link');
+      var mobileOpen     = false;
+
+      function openMobileNav() {
+        mobileOpen = true;
+        mobileNav.classList.add('open');
+        mobileBackdrop.classList.add('open');
+        menuIconOpen.classList.add('hidden');
+        menuIconClose.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMobileNav() {
+        mobileOpen = false;
+        mobileNav.classList.remove('open');
+        mobileBackdrop.classList.remove('open');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      mobileMenuBtn.addEventListener('click', function() { mobileOpen ? closeMobileNav() : openMobileNav(); });
+      mobileBackdrop.addEventListener('click', closeMobileNav);
+      mobileLinks.forEach(function(l) { l.addEventListener('click', closeMobileNav); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && mobileOpen) closeMobileNav(); });
+
+      // Product filtering
+      var categoryBtns    = document.querySelectorAll('#category-filter-group .pill-option');
+      var productCards    = document.querySelectorAll('.product-card');
+      var searchInput     = document.getElementById('product-search');
+      var licenseFilter   = document.getElementById('license-filter');
+      var sortSelect      = document.getElementById('sort-select');
+      var resultCount     = document.getElementById('result-count');
+      var emptyState      = document.getElementById('empty-state');
+      var activeFilters   = document.getElementById('active-filters');
+      var clearFiltersBtn = document.getElementById('clear-filters-btn');
+
+      var activeCategory = 'all';
+      var activeLicense  = 'all';
+      var searchQuery    = '';
+
+      function applyFilters() {
+        var visibleCount = 0;
+        var cardsArray = Array.from(document.querySelectorAll('.product-card'));
+
+        cardsArray.forEach(function(card) {
+          var cat  = card.getAttribute('data-category');
+          var lic  = card.getAttribute('data-license');
+          var name = (card.getAttribute('data-name') || '').toLowerCase();
+
+          var catMatch  = (activeCategory === 'all' || cat === activeCategory);
+          var licMatch  = (activeLicense === 'all' || lic === activeLicense);
+          var searchMatch = !searchQuery || name.indexOf(searchQuery) !== -1;
+
+          if (catMatch && licMatch && searchMatch) {
+            card.classList.remove('hidden-card');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden-card');
+          }
+        });
+
+        // Sort
+        var grid = document.getElementById('product-grid');
+        var visibleCards = cardsArray.filter(function(c) { return !c.classList.contains('hidden-card'); });
+        var sortBy = sortSelect.value;
+
+        visibleCards.sort(function(a, b) {
+          if (sortBy === 'price-low')  return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+          if (sortBy === 'price-high') return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+          if (sortBy === 'popular')    return parseInt(b.getAttribute('data-popularity')) - parseInt(a.getAttribute('data-popularity'));
+          return 0; // newest - DOM order
+        });
+
+        visibleCards.forEach(function(c) { grid.appendChild(c); });
+
+        // Update UI
+        resultCount.textContent = 'Showing ' + visibleCount + ' resource' + (visibleCount !== 1 ? 's' : '');
+        if (visibleCount === 0) { emptyState.classList.remove('hidden'); } else { emptyState.classList.add('hidden'); }
+
+        updateActiveFilterChips();
+      }
+
+      function updateActiveFilterChips() {
+        var chips = [];
+        if (activeCategory !== 'all') {
+          var label = document.querySelector('#category-filter-group .pill-option[data-category="' + activeCategory + '"]');
+          chips.push({ label: (label ? label.textContent : activeCategory), clear: function() {
+            activeCategory = 'all';
+            categoryBtns.forEach(function(b) { b.classList.remove('active'); });
+            categoryBtns[0].classList.add('active');
+            applyFilters();
+          }});
+        }
+        if (activeLicense !== 'all') {
+          chips.push({ label: (activeLicense === 'premium' ? 'Premium Only' : 'Free Only'), clear: function() {
+            activeLicense = 'all';
+            licenseFilter.value = 'all';
+            applyFilters();
+          }});
+        }
+        if (searchQuery) {
+          chips.push({ label: 'Search: "' + searchQuery + '"', clear: function() {
+            searchQuery = '';
+            searchInput.value = '';
+            applyFilters();
+          }});
+        }
+
+        if (chips.length > 0) {
+          activeFilters.classList.remove('hidden');
+          activeFilters.innerHTML = chips.map(function(chip) {
+            return '<span class="flex items-center gap-[6px] px-[12px] py-[4px] rounded-pill border border-hairline bg-canvas text-[12px] text-pencil font-medium">' +
+              chip.label +
+              '<button class="w-[16px] h-[16px] rounded-full hover:bg-card flex items-center justify-center transition-colors"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+              '</span>';
+          }).join('');
+
+          activeFilters.querySelectorAll('button').forEach(function(btn, i) {
+            btn.addEventListener('click', function() { chips[i].clear(); });
+          });
+        } else {
+          activeFilters.classList.add('hidden');
+          activeFilters.innerHTML = '';
+        }
+      }
+
+      categoryBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          categoryBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeCategory = btn.getAttribute('data-category');
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener('input', function() {
+        searchQuery = searchInput.value.trim().toLowerCase();
+        applyFilters();
+      });
+
+      licenseFilter.addEventListener('change', function() {
+        activeLicense = licenseFilter.value;
+        applyFilters();
+      });
+
+      sortSelect.addEventListener('change', applyFilters);
+
+      if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', function() {
+          activeCategory = 'all';
+          activeLicense  = 'all';
+          searchQuery    = '';
+          searchInput.value = '';
+          licenseFilter.value = 'all';
+          sortSelect.value = 'newest';
+          categoryBtns.forEach(function(b) { b.classList.remove('active'); });
+          categoryBtns[0].classList.add('active');
+          applyFilters();
+        });
+      }
+
+      // Newsletter
+      var newsletterForm = document.getElementById('newsletter-form');
+      var newsletterFeedback = document.getElementById('newsletter-feedback');
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var email = newsletterForm.querySelector('input[type="email"]').value.trim();
+          if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            newsletterFeedback.textContent = 'Please enter a valid email address.';
+            newsletterFeedback.classList.remove('hidden');
+            return;
+          }
+          newsletterFeedback.textContent = 'Subscribed! Check your inbox for a confirmation.';
+          newsletterFeedback.classList.remove('hidden');
+          newsletterForm.reset();
+        });
+      }
+
+      // Scroll offset for hash links
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var href = this.getAttribute('href');
+          if (href === '#') return;
+          var target = document.querySelector(href);
+          if (!target) return;
+          e.preventDefault();
+          var headerHeight = 64;
+          var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        });
+      });
+
+    })();
+
+  // Product data - always render dynamically
+  (function(){
+    var DEFAULT = [{id:'p1',slug:'atlas-design-system',name:'Atlas Design System',category:'design-systems',license:'premium',price:89,version:'v3.2',date:'Jun 2026',rating:'4.9',ratings:342,popularity:95,tags:'Design System,Figma',features:'600+ auto-layout components\nLight & dark mode tokens\n48 responsive screen layouts'},{id:'p2',slug:'dashboard-ui-kit',name:'Dashboard UI Kit',category:'ui-kits',license:'premium',price:129,version:'v2.8',date:'May 2026',rating:'4.8',ratings:217,popularity:88,tags:'UI Kit,Dashboard',features:'24 dashboard templates\n80+ chart widgets\nLight & dark variants'},{id:'p3',slug:'mobile-app-kit',name:'Mobile App Kit',category:'ui-kits',license:'premium',price:149,version:'v1.5',date:'Apr 2026',rating:'4.9',ratings:156,popularity:82,tags:'UI Kit,Mobile',features:'36 iOS & Android screens\nNative navigation patterns\nHaptic docs included'},{id:'p4',slug:'wireframe-kit',name:'Wireframe Kit',category:'templates',license:'freebies',price:0,version:'v2.0',date:'Mar 2026',rating:'4.7',ratings:891,popularity:98,tags:'Template,Wireframe',features:'120 lo-fi blocks\n4px grid aligned\nFigma Community file'},{id:'p5',slug:'icon-system',name:'Icon System',category:'icons',license:'freebies',price:0,version:'v1.8',date:'Jun 2026',rating:'4.9',ratings:654,popularity:91,tags:'Icons,Figma',features:'320 stroke icons\n24px & 20px grid variants\nSVG exports'},{id:'p6',slug:'typography-scale',name:'Typography Scale',category:'templates',license:'freebies',price:0,version:'v1.2',date:'Jan 2026',rating:'4.6',ratings:432,popularity:79,tags:'Template,Typography',features:'12-step modular scale\nInter + mono pairing\nFigma text styles'},{id:'p7',slug:'ecommerce-design-system',name:'E-Commerce Design System',category:'design-systems',license:'premium',price:199,version:'v2.1',date:'Jun 2026',rating:'4.8',ratings:178,popularity:76,tags:'Design System,E-Commerce',features:'420+ product components\nShopify & headless ready\nLight & dark tokens'},{id:'p8',slug:'saas-admin-templates',name:'SaaS Admin Templates',category:'templates',license:'premium',price:79,version:'v1.9',date:'May 2026',rating:'4.7',ratings:267,popularity:84,tags:'Template,SaaS',features:'18 admin screen layouts\nUser mgmt, billing, analytics\nRole-based patterns'},{id:'p9',slug:'color-token-system',name:'Color Token System',category:'design-systems',license:'freebies',price:0,version:'v1.4',date:'Feb 2026',rating:'4.8',ratings:389,popularity:73,tags:'Design System,Tokens',features:'72 semantic color tokens\nLight & dark mode variables\nWCAG AA verified'}];
+
+    var products;
+    try {
+      var raw = localStorage.getItem('dg_products');
+      products = raw ? JSON.parse(raw) : null;
+    } catch(e) { products = null; }
+    if (!products || !products.length) {
+      products = DEFAULT;
+      try { localStorage.setItem('dg_products', JSON.stringify(DEFAULT)); } catch(e) {}
+    }
+
+    // Ensure all items have slugs
+    products.forEach(function(p) {
+      if (!p.slug) p.slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    });
+
+    var grid = document.getElementById('product-grid');
+    grid.innerHTML = '';
+    products.forEach(function(p) {
+      var isFree = (parseInt(p.price)||0) === 0;
+      var priceTag = isFree ? '<span class="tag shrink-0">FREE</span>' : '<span class="tag-dark shrink-0">$' + p.price + '</span>';
+      var btnHtml = isFree ? '<button class="btn-ghost w-full mt-[12px]">Duplicate in Figma</button>' : '<button class="btn-primary w-full mt-[12px]">Buy Resource - $' + p.price + '</button>';
+      var features = (p.features||'').split('\n').filter(function(f){return f.trim();}).slice(0,3);
+      var tags = (p.tags||'').split(',').filter(function(t){return t.trim();}).slice(0,1);
+
+      var card = document.createElement('article');
+      card.className = 'card-surface flex flex-col product-card fade-in';
+      card.setAttribute('data-category', p.category||'');
+      card.setAttribute('data-license', p.license||'');
+      card.setAttribute('data-price', p.price||0);
+      card.setAttribute('data-name', p.name);
+      card.setAttribute('data-popularity', p.popularity||50);
+
+      card.innerHTML = '<a href="product.html#'+p.slug+'" class="img-frame bg-[#fafafa] aspect-[4/3] flex items-center justify-center relative overflow-hidden block group cursor-pointer"><div class="dot-grid absolute inset-0 opacity-30"></div><div class="relative z-10 w-[80%] bg-white rounded-[10px] border border-hairline p-[12px] transition-transform duration-300 group-hover:scale-[1.02]">'+((p.images&&p.images[0])||p.image?'<img src="'+esc((p.images&&p.images[0])||p.image)+'" alt="" style="width:100%;height:100%;object-fit:contain;display:block">':'<div class="h-[6px] bg-card rounded-[3px] w-[60%]"></div><div class="h-[40px] bg-card rounded-[6px] mt-[8px]"></div><div class="h-[40px] bg-card rounded-[6px] mt-[4px]"></div>')+'</div></a><div class="mt-[16px] flex items-start justify-between gap-[8px]"><div><h3 class="text-[18px] font-bold tracking-[-0.025em] text-ink leading-[1.17]">'+esc(p.name)+'</h3><p class="text-[12px] text-faint font-mono mt-[2px]">'+(p.version||'')+' · Updated '+(p.date||'')+'</p></div>'+priceTag+'</div><ul class="mt-[12px] space-y-[6px] flex-1">'+features.map(function(f){return '<li class="flex items-start gap-[8px] text-[14px] text-pencil leading-[1.43]"><svg class="w-[14px] h-[14px] mt-[2px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="#5c5c5c" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>'+esc(f)+'</li>';}).join('')+'</ul><div class="flex items-center gap-[8px] mt-[20px]">'+tags.map(function(t){return '<span class="tag">'+esc(t.trim())+'</span>';}).join('')+'<span class="text-[12px] text-faint ml-auto">'+(p.rating||'')+' ★ ('+(p.ratings||0)+')</span></div>'+btnHtml;
+      grid.appendChild(card);
+    });
+
+    document.getElementById('result-count').textContent = 'Showing '+products.length+' resource'+(products.length!==1?'s':'');
+
+    function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  })();
+</script>
+
+<script>var hdr=document.querySelector(".header-blur");var ls=0;var fb=document.getElementById("filter-bar");window.addEventListener("scroll",function(){var cur=window.pageYOffset;if(cur<=64){hdr.classList.remove("hidden-up");if(fb)fb.style.top="64px"}else if(cur>ls&&cur>100){hdr.classList.add("hidden-up");if(fb)fb.style.top="0"}else if(cur<ls){hdr.classList.remove("hidden-up");if(fb)fb.style.top="64px"}ls=cur},{passive:true})</script></body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DesignGrids Portfolio - Selected case studies in Figma design systems, dashboards, and mobile apps.">
+  <title>Portfolio - DesignGrids</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:    '#fafafa', hairline:  '#e5e7eb', card:      '#ededed',
+            'divider-mid': '#dadada', graphite:  '#242424', ink:       '#171717',
+            pencil:    '#5c5c5c', faint:     '#a3a3a3',
+          },
+          fontFamily: {
+            sans:  ['Inter', 'system-ui', 'sans-serif'],
+            serif: ['DM Serif Display', 'Georgia', 'serif'],
+            mono:  ['JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
+          },
+          borderRadius: { 'card': '24px', 'btn': '16px', 'pill': '9999px' },
+          letterSpacing: { 'display': '-0.05em', 'heading': '-0.025em', 'body': '-0.005em' },
+          maxWidth: { 'page': '1200px' },
+          spacing: { 'section': '64px', 'section-sm': '48px', 'card': '24px', 'elem': '8px' },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .btn-primary {
+      background: #242424; color: #fafafa; border-radius: 16px; padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 14px;
+      line-height: 1.43; letter-spacing: -0.005em; border: none; cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      box-shadow: inset 0 4px 4px -2px rgba(255,255,255,0.25), inset 0 -4px 4px -2px rgba(0,0,0,0.25), inset -2px 0 2px -2px rgba(255,255,255,0.1);
+      display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; user-select: none;
+    }
+    .btn-primary:hover { background: #171717; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); box-shadow: inset 0 2px 2px -1px rgba(0,0,0,0.3), inset 0 -2px 2px -1px rgba(255,255,255,0.05); }
+    .btn-primary:focus-visible { outline: 2px solid #242424; outline-offset: 2px; }
+    .btn-ghost {
+      background: transparent; color: #171717; border-radius: 16px; padding: 8px 20px;
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 14px;
+      line-height: 1.43; letter-spacing: -0.005em; border: 1px solid #e5e7eb; cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; user-select: none;
+    }
+    .btn-ghost:hover { border-color: #171717; background: rgba(23,23,23,0.03); }
+    .btn-ghost:focus-visible { outline: 2px solid #242424; outline-offset: 2px; }
+    .pill-group { display: inline-flex; background: #242424; border-radius: 9999px; padding: 4px; gap: 2px; }
+    .pill-option {
+      padding: 8px 16px; border-radius: 9999px; font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 500; font-size: 14px; line-height: 1.43; letter-spacing: -0.005em;
+      color: #fafafa; background: transparent; border: none; cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease; white-space: nowrap; user-select: none;
+    }
+    .pill-option.active { background: #fafafa; color: #171717; }
+    .pill-option:not(.active):hover { background: rgba(255,255,255,0.1); }
+    .section-heading {
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 48px;
+      line-height: 1.13; letter-spacing: -0.025em; color: #171717;
+    }
+    .section-subhead {
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 18px;
+      line-height: 1.33; letter-spacing: -0.005em; color: #5c5c5c; max-width: 560px;
+    }
+    .serif-accent {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400; font-style: italic; letter-spacing: -0.025em; color: #171717;
+    }
+    .section-container { max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 24px; padding-right: 24px; }
+    .card-surface { background: #ededed; border-radius: 24px; padding: 24px; }
+    .img-frame { border-radius: 24px; border: 1px solid #e5e7eb; overflow: hidden; }
+    .header-blur {
+      backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(250,250,250,0.82); border-bottom: 1px solid #e5e7eb;
+      transition: transform 0.3s ease;
+    }
+    .dot-grid { background-image: radial-gradient(circle, #dadada 1px, transparent 1px); background-size: 20px 20px; }
+    .tag {
+      display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px;
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', monospace;
+      font-weight: 400; font-size: 12px; line-height: 1.33; letter-spacing: -0.025em;
+      color: #5c5c5c; background: #ededed; border: 1px solid #e5e7eb;
+    }
+    .tag-dark {
+      color: #fafafa; background: #242424; border: none;
+      display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px;
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', 'ui-monospace', monospace;
+      font-weight: 400; font-size: 12px; line-height: 1.33; letter-spacing: -0.025em;
+    }
+    .input-field {
+      width: 100%; padding: 12px 16px; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 16px;
+      font-family: 'Inter', system-ui, sans-serif; font-weight: 500; font-size: 14px;
+      line-height: 1.43; letter-spacing: -0.005em; color: #171717;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease; outline: none;
+    }
+    .input-field::placeholder { color: #a3a3a3; }
+    .input-field:focus { border-color: #242424; box-shadow: 0 0 0 3px rgba(36,36,36,0.08); }
+    .mobile-nav { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: #fafafa; border-left: 1px solid #e5e7eb; z-index: 90; padding: 24px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; gap: 24px; }
+    .mobile-nav.open { transform: translateX(0); }
+    .mobile-nav-backdrop { position: fixed; inset: 0; background: rgba(23,23,23,0.4); z-index: 89; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .mobile-nav-backdrop.open { opacity: 1; pointer-events: auto; }
+    .project-card { transition: opacity 0.3s ease, transform 0.3s ease; }
+    .project-card.hidden-card { display: none; }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #dadada; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a3a3a3; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease forwards; }
+    .hero-grid-bg {
+      background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+      background-size: 48px 48px; background-position: center center;
+    }
+    @media (max-width: 768px) { .section-heading { font-size: 36px; } }
+  .header-blur.hidden-up{transform:translateY(-100%)}</style>
+</head>
+<body class="bg-canvas text-ink font-sans font-[500] antialiased">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 header-blur">
+    <div class="section-container flex items-center justify-between h-[64px]">
+      <a href="../index.html" class="flex items-center gap-[8px] shrink-0" aria-label="DesignGrids Home">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="10" height="10" rx="4"/><rect x="16" y="2" width="10" height="10" rx="4"/>
+          <rect x="2" y="16" width="10" height="10" rx="4"/><rect x="16" y="16" width="10" height="10" rx="4"/>
+        </svg>
+        <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink hidden sm:inline">DesignGrids</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-[32px]" aria-label="Main navigation">
+        <a href="index.html" class="text-[14px] font-medium tracking-[-0.005em] text-ink transition-colors">Portfolio</a>
+        <a href="../store/index.html" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Store</a>
+        <a href="../about.html" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">About</a>
+        <a href="../index.html#pricing" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">Pricing</a>
+        <a href="../index.html#faq" class="text-[14px] font-medium tracking-[-0.005em] text-faint hover:text-ink transition-colors">FAQ</a>
+      </nav>
+      <div class="hidden lg:flex items-center gap-[12px]">
+        <a href="../index.html#contact" class="btn-primary">Book a Call</a>
+      </div>
+      <button id="mobile-menu-btn" class="lg:hidden flex items-center justify-center w-[40px] h-[40px] rounded-btn border border-hairline bg-transparent" aria-label="Open menu" aria-expanded="false">
+        <svg id="menu-icon-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="menu-icon-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop"></div>
+  <div id="mobile-nav" class="mobile-nav lg:hidden">
+    <nav class="flex flex-col gap-[8px]" aria-label="Mobile navigation">
+      <a href="index.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Portfolio</a>
+      <a href="../store/index.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Store</a>
+      <a href="../about.html" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">About</a>
+      <a href="../index.html#pricing" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">Pricing</a>
+      <a href="../index.html#faq" class="mobile-nav-link block py-[12px] px-[16px] text-[18px] font-semibold tracking-[-0.025em] text-ink hover:bg-card rounded-card transition-colors">FAQ</a>
+    </nav>
+    <div class="mt-[24px] pt-[24px] border-t border-hairline">
+      <a href="../index.html#contact" class="btn-primary w-full text-center mobile-nav-link">Book a Call</a>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="pt-[64px]">
+
+    <!-- Page Header -->
+    <section class="py-section relative overflow-hidden hero-grid-bg">
+      <div class="section-container relative z-10">
+        <h1 class="section-heading max-w-[700px]">Selected <span class="serif-accent text-[56px] md:text-[64px]">Work</span></h1>
+        <p class="section-subhead mt-[16px]">
+          Case studies from our portfolio - design systems, dashboards, and mobile experiences engineered for scale. Every project shipped with auto-layout components, token-driven theming, and developer-ready handoff files.
+        </p>
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-[24px] mt-[32px]">
+          <div class="flex items-center gap-[8px]"><span class="text-[28px] font-bold tracking-[-0.025em] text-ink">148<span class="serif-accent text-[20px]">+</span></span><span class="text-[14px] text-pencil">Projects</span></div>
+          <div class="w-[1px] bg-hairline shrink-0 hidden sm:block"></div>
+          <div class="flex items-center gap-[8px]"><span class="text-[28px] font-bold tracking-[-0.025em] text-ink">12<span class="serif-accent text-[20px]">k</span></span><span class="text-[14px] text-pencil">Components</span></div>
+          <div class="w-[1px] bg-hairline shrink-0 hidden sm:block"></div>
+          <div class="flex items-center gap-[8px]"><span class="text-[28px] font-bold tracking-[-0.025em] text-ink">8</span><span class="text-[14px] text-pencil">Industries</span></div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-[80px] bg-gradient-to-t from-canvas to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="pt-[16px] pb-[24px] border-b border-hairline sticky top-16 z-40 bg-canvas/90 backdrop-blur-sm" style="transition:top 0.3s ease" id="filter-bar">
+      <div class="section-container">
+        <div class="flex flex-col md:flex-row gap-[16px] items-start md:items-center justify-between">
+          <div class="pill-group" id="portfolio-filter-group">
+            <button class="pill-option active" data-filter="all">All Projects</button>
+            <button class="pill-option" data-filter="dashboard">Dashboards</button>
+            <button class="pill-option" data-filter="mobile">Mobile</button>
+            <button class="pill-option" data-filter="saas">SaaS</button>
+            <button class="pill-option" data-filter="ecommerce">E-Commerce</button>
+          </div>
+          <div class="relative w-full md:w-[240px]">
+            <svg class="absolute left-[14px] top-[50%] -translate-y-[50%] pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="portfolio-search" class="input-field !pl-[40px]" placeholder="Search projects...">
+          </div>
+        </div>
+        <p id="portfolio-result-count" class="text-[14px] text-faint mt-[12px]">Showing 8 projects</p>
+      </div>
+    </section>
+
+    <!-- Project Grid - 2-col alternating sizes -->
+    <section class="py-section">
+      <div class="section-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-[24px]" id="portfolio-grid">
+
+          
+	          <div class="col-span-full text-center py-[48px]"><p class="text-[14px] text-faint">Loading projects...</p></div>
+
+        </div>
+
+        <!-- Empty state -->
+        <div id="portfolio-empty" class="hidden text-center py-section">
+          <div class="w-[64px] h-[64px] rounded-full border border-hairline flex items-center justify-center mx-auto">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <p class="text-[18px] font-semibold text-ink mt-[24px]">No projects match your filters</p>
+          <p class="text-[14px] text-pencil mt-[8px]">Try adjusting your search or filter selection.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA strip -->
+    <section class="py-section border-t border-hairline bg-card">
+      <div class="section-container max-w-[640px] text-center">
+        <h2 class="text-[28px] font-bold tracking-[-0.025em] text-ink leading-[1.14]">Have a project in <span class="serif-accent text-[36px]">mind?</span></h2>
+        <p class="text-[16px] text-pencil mt-[12px] leading-[1.43]">Let's discuss your product. We'll put together a tailored scope and timeline - no obligation.</p>
+        <a href="../index.html#contact" class="btn-primary mt-[24px] px-[28px] py-[12px] text-[15px]">Start a Project</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-hairline py-section">
+    <div class="section-container">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-[32px] md:gap-[48px]">
+        <div class="lg:col-span-1">
+          <a href="../index.html" class="flex items-center gap-[8px]" aria-label="DesignGrids Home">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="10" height="10" rx="4"/><rect x="16" y="2" width="10" height="10" rx="4"/>
+              <rect x="2" y="16" width="10" height="10" rx="4"/><rect x="16" y="16" width="10" height="10" rx="4"/>
+            </svg>
+            <span class="font-semibold text-[14px] tracking-[-0.025em] text-ink">DesignGrids</span>
+          </a>
+          <p class="text-[14px] text-pencil leading-[1.43] mt-[16px] max-w-[220px]">Premium UI/UX studio shipping Figma design systems, dashboards, and mobile apps.</p>
+        </div>
+        <div><h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Navigate</h4><nav class="space-y-[10px]"><a href="index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Portfolio</a><a href="../store/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Store</a><a href="../about.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">About</a><a href="../index.html#pricing" class="block text-[14px] text-pencil hover:text-ink transition-colors">Pricing</a><a href="../index.html#faq" class="block text-[14px] text-pencil hover:text-ink transition-colors">FAQ</a><a href="../index.html#contact" class="block text-[14px] text-pencil hover:text-ink transition-colors">Contact</a></nav></div>
+        <div><h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Resources</h4><nav class="space-y-[10px]"><a href="../store/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Freebies</a><a href="../store/index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Premium Kits</a><a href="../index.html#faq" class="block text-[14px] text-pencil hover:text-ink transition-colors">How It Works</a></nav></div>
+        <div><h4 class="text-[14px] font-semibold tracking-[-0.005em] text-ink mb-[16px]">Legal</h4><nav class="space-y-[10px]"><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Privacy Policy</a><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Terms &amp; Conditions</a><a href="../index.html" class="block text-[14px] text-pencil hover:text-ink transition-colors">Refund Policy</a></nav></div>
+      </div>
+      <div class="mt-[48px] pt-[24px] border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-[12px]">
+        <p class="text-[12px] text-faint">&copy; 2026 DesignGrids Studio. All rights reserved.</p>
+        <p class="text-[12px] text-faint">Built for designers, developers, and startups. Every pixel accounted for.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+      var mobileMenuBtn=document.getElementById('mobile-menu-btn'),mobileNav=document.getElementById('mobile-nav'),mobileBackdrop=document.getElementById('mobile-nav-backdrop'),menuIconOpen=document.getElementById('menu-icon-open'),menuIconClose=document.getElementById('menu-icon-close'),mobileLinks=document.querySelectorAll('.mobile-nav-link'),mobileOpen=false;
+      function open(){mobileOpen=true;mobileNav.classList.add('open');mobileBackdrop.classList.add('open');menuIconOpen.classList.add('hidden');menuIconClose.classList.remove('hidden');mobileMenuBtn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+      function close(){mobileOpen=false;mobileNav.classList.remove('open');mobileBackdrop.classList.remove('open');menuIconOpen.classList.remove('hidden');menuIconClose.classList.add('hidden');mobileMenuBtn.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+      mobileMenuBtn.addEventListener('click',function(){mobileOpen?close():open();});
+      mobileBackdrop.addEventListener('click',close);
+      mobileLinks.forEach(function(l){l.addEventListener('click',close);});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&mobileOpen)close();});
+
+      // Portfolio filtering
+      var filterBtns=document.querySelectorAll('#portfolio-filter-group .pill-option');
+      var projectCards=document.querySelectorAll('.project-card');
+      var searchInput=document.getElementById('portfolio-search');
+      var resultCount=document.getElementById('portfolio-result-count');
+      var emptyState=document.getElementById('portfolio-empty');
+      var activeFilter='all',searchQuery='';
+
+      function apply(){
+        var visible=0;
+        document.querySelectorAll('.project-card').forEach(function(card){
+          var cat=card.getAttribute('data-category');
+          var name=(card.getAttribute('data-name')||'').toLowerCase();
+          var m=(activeFilter==='all'||cat===activeFilter)&&(!searchQuery||name.indexOf(searchQuery)!==-1);
+          if(m){card.classList.remove('hidden-card');visible++;}else{card.classList.add('hidden-card');}
+        });
+        resultCount.textContent='Showing '+visible+' project'+(visible!==1?'s':'');
+        if(visible===0){emptyState.classList.remove('hidden');}else{emptyState.classList.add('hidden');}
+      }
+
+      filterBtns.forEach(function(btn){btn.addEventListener('click',function(){filterBtns.forEach(function(b){b.classList.remove('active');});btn.classList.add('active');activeFilter=btn.getAttribute('data-filter');apply();});});
+      searchInput.addEventListener('input',function(){searchQuery=searchInput.value.trim().toLowerCase();apply();});
+
+      // Scroll offset
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var h=this.getAttribute('href');if(h==='#')return;var t=document.querySelector(h);if(!t)return;e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-64,behavior:'smooth'});});});
+    })();
+
+  // Project data - always render dynamically
+  (function(){
+    var DEFAULT = [{id:'w1',slug:'finpilot',name:'FinPilot Analytics',category:'dashboard',timeline:'10 Weeks',deliverables:'58 Screens · 200+ Components',impact:'+31% engagement',tags:'Dashboard,Design System,Figma',description:'Financial dashboard design system with 200+ auto-layout components, dark mode, and real-time data visualization patterns for a Series B fintech platform.'},{id:'w2',slug:'medtrack',name:'MedTrack Mobile',category:'mobile',timeline:'12 Weeks',deliverables:'42 Screens · 180 Components',impact:'+28% DAU',tags:'Mobile App,Healthcare,iOS + Android',description:'Cross-platform health tracking app with custom icon system, dark mode support, and WCAG AA-compliant accessibility patterns.'},{id:'w3',slug:'saasphere',name:'SaaSphere Platform',category:'saas',timeline:'16 Weeks',deliverables:'58 Screens · 400+ Components',impact:'-40% dev time',tags:'SaaS,Enterprise,Design System',description:'Enterprise SaaS admin suite spanning 58 screen layouts, 400+ interactive components, and role-based access patterns.'},{id:'w4',slug:'flowstate',name:'FlowState E-Commerce',category:'ecommerce',timeline:'6 Weeks',deliverables:'18 Screens',impact:'+23% CVR',tags:'E-Commerce,CRO,Web App',description:'Conversion-optimized checkout flow redesign for a DTC brand - streamlined from 5 steps to 2.'},{id:'w5',slug:'neuralops',name:'NeuralOps AI',category:'dashboard',timeline:'8 Weeks',deliverables:'36 Widgets · 24 Screens',impact:'-68% detection',tags:'Dashboard,AI/ML,Data Viz',description:'ML model monitoring dashboard with real-time data visualization and anomaly detection alerts.'},{id:'w6',slug:'pangea',name:'Pangea Travel',category:'mobile',timeline:'8 Weeks',deliverables:'28 Screens',impact:'3x session time',tags:'Mobile App,Travel,Booking',description:'Travel booking experience redesign with immersive destination browsing and offline trip access.'},{id:'w7',slug:'lumen',name:'Lumen Design System',category:'saas',timeline:'20 Weeks',deliverables:'800+ Components · 6 Themes',impact:'-60% design debt',tags:'Design System,Multi-Platform',description:'A unified design language spanning web, iOS, and Android for a Fortune 500 energy company.'},{id:'w8',slug:'swiftpay',name:'SwiftPay Checkout',category:'ecommerce',timeline:'5 Weeks',deliverables:'12 Screens',impact:'-87% checkout time',tags:'E-Commerce,Fintech,Checkout',description:'One-click payment flow for a fintech app - reduced checkout time from 90s to 12s.'}];
+
+    var projects;
+    try {
+      var raw = localStorage.getItem('dg_projects');
+      projects = raw ? JSON.parse(raw) : null;
+    } catch(e) { projects = null; }
+    if (!projects || !projects.length) {
+      projects = DEFAULT;
+      try { localStorage.setItem('dg_projects', JSON.stringify(DEFAULT)); } catch(e) {}
+    }
+
+    projects.forEach(function(p) {
+      if (!p.slug) p.slug = p.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    });
+
+    var grid = document.getElementById('portfolio-grid');
+    grid.innerHTML = '';
+    projects.forEach(function(p, i) {
+      var tags = (p.tags||'').split(',').filter(function(t){return t.trim();});
+      var rowSpan = (i === 0 || i === 2) ? ' md:row-span-2' : '';
+      var colSpan = (i === 6) ? ' md:col-span-2' : '';
+
+      var card = document.createElement('article');
+      card.className = 'project-card card-surface group cursor-pointer' + rowSpan + colSpan;
+      card.setAttribute('data-category', p.category||'');
+      card.setAttribute('data-name', p.name);
+
+      card.innerHTML = '<a href="project.html#'+p.slug+'" class="block"><div class="img-frame bg-[#fafafa] aspect-[16/10] flex items-center justify-center relative overflow-hidden"><div class="dot-grid absolute inset-0 opacity-40"></div><div class="relative z-10 w-[75%] bg-white rounded-[12px] border border-hairline p-[16px] transition-transform duration-300 group-hover:scale-[1.02]">'+((p.images&&p.images[0])||p.image?'<img src="'+esc((p.images&&p.images[0])||p.image)+'" alt="" style="width:100%;height:100%;object-fit:contain;display:block">':'<div class="h-[6px] bg-card rounded-[3px] w-[70%]"></div><div class="h-[40px] bg-card rounded-[8px] mt-[8px]"></div><div class="flex gap-[6px] mt-[8px]"><div class="h-[40px] bg-card rounded-[8px] flex-1"></div><div class="h-[40px] bg-graphite rounded-[8px] flex-1"></div></div>')+'</div></div></a><div class="mt-[20px]"><div class="flex flex-wrap gap-[8px] mb-[12px]">'+tags.map(function(t){return '<span class="tag">'+esc(t.trim())+'</span>';}).join('')+'</div><a href="project.html#'+p.slug+'" class="block"><h3 class="text-[24px] font-bold tracking-[-0.025em] text-ink leading-[1.17] group-hover:text-pencil transition-colors">'+esc(p.name)+'</h3></a><p class="text-[14px] text-pencil leading-[1.43] mt-[8px]">'+esc(p.description||'')+'</p><div class="flex items-center gap-[16px] mt-[16px] pt-[16px] border-t border-hairline"><div><span class="text-[12px] text-faint block">Timeline</span><span class="text-[14px] font-semibold text-ink">'+esc(p.timeline||'')+'</span></div><div><span class="text-[12px] text-faint block">Deliverables</span><span class="text-[14px] font-semibold text-ink">'+esc(p.deliverables||'')+'</span></div></div></div>';
+      grid.appendChild(card);
+    });
+
+    document.getElementById('portfolio-result-count').textContent = 'Showing '+projects.length+' project'+(projects.length!==1?'s':'');
+
+    function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  })();
+</script>
+
+<script>var hdr=document.querySelector(".header-blur");var ls=0;var fb=document.getElementById("filter-bar");window.addEventListener("scroll",function(){var cur=window.pageYOffset;if(cur<=64){hdr.classList.remove("hidden-up");if(fb)fb.style.top="64px"}else if(cur>ls&&cur>100){hdr.classList.add("hidden-up");if(fb)fb.style.top="0"}else if(cur<ls){hdr.classList.remove("hidden-up");if(fb)fb.style.top="64px"}ls=cur},{passive:true})</script></body>
+</html>

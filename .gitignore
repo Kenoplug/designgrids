@@ -1,0 +1,7 @@
+*.js
+!store/*.html
+!portfolio/*.html
+!admin/*.html
+!about.html
+!index.html
+DESIGN (1).md

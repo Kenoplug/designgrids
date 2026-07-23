@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin - DesignGrids</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{canvas:'#fafafa',hairline:'#e5e7eb',card:'#ededed',graphite:'#242424',ink:'#171717',pencil:'#5c5c5c',faint:'#a3a3a3',danger:'#dc2626',success:'#16a34a'},fontFamily:{sans:['Inter','sans-serif'],serif:['DM Serif Display','serif'],mono:['JetBrains Mono','monospace']},borderRadius:{'card':'24px','btn':'16px','pill':'9999px'}}}}</script>
+<style>
+body{font-feature-settings:'cv11' on,'cv01' on;font-smooth:antialiased;background:#f5f5f5}
+.btn-primary{background:#242424;color:#fafafa;border-radius:12px;padding:8px 18px;font-weight:500;font-size:13px;border:none;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn-primary:hover{background:#171717}
+.btn-danger{background:#dc2626;color:#fff;border-radius:12px;padding:8px 18px;font-weight:500;font-size:13px;border:none;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-danger:hover{background:#242424}
+.btn-ghost{background:transparent;color:#171717;border-radius:12px;padding:8px 18px;font-weight:500;font-size:13px;border:1px solid #e5e7eb;cursor:pointer;transition:border-color .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-ghost:hover{border-color:#171717}
+.input-field{width:100%;padding:10px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;color:#171717;outline:none;transition:border-color .2s}
+.input-field:focus{border-color:#242424;box-shadow:0 0 0 3px rgba(36,36,36,0.06)}
+select.input-field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c5c5c' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:9999px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5c5c5c;background:#ededed;border:1px solid #e5e7eb}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600}
+.badge-premium{background:#242424;color:#fafafa}
+.badge-free{background:#e5e7eb;color:#5c5c5c}
+.modal-overlay{position:fixed;inset:0;background:rgba(23,23,23,0.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-box{background:#fafafa;border-radius:24px;padding:32px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;border:1px solid #e5e7eb}
+</style>
+</head>
+<body class="font-[500]">
+
+<header style="background:#1a1a1a;color:#fafafa;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:50">
+  <div style="display:flex;align-items:center;gap:12px">
+    <svg width="22" height="22" viewBox="0 0 28 28" fill="none" stroke="#fafafa" stroke-width="2"><rect x="2" y="2" width="10" height="10" rx="4"/><rect x="16" y="2" width="10" height="10" rx="4"/><rect x="2" y="16" width="10" height="10" rx="4"/><rect x="16" y="16" width="10" height="10" rx="4"/></svg>
+    <span style="font-weight:600;font-size:14px;letter-spacing:-0.025em">DesignGrids Admin</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="../index.html" style="color:#a3a3a3;font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#fafafa'" onmouseout="this.style.color='#a3a3a3'">View Site</a>
+    <a href="../store/index.html" style="color:#a3a3a3;font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#fafafa'" onmouseout="this.style.color='#a3a3a3'">Store</a>
+    <a href="../portfolio/index.html" style="color:#a3a3a3;font-size:13px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#fafafa'" onmouseout="this.style.color='#a3a3a3'">Portfolio</a>
+  </div>
+</header>
+
+<div style="max-width:1200px;margin:0 auto;padding:32px 24px">
+
+  <!-- Stats bar -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
+    <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb"><div style="font-size:28px;font-weight:700;color:#171717" id="stat-products">0</div><div style="font-size:13px;color:#5c5c5c;margin-top:4px">Products</div></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb"><div style="font-size:28px;font-weight:700;color:#171717" id="stat-projects">0</div><div style="font-size:13px;color:#5c5c5c;margin-top:4px">Projects</div></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb"><div style="font-size:28px;font-weight:700;color:#16a34a" id="stat-premium">0</div><div style="font-size:13px;color:#5c5c5c;margin-top:4px">Premium Products</div></div>
+    <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb"><div style="font-size:28px;font-weight:700;color:#5c5c5c" id="stat-freebies">0</div><div style="font-size:13px;color:#5c5c5c;margin-top:4px">Freebies</div></div>
+  </div>
+
+  <!-- Tab switcher -->
+  <div style="display:flex;gap:4px;background:#e5e7eb;border-radius:9999px;padding:4px;width:fit-content;margin-bottom:24px">
+    <button class="tab-btn active" data-tab="products" style="padding:8px 20px;border-radius:9999px;font-weight:500;font-size:14px;border:none;cursor:pointer;background:#fafafa;color:#171717;transition:all .2s">Products</button>
+    <button class="tab-btn" data-tab="projects" style="padding:8px 20px;border-radius:9999px;font-weight:500;font-size:14px;border:none;cursor:pointer;background:transparent;color:#5c5c5c;transition:all .2s">Projects</button>
+  </div>
+
+  <!-- Toolbar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+    <button class="btn-primary" id="add-btn" style="font-size:14px;padding:10px 20px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add New
+    </button>
+    <div style="display:flex;gap:8px">
+      <input type="text" class="input-field" id="search-input" placeholder="Search..." style="width:220px;padding:8px 14px">
+      <button class="btn-ghost" id="export-btn" style="font-size:12px;padding:8px 14px">Export JSON</button>
+      <button class="btn-ghost" id="import-btn" style="font-size:12px;padding:8px 14px">Import JSON</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div style="background:#fff;border-radius:16px;border:1px solid #e5e7eb;overflow:hidden">
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="border-bottom:1px solid #e5e7eb;text-align:left">
+            <th style="padding:12px 16px;font-weight:600;color:#5c5c5c;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap">Name</th>
+            <th style="padding:12px 16px;font-weight:600;color:#5c5c5c;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap" id="th-cat">Category</th>
+            <th style="padding:12px 16px;font-weight:600;color:#5c5c5c;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap" id="th-price">Price</th>
+            <th style="padding:12px 16px;font-weight:600;color:#5c5c5c;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap">Date</th>
+            <th style="padding:12px 16px;font-weight:600;color:#5c5c5c;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div id="empty-msg" style="text-align:center;padding:48px 24px;color:#a3a3a3;font-size:14px;display:none">No items yet. Click "Add New" to create one.</div>
+  </div>
+
+  <!-- Pagination info -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;font-size:12px;color:#a3a3a3">
+    <span id="showing-text">Showing 0 items</span>
+    <span>Changes save automatically to localStorage</span>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <h2 style="font-size:20px;font-weight:700;color:#171717;margin-bottom:24px" id="modal-title">Add Product</h2>
+    <form id="item-form" style="display:flex;flex-direction:column;gap:16px">
+      <input type="hidden" id="form-id">
+      <input type="hidden" id="form-type" value="product">
+      <div style="display:grid;grid-cols:2;gap:12px">
+        <div style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Name *</label><input type="text" class="input-field" id="form-name" required></div>
+        <div id="fg-cat"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Category *</label><select class="input-field" id="form-category"><option value="design-systems">Design Systems</option><option value="ui-kits">UI Kits</option><option value="icons">Icons</option><option value="templates">Templates</option></select></div>
+        <div id="fg-lic"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">License *</label><select class="input-field" id="form-license"><option value="premium">Premium</option><option value="freebies">Free</option></select></div>
+        <div id="fg-price"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Price ($)</label><input type="number" class="input-field" id="form-price" value="0" min="0"></div>
+        <div id="fg-timeline"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Timeline</label><input type="text" class="input-field" id="form-timeline" placeholder="e.g. 10 Weeks"></div>
+        <div id="fg-client"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Client</label><input type="text" class="input-field" id="form-client" placeholder="e.g. FinPilot"></div>
+        <div id="fg-year"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Year</label><input type="text" class="input-field" id="form-year" placeholder="e.g. 2026"></div>
+        <div id="fg-industry"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Industry</label><input type="text" class="input-field" id="form-industry" placeholder="e.g. Fintech"></div>
+        <div id="fg-version"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Version</label><input type="text" class="input-field" id="form-version" placeholder="e.g. v3.2"></div>
+        <div id="fg-date"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Date</label><input type="text" class="input-field" id="form-date" placeholder="e.g. Jun 2026"></div>
+        <div id="fg-deliverables"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Deliverables</label><input type="text" class="input-field" id="form-deliverables" placeholder="e.g. 58 Screens"></div>
+        <div id="fg-rating"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Rating</label><input type="text" class="input-field" id="form-rating" placeholder="e.g. 4.9"></div>
+        <div id="fg-ratings"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Rating Count</label><input type="number" class="input-field" id="form-ratings" placeholder="e.g. 342"></div>
+        <div id="fg-pop"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Popularity</label><input type="number" class="input-field" id="form-popularity" placeholder="e.g. 95" value="50"></div>
+        <div style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Tags (comma-separated)</label><input type="text" class="input-field" id="form-tags" placeholder="e.g. Dashboard, Design System, Figma"></div>
+        <div style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Features (one per line)</label><textarea class="input-field" id="form-features" rows="3" placeholder="Feature one&#10;Feature two&#10;Feature three" style="resize:vertical;min-height:60px"></textarea></div>
+        <div style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Images</label><div style="border:2px dashed #e5e7eb;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s" id="image-drop-zone"><input type="file" id="form-images-input" accept="image/*" multiple style="display:none"><div id="image-drop-label"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a3a3a3" stroke-width="1.5" style="margin:0 auto 8px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:13px;color:#5c5c5c">Click to upload or drag images here</span><br><span style="font-size:11px;color:#a3a3a3">Keep files under 500KB each · Total: <b id="img-size-total">0 KB</b> / 4 MB</span></div><div id="image-previews" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"></div></div></div>
+        <div id="fg-overview" style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Overview</label><textarea class="input-field" id="form-overview" rows="3" placeholder="Project introduction — what was built and why" style="resize:vertical;min-height:60px"></textarea></div>
+        <div id="fg-challenge" style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Challenge</label><textarea class="input-field" id="form-challenge" rows="3" placeholder="What problems were solved? One per line for bullet points" style="resize:vertical;min-height:60px"></textarea></div>
+        <div id="fg-solution" style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Solution</label><textarea class="input-field" id="form-solution" rows="3" placeholder="How it was built — approach, tech, process" style="resize:vertical;min-height:60px"></textarea></div>
+        <div id="fg-results" style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Results / Learnings</label><textarea class="input-field" id="form-results" rows="3" placeholder="Impact metrics and key takeaways. One per line for bullet points" style="resize:vertical;min-height:60px"></textarea></div>
+        <div style="grid-column:span 2"><label style="display:block;font-size:12px;font-weight:600;color:#5c5c5c;margin-bottom:4px">Description (card preview)</label><textarea class="input-field" id="form-description" rows="2" placeholder="Short preview shown on portfolio cards..." style="resize:vertical;min-height:40px"></textarea></div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+        <button type="button" class="btn-ghost" id="modal-cancel">Cancel</button>
+        <button type="button" class="btn-danger" id="modal-delete" style="display:none">Delete</button>
+        <button type="submit" class="btn-primary" id="modal-save">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal-box" style="max-width:400px;text-align:center">
+    <h3 style="font-size:18px;font-weight:700;color:#171717;margin-bottom:12px">Delete this item?</h3>
+    <p style="font-size:14px;color:#5c5c5c;margin-bottom:24px" id="confirm-name"></p>
+    <div style="display:flex;gap:8px;justify-content:center">
+      <button class="btn-ghost" id="confirm-cancel">Cancel</button>
+      <button class="btn-danger" id="confirm-delete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+const STORAGE_PRODUCTS = 'dg_products';
+const STORAGE_PROJECTS = 'dg_projects';
+
+// Default seed data
+const DEFAULT_PRODUCTS = [
+  {id:'p1',slug:'atlas-design-system',name:'Atlas Design System',category:'design-systems',license:'premium',price:89,version:'v3.2',date:'Jun 2026',rating:'4.9',ratings:342,popularity:95,tags:'Design System,Figma,Premium',features:'600+ auto-layout components with variant properties\nLight & dark mode semantic color tokens (96 total)\n48 responsive screen layouts across 8 view categories\n8-step typography scale with Inter + mono pairing\n32-page design system documentation (PDF + Notion)\nDesign token JSON export (W3C DTCG format)',description:'A complete design system built for scale. 600+ auto-layout components with light/dark mode tokens, 48 responsive screen layouts, and full component property documentation.'},
+  {id:'p2',slug:'dashboard-ui-kit',name:'Dashboard UI Kit',category:'ui-kits',license:'premium',price:129,version:'v2.8',date:'May 2026',rating:'4.8',ratings:217,popularity:88,tags:'UI Kit,Dashboard,Premium',features:'24 dashboard templates across 6 categories\n80+ chart & data visualization widgets\nLight & dark theme variants per template\nResponsive breakpoints for desktop & tablet\nKPI stat cards, sparklines, heatmaps, candlestick charts\nOrganized Figma file with pages and named layers',description:'24 production-ready dashboard templates with 80+ chart and data visualization widgets. Built for fintech and SaaS products.'},
+  {id:'p3',slug:'mobile-app-kit',name:'Mobile App Kit',category:'ui-kits',license:'premium',price:149,version:'v1.5',date:'Apr 2026',rating:'4.9',ratings:156,popularity:82,tags:'UI Kit,Mobile,Premium',features:'36 iOS & Android screens across 8 flows\nNative navigation patterns per platform\nHaptic & gesture documentation included\nDark mode variants for all screens\nAuto-layout components with variant properties',description:'36 iOS and Android screens with native navigation patterns, gesture documentation, and haptic interaction specs.'},
+  {id:'p4',slug:'wireframe-kit',name:'Wireframe Kit',category:'templates',license:'freebies',price:0,version:'v2.0',date:'Mar 2026',rating:'4.7',ratings:891,popularity:98,tags:'Template,Wireframe,Free',features:'120 lo-fi wireframe blocks across 12 categories\nStrict 4px grid alignment throughout\nFigma Community file - one-click duplicate\nNav bars, hero sections, card grids, footers\nOrganized pages with component properties',description:'120 lo-fi layout blocks for rapid prototyping. Every block is grid-aligned on a 4px base.'},
+  {id:'p5',slug:'icon-system',name:'Icon System',category:'icons',license:'freebies',price:0,version:'v1.8',date:'Jun 2026',rating:'4.9',ratings:654,popularity:91,tags:'Icons,Figma,Free',features:'320 stroke-style icons across 16 categories\n24px & 20px grid variants\nFigma component set with variant properties\nSVG exports included for developer handoff',description:'320 stroke-style icons in 24px and 20px grid variants. Every icon is a proper Figma component.'},
+  {id:'p6',slug:'typography-scale',name:'Typography Scale',category:'templates',license:'freebies',price:0,version:'v1.2',date:'Jan 2026',rating:'4.6',ratings:432,popularity:79,tags:'Template,Typography,Free',features:'12-step modular type scale (8px–128px)\nInter + JetBrains Mono pairings\nFigma text styles with color & weight variants\nResponsive scaling reference doc',description:'A 12-step modular type scale pre-configured as Figma text styles.'},
+  {id:'p7',slug:'ecommerce-design-system',name:'E-Commerce Design System',category:'design-systems',license:'premium',price:199,version:'v2.1',date:'Jun 2026',rating:'4.8',ratings:178,popularity:76,tags:'Design System,E-Commerce,Premium',features:'420+ e-commerce components with all UX states\nProduct grids, PDP, cart, checkout, account flows\nShopify & headless commerce ready\nLight & dark theme tokens\nAuto-layout with component properties',description:'420+ product components covering product grids, cart, checkout flows, order history, and account management.'},
+  {id:'p8',slug:'saas-admin-templates',name:'SaaS Admin Templates',category:'templates',license:'premium',price:79,version:'v1.9',date:'May 2026',rating:'4.7',ratings:267,popularity:84,tags:'Template,SaaS,Premium',features:'18 admin screen layouts across 6 categories\nUser management, analytics, billing, settings\nRole-based access patterns (admin, manager, viewer)\nAuto-layout components with variant properties',description:'18 production-ready admin screen layouts for SaaS apps.'},
+  {id:'p9',slug:'color-token-system',name:'Color Token System',category:'design-systems',license:'freebies',price:0,version:'v1.4',date:'Feb 2026',rating:'4.8',ratings:389,popularity:73,tags:'Design System,Tokens,Free',features:'72 semantic color tokens (primitives + semantics)\nLight & dark mode variables per token\nWCAG AA contrast verified for all combos\nFigma color styles + W3C DTCG JSON export',description:'72 semantic color tokens with light and dark mode variables.'}
+];
+
+const DEFAULT_PROJECTS = [
+  {
+    "id": "w1",
+    "slug": "finpilot",
+    "name": "FinPilot Analytics",
+    "category": "dashboard",
+    "timeline": "10 Weeks",
+    "deliverables": "58 Screens · 200+ Components",
+    "impact": "+31% engagement",
+    "tags": "Dashboard,Design System,Figma",
+    "description": "Financial dashboard design system with 200+ auto-layout components, dark mode, and real-time data visualization patterns.",
+    "client": "FinPilot (Series B)",
+    "year": "2026",
+    "industry": "Fintech",
+    "overview": "FinPilot came to us after their Series B raise with a product that worked but didn't scale visually. Their dashboard had been built screen-by-screen with no underlying design system — 14 different button styles, inconsistent spacing, and no dark mode despite their users being active portfolio managers who work late into the night.",
+    "challenge": "Unify 12 disparate dashboard views under a single design language\nBuild a component architecture their in-house team could extend\nDeliver a genuine dark theme — not just inverted colors\nReduce screen-build time by 60%",
+    "solution": "We defined a 96-token design foundation — spacing, color, typography, elevation — then built 200+ auto-layout components with variant properties. Every component exposes density, theme, and size variants. The dark theme uses a perceptual contrast model optimized for low-light trading environments. We exported design token JSON in W3C DTCG format for direct consumption by their React + Tailwind frontend.",
+    "results": "+31% daily active usage across all 12 dashboard views\n-64% screen build time for the client design team\n4.8★ NPS from 200+ institutional users surveyed\n94% of users switched to dark theme within the first week\n40% reduction in trader support tickets"
+  },
+  {
+    "id": "w2",
+    "slug": "medtrack",
+    "name": "MedTrack Mobile",
+    "category": "mobile",
+    "timeline": "12 Weeks",
+    "deliverables": "42 Screens · 180 Components",
+    "impact": "+28% DAU",
+    "tags": "Mobile App,Healthcare,iOS + Android",
+    "description": "Cross-platform health tracking app with custom icon system, dark mode support, and WCAG AA-compliant accessibility patterns.",
+    "client": "MedTrack Health",
+    "year": "2026",
+    "industry": "Healthcare",
+    "overview": "MedTrack needed a unified health tracking experience across iOS and Android that felt native on each platform while maintaining brand and UX consistency.",
+    "challenge": "Unify iOS and Android under a single design language\nBuild a custom health icon system covering 320 medical-grade icons\nAchieve WCAG AA compliance across all 42 screens\nMaintain platform-native feel while keeping UX identical",
+    "solution": "We designed 42 screens with a shared token system that maps to each platform's native components — Material You on Android, Human Interface Guidelines on iOS — while maintaining identical information architecture, color semantics, and interaction patterns.",
+    "results": "+28% increase in daily active users\n42 screens shipped across iOS and Android\n4.7★ App Store rating post-redesign\n-52% reduction in accessibility-related support tickets"
+  },
+  {
+    "id": "w3",
+    "slug": "saasphere",
+    "name": "SaaSphere Platform",
+    "category": "saas",
+    "timeline": "16 Weeks",
+    "deliverables": "58 Screens · 400+ Components",
+    "impact": "-40% dev time",
+    "tags": "SaaS,Enterprise,Design System",
+    "description": "Enterprise SaaS admin suite spanning 58 screen layouts, 400+ interactive components, and role-based access patterns.",
+    "client": "SaaSphere (Series C)",
+    "year": "2026",
+    "industry": "SaaS / Enterprise",
+    "overview": "SaaSphere's admin suite had grown organically across 3 product teams — each team building their own UI patterns. The result: 11 different table implementations, inconsistent permission UIs, and an onboarding flow that new enterprise clients took 14 days to fully configure.",
+    "challenge": "Unify 58 screens under a single design system\nImplement role-based access patterns across admin, manager, viewer\nReduce enterprise onboarding from 14 days to under 5\nBuild a component library that 3 product teams could share",
+    "solution": "We designed 400+ auto-layout components covering tables, filters, permission UIs, wizards, and dashboards. The role-based access system adapts every component to the user's permission level — hiding, disabling, or revealing UI elements contextually.",
+    "results": "-40% reduction in frontend development time\nEnterprise onboarding dropped from 14 days to 3\n4.9★ client NPS score\n58 screens unified under a single design system"
+  },
+  {
+    "id": "w4",
+    "slug": "flowstate",
+    "name": "FlowState E-Commerce",
+    "category": "ecommerce",
+    "timeline": "6 Weeks",
+    "deliverables": "18 Screens · Full Checkout Flow",
+    "impact": "+23% CVR",
+    "tags": "E-Commerce,CRO,Web App",
+    "description": "Conversion-optimized checkout flow redesign for a DTC brand — streamlined from 5 steps to 2.",
+    "client": "FlowState (DTC Brand)",
+    "year": "2026",
+    "industry": "E-Commerce",
+    "overview": "FlowState's 5-step checkout was bleeding conversions — 68% of users who started checkout abandoned before completing. The form-heavy flow asked for shipping before payment, required account creation, and had no guest checkout option.",
+    "challenge": "Collapse a 5-step checkout into the minimum viable steps\nIntroduce guest checkout as the default path\nIntegrate Apple Pay and Google Pay as primary payment options\nReduce mobile checkout abandonment by 50%",
+    "solution": "We collapsed the flow to 2 steps: shipping + payment on a single screen, with guest checkout as the default and account creation as an optional post-purchase step. Apple Pay and Google Pay were surfaced as primary options with card entry as fallback.",
+    "results": "+23% lift in completed transactions\nCheckout abandonment dropped by 68%\nAverage checkout time: 12 seconds\n41% of users adopted wallet-based payment"
+  },
+  {
+    "id": "w5",
+    "slug": "neuralops",
+    "name": "NeuralOps AI",
+    "category": "dashboard",
+    "timeline": "8 Weeks",
+    "deliverables": "36 Widgets · 24 Screens",
+    "impact": "-68% detection",
+    "tags": "Dashboard,AI/ML,Data Viz",
+    "description": "ML model monitoring dashboard with real-time data visualization and anomaly detection alerts.",
+    "client": "NeuralOps (AI Infra)",
+    "year": "2026",
+    "industry": "AI / Machine Learning",
+    "overview": "NeuralOps needed a dashboard that could render real-time ML model metrics — accuracy drift, inference latency, data pipeline health — without overwhelming ML engineers with visual noise.",
+    "challenge": "Design 36 opinionated data visualization widgets\nOptimize for 24/7 ops center environments with a dark-first design\nSurface critical model health signals without visual noise\nSupport drill-down from summary widgets into raw data",
+    "solution": "We designed 36 purpose-built data viz widgets — time-series charts, heatmaps, anomaly indicators, drift meters — that surface the most critical model health signals by default. The dark-first design language uses a carefully calibrated palette tested under low-light ops center conditions.",
+    "results": "-68% reduction in time to detect model anomalies\n94% dark theme adoption rate among engineers\n4.8★ satisfaction score from the ML engineering team\n36 pre-built widgets eliminated manual Grafana dashboard construction"
+  },
+  {
+    "id": "w6",
+    "slug": "pangea",
+    "name": "Pangea Travel",
+    "category": "mobile",
+    "timeline": "8 Weeks",
+    "deliverables": "28 Screens · iOS + Android",
+    "impact": "3x session time",
+    "tags": "Mobile App,Travel,Booking",
+    "description": "Travel booking experience redesign with immersive destination browsing and offline trip access.",
+    "client": "Pangea Travel",
+    "year": "2026",
+    "industry": "Travel",
+    "overview": "Pangea's travel app felt transactional — users booked flights and hotels but spent minimal time browsing destinations. The app had no discovery layer, no itinerary management, and required constant connectivity.",
+    "challenge": "Add a destination discovery layer with immersive browsing\nBuild an itinerary planner with drag-and-drop day planning\nEnable full offline access for saved trips\nIncrease session time and booking conversion",
+    "solution": "We designed an immersive destination browsing experience with full-bleed photography and curated collections. The itinerary builder uses drag-and-drop for intuitive day planning with activity suggestions. Full offline access was implemented for saved trips.",
+    "results": "3x increase in average session time\n+42% booking conversion rate\n4.6★ App Store rating\n28 screens shipped across iOS and Android"
+  },
+  {
+    "id": "w7",
+    "slug": "lumen",
+    "name": "Lumen Design System",
+    "category": "saas",
+    "timeline": "20 Weeks",
+    "deliverables": "800+ Components · 6 Themes",
+    "impact": "-60% design debt",
+    "tags": "Design System,Multi-Platform,Featured",
+    "description": "A unified design language spanning web, iOS, and Android for a Fortune 500 energy company.",
+    "client": "Fortune 500 Energy Co.",
+    "year": "2026",
+    "industry": "Energy",
+    "overview": "A Fortune 500 energy company had 6 product teams building customer-facing apps across web, iOS, and Android — each team using its own component library, color palette, and interaction patterns. The result: 11 different button styles and a brand that looked like 3 different companies.",
+    "challenge": "Unify 6 product teams under one design language\nBuild 800+ components spanning web, iOS, and Android\nSupport 6 regional subsidiary theme variants\nShip a custom Figma plugin for developer handoff",
+    "solution": "We designed Lumen — a unified design language with a shared token core and platform-specific renderers. 800+ components were built with auto-layout and variant properties. A custom Figma plugin auto-generates React, SwiftUI, and Jetpack Compose code snippets.",
+    "results": "-60% reduction in design debt across the organization\n800+ components shipped across 3 platforms\n-55% faster time-to-market for new features\nCustom Figma plugin adopted by all 6 product teams"
+  },
+  {
+    "id": "w8",
+    "slug": "swiftpay",
+    "name": "SwiftPay Checkout",
+    "category": "ecommerce",
+    "timeline": "5 Weeks",
+    "deliverables": "12 Screens · Payment Flow",
+    "impact": "-87% checkout time",
+    "tags": "E-Commerce,Fintech,Checkout",
+    "description": "One-click payment flow for a fintech app — reduced checkout time from 90s to 12s with biometric auth.",
+    "client": "SwiftPay (Fintech)",
+    "year": "2026",
+    "industry": "Fintech",
+    "overview": "SwiftPay's checkout took an average of 90 seconds — 3 screens of form entry, a separate 3D Secure redirect, and no saved payment methods. Mobile users in particular were dropping off at 62% during the card entry step.",
+    "challenge": "Reduce checkout time from 90s to under 15s\nIntroduce biometric authentication for returning users\nKeep 3D Secure in-flow — no redirects\nEliminate manual card entry for repeat customers",
+    "solution": "We designed a single-screen checkout with biometric authentication (Face ID / fingerprint), saved cards as the default payment method, smart address autocomplete, and a transparent 3D Secure overlay that keeps users in-flow.",
+    "results": "-87% reduction in checkout time (90s → 12s)\n+34% mobile conversion rate\n-62% card entry drop-off\n78% adoption rate for biometric authentication"
+  }
+];
+
+function loadData(key, defaults) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const data = JSON.parse(raw);
+      // Migrate: add slug if missing from older saves
+      let migrated = false;
+      data.forEach(item => {
+        if (!item.slug) {
+          item.slug = (item.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+          migrated = true;
+        }
+      });
+      if (migrated) localStorage.setItem(key, JSON.stringify(data));
+      return data;
+    }
+  } catch(e) {}
+  localStorage.setItem(key, JSON.stringify(defaults));
+  return JSON.parse(JSON.stringify(defaults));
+}
+
+function saveData(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+let products = loadData(STORAGE_PRODUCTS, DEFAULT_PRODUCTS);
+let projects = loadData(STORAGE_PROJECTS, DEFAULT_PROJECTS);
+let activeTab = 'products';
+let editingId = null;
+let pendingDelete = null;
+let pendingImages = [];
+
+// Image handling
+const imageInput = document.getElementById('form-images-input');
+const dropZone = document.getElementById('image-drop-zone');
+const previewContainer = document.getElementById('image-previews');
+const dropLabel = document.getElementById('image-drop-label');
+
+dropZone.addEventListener('click', function(e) { if (e.target !== imageInput) imageInput.click(); });
+imageInput.addEventListener('click', function(e) { e.stopPropagation(); });
+imageInput.addEventListener('change', function() { handleFiles(imageInput.files); });
+
+dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.style.borderColor = '#242424'; });
+dropZone.addEventListener('dragleave', function() { dropZone.style.borderColor = '#e5e7eb'; });
+dropZone.addEventListener('drop', function(e) { e.preventDefault(); dropZone.style.borderColor = '#e5e7eb'; handleFiles(e.dataTransfer.files); });
+
+function handleFiles(files) {
+  Array.from(files).forEach(function(file) {
+    if (!file.type.startsWith('image/')) return;
+    var currentSize = getTotalImageSize();
+    var estNewSize = currentSize + (file.size * 1.37); // base64 overhead
+    if (estNewSize > 4200000) { alert('Adding this image would exceed the 4 MB localStorage limit. Remove some images first.'); return; }
+    if (estNewSize > 3500000 && !confirm('Total image size will be ~' + Math.round(estNewSize/1024) + ' KB. Close to the 4 MB limit. Continue?')) return;
+    if (file.size > 800000 && !confirm(file.name + ' is ' + Math.round(file.size/1024) + 'KB. Large images may hit localStorage limits. Continue?')) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      pendingImages.push(ev.target.result);
+      renderImagePreviews();
+      updateSizeDisplay();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderImagePreviews() {
+  previewContainer.innerHTML = pendingImages.map(function(src, i) {
+    return '<div style="position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;flex-shrink:0"><img src="'+src+'" style="width:100%;height:100%;object-fit:cover"><button onclick="event.preventDefault();event.stopPropagation();removeImage('+i+')" style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;border:none;cursor:pointer;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center">&times;</button></div>';
+  }).join('') + (pendingImages.length ? '' : '');
+  dropLabel.style.display = pendingImages.length ? 'none' : '';
+  updateSizeDisplay();
+}
+
+function getTotalImageSize() { return pendingImages.reduce(function(sum, img) { return sum + (img.length * 0.75); }, 0); }
+function updateSizeDisplay() { var kb = Math.round(getTotalImageSize() / 1024); var el = document.getElementById('img-size-total'); if (el) { el.textContent = kb + ' KB'; el.style.color = kb > 3500 ? '#dc2626' : kb > 2500 ? '#d97706' : '#5c5c5c'; } }
+function removeImage(i) { pendingImages.splice(i, 1); renderImagePreviews(); updateSizeDisplay(); }
+window.removeImage = removeImage;
+
+// DOM refs
+const tableBody = document.getElementById('table-body');
+const emptyMsg = document.getElementById('empty-msg');
+const addBtn = document.getElementById('add-btn');
+const modal = document.getElementById('modal');
+const confirmModal = document.getElementById('confirm-modal');
+const itemForm = document.getElementById('item-form');
+const searchInput = document.getElementById('search-input');
+
+function getActiveData() { return activeTab === 'products' ? products : projects; }
+function setActiveData(d) { if (activeTab === 'products') { products = d; saveData(STORAGE_PRODUCTS, d); } else { projects = d; saveData(STORAGE_PROJECTS, d); } }
+
+function renderTable() {
+  const data = getActiveData();
+  const query = searchInput.value.toLowerCase();
+  const filtered = data.filter(item => {
+    if (!query) return true;
+    return (item.name||'').toLowerCase().includes(query) ||
+           (item.category||'').toLowerCase().includes(query) ||
+           (item.tags||'').toLowerCase().includes(query) ||
+           (item.description||'').toLowerCase().includes(query);
+  });
+
+  tableBody.innerHTML = '';
+  if (filtered.length === 0) {
+    emptyMsg.style.display = 'block';
+  } else {
+    emptyMsg.style.display = 'none';
+  }
+
+  filtered.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #f0f0f0';
+    let priceCol, catCol;
+
+    if (activeTab === 'products') {
+      catCol = '<span class="tag">' + escapeHtml(item.category||'') + '</span>';
+      const price = parseInt(item.price) || 0;
+      priceCol = price === 0 ? '<span class="badge badge-free">FREE</span>' : '<span class="badge badge-premium">$' + price + '</span>';
+    } else {
+      catCol = '<span class="tag">' + escapeHtml(item.category||'') + '</span>';
+      priceCol = '<span style="font-size:12px;color:#5c5c5c">' + escapeHtml(item.timeline||'') + '</span>';
+    }
+
+    tr.innerHTML = `
+      <td style="padding:12px 16px;font-weight:600;color:#171717;font-size:13px">${escapeHtml(item.name)}</td>
+      <td style="padding:12px 16px">${catCol}</td>
+      <td style="padding:12px 16px">${priceCol}</td>
+      <td style="padding:12px 16px;font-size:12px;color:#a3a3a3">${escapeHtml(item.date||item.timeline||'')}</td>
+      <td style="padding:12px 16px;text-align:right;display:flex;gap:6px;justify-content:flex-end">
+        <button class="btn-ghost edit-btn" data-id="${item.id}" style="padding:6px 12px;font-size:12px">Edit</button>
+        <button class="btn-ghost del-btn" data-id="${item.id}" style="padding:6px 12px;font-size:12px;color:#dc2626;border-color:#fecaca">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(tr);
+  });
+
+  // Bind events
+  tableBody.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', () => openModal(b.dataset.id)));
+  tableBody.querySelectorAll('.del-btn').forEach(b => b.addEventListener('click', () => confirmDelete(b.dataset.id)));
+  document.getElementById('showing-text').textContent = 'Showing ' + filtered.length + ' item' + (filtered.length !== 1 ? 's' : '');
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('stat-products').textContent = products.length;
+  document.getElementById('stat-projects').textContent = projects.length;
+  document.getElementById('stat-premium').textContent = products.filter(p => p.license === 'premium').length;
+  document.getElementById('stat-freebies').textContent = products.filter(p => p.license === 'freebies').length;
+}
+
+function openModal(id) {
+  editingId = id || null;
+  const isProduct = activeTab === 'products';
+  document.getElementById('form-type').value = isProduct ? 'product' : 'project';
+  document.getElementById('modal-title').textContent = id ? 'Edit ' + (isProduct ? 'Product' : 'Project') : 'Add ' + (isProduct ? 'Product' : 'Project');
+  document.getElementById('modal-delete').style.display = id ? 'inline-flex' : 'none';
+
+  // Show/hide fields based on type
+  document.getElementById('form-features').closest('div').style.display = isProduct ? '' : 'none';
+  ['fg-cat','fg-lic','fg-price','fg-version','fg-rating','fg-ratings','fg-pop'].forEach(f => {
+    document.getElementById(f).style.display = isProduct ? '' : 'none';
+  });
+  ['fg-timeline','fg-deliverables','fg-client','fg-year','fg-industry','fg-overview','fg-challenge','fg-solution','fg-results'].forEach(f => {
+    document.getElementById(f).style.display = isProduct ? 'none' : '';
+  });
+
+  // Update column headers
+  document.getElementById('th-cat').textContent = isProduct ? 'Category' : 'Type';
+  document.getElementById('th-price').textContent = isProduct ? 'Price' : 'Timeline';
+
+  if (id) {
+    const data = getActiveData();
+    const item = data.find(i => i.id === id);
+    if (item) {
+      document.getElementById('form-id').value = item.id;
+      document.getElementById('form-name').value = item.name || '';
+      document.getElementById('form-category').value = item.category || (isProduct ? 'design-systems' : 'dashboard');
+      document.getElementById('form-license').value = item.license || 'premium';
+      document.getElementById('form-price').value = item.price || 0;
+      document.getElementById('form-version').value = item.version || '';
+      document.getElementById('form-date').value = item.date || '';
+      document.getElementById('form-timeline').value = item.timeline || '';
+      document.getElementById('form-deliverables').value = item.deliverables || '';
+      document.getElementById('form-client').value = item.client || '';
+      document.getElementById('form-year').value = item.year || '';
+      document.getElementById('form-industry').value = item.industry || '';
+      document.getElementById('form-overview').value = item.overview || '';
+      document.getElementById('form-challenge').value = item.challenge || '';
+      document.getElementById('form-solution').value = item.solution || '';
+      document.getElementById('form-results').value = item.results || '';
+      document.getElementById('form-rating').value = item.rating || '';
+      document.getElementById('form-ratings').value = item.ratings || '';
+      document.getElementById('form-popularity').value = item.popularity || 50;
+      document.getElementById('form-tags').value = item.tags || '';
+      document.getElementById('form-features').value = item.features || '';
+      // Load existing images into preview
+      pendingImages = (item.images && item.images.length) ? item.images.slice() : (item.image ? [item.image] : []);
+      renderImagePreviews();
+      document.getElementById('form-description').value = item.description || '';
+    }
+  } else {
+    itemForm.reset();
+    pendingImages = []; renderImagePreviews();
+    document.getElementById('form-id').value = '';
+    document.getElementById('form-type').value = isProduct ? 'product' : 'project';
+    document.getElementById('form-price').value = '0';
+    document.getElementById('form-popularity').value = '50';
+    document.getElementById('form-license').value = 'premium';
+    document.getElementById('form-category').value = isProduct ? 'design-systems' : 'dashboard';
+    document.getElementById('form-date').value = new Date().toLocaleString('default', { month: 'short', year: 'numeric' });
+  }
+
+  modal.classList.add('open');
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  editingId = null;
+}
+
+function confirmDelete(id) {
+  pendingDelete = id;
+  const data = getActiveData();
+  const item = data.find(i => i.id === id);
+  document.getElementById('confirm-name').textContent = item ? '"' + item.name + '" will be permanently deleted.' : '';
+  confirmModal.classList.add('open');
+}
+
+function doDelete() {
+  if (!pendingDelete) return;
+  const data = getActiveData();
+  setActiveData(data.filter(i => i.id !== pendingDelete));
+  confirmModal.classList.remove('open');
+  pendingDelete = null;
+  renderTable();
+}
+
+function saveItem(e) {
+  e.preventDefault();
+  const isProduct = document.getElementById('form-type').value === 'product';
+  const data = getActiveData();
+
+  const nameVal = document.getElementById('form-name').value.trim();
+
+  // Only generate a new slug on CREATE - preserve existing slug on EDIT
+  let slug;
+  if (editingId) {
+    const data = getActiveData();
+    const existing = data.find(i => i.id === editingId);
+    slug = existing ? existing.slug : nameVal.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  } else {
+    slug = nameVal.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
+  const item = {
+    id: editingId || (isProduct ? 'p' : 'w') + Date.now(),
+    slug: slug,
+    name: nameVal,
+    category: document.getElementById('form-category').value,
+    date: document.getElementById('form-date').value.trim(),
+    tags: document.getElementById('form-tags').value.trim(),
+    features: document.getElementById('form-features').value.trim(),
+    images: pendingImages.slice(),
+    description: document.getElementById('form-description').value.trim(),
+    popularity: parseInt(document.getElementById('form-popularity').value) || 50,
+  };
+
+  if (isProduct) {
+    item.license = document.getElementById('form-license').value;
+    item.price = parseInt(document.getElementById('form-price').value) || 0;
+    item.version = document.getElementById('form-version').value.trim();
+    item.rating = document.getElementById('form-rating').value.trim();
+    item.ratings = parseInt(document.getElementById('form-ratings').value) || 0;
+  } else {
+    item.timeline = document.getElementById('form-timeline').value.trim();
+    item.deliverables = document.getElementById('form-deliverables').value.trim();
+    item.client = document.getElementById('form-client').value.trim();
+    item.year = document.getElementById('form-year').value.trim();
+    item.industry = document.getElementById('form-industry').value.trim();
+    item.overview = document.getElementById('form-overview').value.trim();
+    item.challenge = document.getElementById('form-challenge').value.trim();
+    item.solution = document.getElementById('form-solution').value.trim();
+    item.results = document.getElementById('form-results').value.trim();
+  }
+
+  if (!item.name) return alert('Name is required.');
+
+  if (editingId) {
+    const idx = data.findIndex(i => i.id === editingId);
+    if (idx !== -1) data[idx] = item;
+  } else {
+    data.push(item);
+  }
+
+  setActiveData(data);
+  closeModal();
+  renderTable();
+}
+
+function openConfirmForDelete() {
+  closeModal();
+  confirmDelete(editingId);
+}
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(b => { b.style.background = 'transparent'; b.style.color = '#5c5c5c'; b.classList.remove('active'); });
+    this.style.background = '#fafafa'; this.style.color = '#171717'; this.classList.add('active');
+    activeTab = this.dataset.tab;
+    addBtn.textContent = activeTab === 'products' ? 'Add Product' : 'Add Project';
+    document.getElementById('th-cat').textContent = activeTab === 'products' ? 'Category' : 'Type';
+    document.getElementById('th-price').textContent = activeTab === 'products' ? 'Price' : 'Timeline';
+    document.getElementById('modal-title').textContent = activeTab === 'products' ? 'Add Product' : 'Add Project';
+    document.getElementById('form-type').value = activeTab === 'products' ? 'product' : 'project';
+    renderTable();
+  });
+});
+
+addBtn.addEventListener('click', () => openModal(null));
+document.getElementById('modal-cancel').addEventListener('click', closeModal);
+document.getElementById('modal-delete').addEventListener('click', openConfirmForDelete);
+document.getElementById('confirm-cancel').addEventListener('click', () => { confirmModal.classList.remove('open'); pendingDelete = null; });
+document.getElementById('confirm-delete').addEventListener('click', doDelete);
+itemForm.addEventListener('submit', saveItem);
+searchInput.addEventListener('input', renderTable);
+modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+confirmModal.addEventListener('click', function(e) { if (e.target === confirmModal) { confirmModal.classList.remove('open'); pendingDelete = null; } });
+
+// Export/Import
+document.getElementById('export-btn').addEventListener('click', function() {
+  const data = { products, projects, exported: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'designgrids-data-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+});
+
+document.getElementById('import-btn').addEventListener('click', function() {
+  const input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (data.products && Array.isArray(data.products)) { products = data.products; saveData(STORAGE_PRODUCTS, products); }
+        if (data.projects && Array.isArray(data.projects)) { projects = data.projects; saveData(STORAGE_PROJECTS, projects); }
+        renderTable();
+        alert('Data imported: ' + (data.products||[]).length + ' products, ' + (data.projects||[]).length + ' projects');
+      } catch(err) { alert('Invalid JSON file'); }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+});
+
+// Reset to defaults
+const resetBtn = document.createElement('button');
+resetBtn.className = 'btn-ghost';
+resetBtn.style.cssText = 'font-size:12px;padding:8px 14px;color:#dc2626;border-color:#fecaca;margin-left:8px';
+resetBtn.textContent = 'Reset to Defaults';
+resetBtn.addEventListener('click', function() {
+  if (confirm('Reset all products and projects to defaults? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_PRODUCTS);
+    localStorage.removeItem(STORAGE_PROJECTS);
+    products = loadData(STORAGE_PRODUCTS, DEFAULT_PRODUCTS);
+    projects = loadData(STORAGE_PROJECTS, DEFAULT_PROJECTS);
+    renderTable();
+  }
+});
+document.querySelector('#export-btn').parentElement.appendChild(resetBtn);
+
+function escapeHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// Init
+addBtn.textContent = 'Add Product';
+renderTable();
+
+})();
+</script>
+</body>
+</html>

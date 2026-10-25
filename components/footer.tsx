@@ -4,7 +4,7 @@ import { navItems } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-hairline bg-white">
+    <footer className="border-t border-hairline bg-canvas">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
         <div>
           <div className="flex items-center gap-3">

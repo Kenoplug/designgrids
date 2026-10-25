@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, Star } from "lucide-react";
-import { products, projects, resources, services } from "@/lib/content";
+import { resources, services } from "@/lib/content";
+import type { Project, Product } from "@/lib/data";
 
 export function ServiceCard({ service }: { service: (typeof services)[number] }) {
   const Icon = service.icon;
@@ -20,22 +21,26 @@ export function ServiceCard({ service }: { service: (typeof services)[number] })
   );
 }
 
-export function ProjectCard({ project }: { project: (typeof projects)[number] }) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <Link href={`/projects/${project.slug}`} className="focus-ring group block rounded-3xl">
       <article className="overflow-hidden rounded-3xl bg-card transition duration-200 group-hover:-translate-y-1">
         <div className="relative h-56 border-b border-hairline bg-white/50">
-          <div className="absolute inset-5 rounded-2xl border border-hairline bg-white p-4">
-            <div className="flex items-center justify-between">
-              <span className="rounded-full bg-black/5 px-3 py-1 text-xs font-medium text-ink">{project.category}</span>
-              <ArrowUpRight className="h-5 w-5 text-ink" />
+          {project.imageUrl ? (
+            <img src={project.imageUrl} alt={project.title} className="absolute inset-0 h-full w-full object-cover" />
+          ) : (
+            <div className="absolute inset-5 rounded-2xl border border-hairline bg-white p-4">
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-black/5 px-3 py-1 text-xs font-medium text-ink">{project.category}</span>
+                <ArrowUpRight className="h-5 w-5 text-ink" />
+              </div>
+              <div className="mt-14 grid gap-2">
+                <div className="h-3 w-2/3 rounded bg-black/15" />
+                <div className="h-3 w-1/2 rounded bg-black/10" />
+                <div className="mt-3 h-16 rounded-2xl bg-black/5" />
+              </div>
             </div>
-            <div className="mt-14 grid gap-2">
-              <div className="h-3 w-2/3 rounded bg-black/15" />
-              <div className="h-3 w-1/2 rounded bg-black/10" />
-              <div className="mt-3 h-16 rounded-2xl bg-black/5" />
-            </div>
-          </div>
+          )}
         </div>
         <div className="p-6">
           <p className="text-xs uppercase tracking-[0.16em] text-faint">{project.industry} / {project.year}</p>
@@ -47,21 +52,27 @@ export function ProjectCard({ project }: { project: (typeof projects)[number] })
   );
 }
 
-export function ProductCard({ product }: { product: (typeof products)[number] }) {
+export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/marketplace/${product.slug}`} className="focus-ring group block rounded-3xl">
       <article className="overflow-hidden rounded-3xl bg-card transition duration-200 group-hover:-translate-y-1">
-        <div className="h-48 border-b border-hairline bg-white/50 p-5">
-          <div className="h-full rounded-2xl border border-hairline bg-white p-4">
-            <div className="grid h-full grid-cols-3 gap-2">
-              <div className="col-span-2 rounded bg-black/10" />
-              <div className="grid gap-2">
-                <span className="rounded bg-black/15" />
-                <span className="rounded bg-black/5" />
-                <span className="rounded bg-black/10" />
+        <div className="h-48 border-b border-hairline bg-white/50">
+          {product.imageUrl ? (
+            <img src={product.imageUrl} alt={product.title} className="h-48 w-full object-cover" />
+          ) : (
+            <div className="h-full p-5">
+              <div className="h-full rounded-2xl border border-hairline bg-white p-4">
+                <div className="grid h-full grid-cols-3 gap-2">
+                  <div className="col-span-2 rounded bg-black/10" />
+                  <div className="grid gap-2">
+                    <span className="rounded bg-black/15" />
+                    <span className="rounded bg-black/5" />
+                    <span className="rounded bg-black/10" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="p-6">
           <div className="flex items-center justify-between gap-3">

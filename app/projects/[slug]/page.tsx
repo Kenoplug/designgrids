@@ -39,17 +39,21 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </div>
         </div>
         <div className="min-h-96 rounded-3xl bg-card p-6">
-          <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
-            <div className="grid gap-4 md:grid-cols-3">
-              {project.metrics.map((metric) => <span key={metric} className="rounded-3xl bg-black/14 p-4 text-sm font-medium">{metric}</span>)}
-            </div>
-            <div className="rounded-3xl bg-black/16 p-5">
-              <div className="mb-4 h-3 w-1/2 rounded bg-black/60" />
-              <div className="grid h-52 grid-cols-5 items-end gap-3">
-                {[38, 64, 52, 86, 74].map((height) => <span key={height} className="rounded-t bg-black/60" style={{ height: `${height}%` }} />)}
+          {project.imageUrl ? (
+            <img src={project.imageUrl} alt={project.title} className="h-full min-h-[24rem] w-full rounded-2xl border border-hairline object-cover" />
+          ) : (
+            <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
+              <div className="grid gap-4 md:grid-cols-3">
+                {project.metrics.map((metric) => <span key={metric} className="rounded-3xl bg-black/14 p-4 text-sm font-medium">{metric}</span>)}
+              </div>
+              <div className="rounded-3xl bg-black/16 p-5">
+                <div className="mb-4 h-3 w-1/2 rounded bg-black/60" />
+                <div className="grid h-52 grid-cols-5 items-end gap-3">
+                  {[38, 64, 52, 86, 74].map((height) => <span key={height} className="rounded-t bg-black/60" style={{ height: `${height}%` }} />)}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
       <Section title="Overview" copy={`${project.industry} client engagement focused on research, workflow clarity, and a production-ready interface system.`}>

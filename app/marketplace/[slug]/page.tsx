@@ -30,16 +30,20 @@ export default async function ProductPage({ params }: PageProps) {
     <>
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-24">
         <div className="min-h-[30rem] rounded-3xl bg-card p-6">
-          <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
-            <div className="rounded-3xl bg-black/18 p-5">
-              <div className="grid h-64 grid-cols-3 gap-3">
-                <span className="col-span-2 rounded bg-black/35" />
-                <span className="rounded bg-black/20" />
-                <span className="rounded bg-black/20" />
-                <span className="col-span-2 rounded bg-black/30" />
+          {product.imageUrl ? (
+            <img src={product.imageUrl} alt={product.title} className="h-full min-h-[28rem] w-full rounded-2xl border border-hairline object-cover" />
+          ) : (
+            <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
+              <div className="rounded-3xl bg-black/18 p-5">
+                <div className="grid h-64 grid-cols-3 gap-3">
+                  <span className="col-span-2 rounded bg-black/35" />
+                  <span className="rounded bg-black/20" />
+                  <span className="rounded bg-black/20" />
+                  <span className="col-span-2 rounded bg-black/30" />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-mint">{product.category}</p>

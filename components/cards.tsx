@@ -99,7 +99,7 @@ export function ResourceCard({ resource }: { resource: (typeof resources)[number
       </div>
       <h3 className="mt-5 text-xl font-semibold text-ink">{resource.title}</h3>
       <p className="mt-3 line-clamp-3 text-sm leading-6 text-pencil">{resource.summary}</p>
-      <Link href="/resources" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink hover:text-pencil">
+      <Link href={`/resources/${resource.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink hover:text-pencil">
         Read guide <ArrowUpRight className="h-4 w-4" />
       </Link>
     </article>

@@ -15,7 +15,7 @@ export type Project = {
   challenge: string;
   research: string[];
   personas: string[];
-  imageUrl: string;
+  images: string[];
 };
 
 export type Product = {
@@ -30,7 +30,7 @@ export type Product = {
   compatibility: string[];
   version: string;
   checkoutUrl: string;
-  imageUrl: string;
+  images: string[];
 };
 
 type Row = Record<string, any>;
@@ -50,7 +50,7 @@ function mapProject(row: Row): Project {
     challenge: row.challenge ?? "",
     research: row.research ?? [],
     personas: row.personas ?? [],
-    imageUrl: row.image_url ?? "",
+    images: Array.isArray(row.images) ? row.images : [],
   };
 }
 
@@ -67,7 +67,7 @@ function mapProduct(row: Row): Product {
     compatibility: row.compatibility ?? [],
     version: row.version ?? "1.0.0",
     checkoutUrl: row.checkout_url ?? "",
-    imageUrl: row.image_url ?? "",
+    images: Array.isArray(row.images) ? row.images : [],
   };
 }
 
@@ -87,7 +87,7 @@ async function fetchRows<T>(table: "projects" | "products", map: (row: Row) => T
 export async function getProjects(): Promise<Project[]> {
   const rows = await fetchRows<Project>("projects", mapProject);
   if (rows) return rows;
-  return seedProjects.map((project) => ({ ...project, imageUrl: "" }));
+  return seedProjects.map((project) => ({ ...project, images: [] }));
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
@@ -103,7 +103,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | undefine
 export async function getProducts(): Promise<Product[]> {
   const rows = await fetchRows<Product>("products", mapProduct);
   if (rows) return rows;
-  return seedProducts.map((product) => ({ ...product, imageUrl: "" }));
+  return seedProducts.map((product) => ({ ...product, images: [] }));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {

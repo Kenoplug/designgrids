@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { getBrowserSupabase } from "@/lib/supabase-client";
-import { ImageUpload } from "@/components/image-upload";
+import { ImageGallery } from "@/components/image-gallery";
 
 const PASSWORD_KEY = "dg_admin_password";
 
@@ -15,7 +15,7 @@ type ProductDraft = {
   reviews: string;
   version: string;
   checkoutUrl: string;
-  imageUrl: string;
+  images: string[];
   summary: string;
   files: string;
   compatibility: string;
@@ -35,11 +35,11 @@ type ProjectDraft = {
   metrics: string;
   research: string;
   personas: string;
-  imageUrl: string;
+  images: string[];
 };
 
-const emptyProduct: ProductDraft = { title: "", category: "", price: "", rating: "", reviews: "", version: "", checkoutUrl: "", summary: "", files: "", compatibility: "", imageUrl: "" };
-const emptyProject: ProjectDraft = { title: "", industry: "", category: "", year: "", featured: false, views: "", summary: "", testimonial: "", challenge: "", metrics: "", research: "", personas: "", imageUrl: "" };
+const emptyProduct: ProductDraft = { title: "", category: "", price: "", rating: "", reviews: "", version: "", checkoutUrl: "", summary: "", files: "", compatibility: "", images: [] };
+const emptyProject: ProjectDraft = { title: "", industry: "", category: "", year: "", featured: false, views: "", summary: "", testimonial: "", challenge: "", metrics: "", research: "", personas: "", images: [] };
 
 function splitList(text: string): string[] {
   return text.split(",").map((s) => s.trim()).filter(Boolean);
@@ -113,7 +113,7 @@ export function AdminDashboard() {
       reviews: Number(productDraft.reviews || 0),
       version: productDraft.version,
       checkout_url: productDraft.checkoutUrl,
-      image_url: productDraft.imageUrl,
+      images: productDraft.images,
       summary: productDraft.summary,
       files: splitList(productDraft.files),
       compatibility: splitList(productDraft.compatibility),
@@ -165,7 +165,7 @@ export function AdminDashboard() {
       metrics: splitList(projectDraft.metrics),
       research: splitList(projectDraft.research),
       personas: splitList(projectDraft.personas),
-      image_url: projectDraft.imageUrl,
+      images: projectDraft.images,
     };
     const res = await fetch("/api/admin/projects", {
       method: projectDraft.id ? "PUT" : "POST",
@@ -245,7 +245,7 @@ export function AdminDashboard() {
                   <p className="text-xs text-mist">{p.category} · {p.price}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setProductDraft({ id: p.id, title: p.title, category: p.category, price: p.price, rating: String(p.rating ?? ""), reviews: String(p.reviews ?? ""), version: p.version ?? "", checkoutUrl: p.checkout_url ?? "", summary: p.summary ?? "", files: (p.files ?? []).join(", "), compatibility: (p.compatibility ?? []).join(", "), imageUrl: p.image_url ?? "" })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
+                  <button onClick={() => setProductDraft({ id: p.id, title: p.title, category: p.category, price: p.price, rating: String(p.rating ?? ""), reviews: String(p.reviews ?? ""), version: p.version ?? "", checkoutUrl: p.checkout_url ?? "", summary: p.summary ?? "", files: (p.files ?? []).join(", "), compatibility: (p.compatibility ?? []).join(", "), images: Array.isArray(p.images) ? p.images : [] })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
                   <button onClick={() => deleteProduct(p.id)} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-red-600">Delete</button>
                 </div>
               </li>
@@ -269,7 +269,7 @@ export function AdminDashboard() {
                   <p className="text-xs text-mist">{p.category} · {p.industry} · {p.year}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setProjectDraft({ id: p.id, title: p.title, industry: p.industry, category: p.category, year: p.year, featured: !!p.featured, views: String(p.views ?? ""), summary: p.summary ?? "", testimonial: p.testimonial ?? "", challenge: p.challenge ?? "", metrics: (p.metrics ?? []).join(", "), research: (p.research ?? []).join(", "), personas: (p.personas ?? []).join(", "), imageUrl: p.image_url ?? "" })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
+                  <button onClick={() => setProjectDraft({ id: p.id, title: p.title, industry: p.industry, category: p.category, year: p.year, featured: !!p.featured, views: String(p.views ?? ""), summary: p.summary ?? "", testimonial: p.testimonial ?? "", challenge: p.challenge ?? "", metrics: (p.metrics ?? []).join(", "), research: (p.research ?? []).join(", "), personas: (p.personas ?? []).join(", "), images: Array.isArray(p.images) ? p.images : [] })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
                   <button onClick={() => deleteProject(p.id)} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-red-600">Delete</button>
                 </div>
               </li>
@@ -282,7 +282,7 @@ export function AdminDashboard() {
 }
 
 function ProductForm({ draft, setDraft, onSave, onCancel, onUpload }: { draft: ProductDraft; setDraft: (d: ProductDraft) => void; onSave: (e: FormEvent) => void; onCancel: () => void; onUpload: (file: File) => Promise<string> }) {
-  const set = (key: keyof ProductDraft, value: string) => setDraft({ ...draft, [key]: value });
+  const set = (key: keyof ProductDraft, value: any) => setDraft({ ...draft, [key]: value });
   return (
     <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-2xl border border-hairline bg-white p-4 md:grid-cols-2">
       <Field label="Title" value={draft.title} onChange={(v) => set("title", v)} />
@@ -295,7 +295,7 @@ function ProductForm({ draft, setDraft, onSave, onCancel, onUpload }: { draft: P
       <Field label="Summary" value={draft.summary} onChange={(v) => set("summary", v)} />
       <Field label="Files (comma separated)" value={draft.files} onChange={(v) => set("files", v)} />
       <Field label="Compatibility (comma separated)" value={draft.compatibility} onChange={(v) => set("compatibility", v)} />
-      <ImageUpload value={draft.imageUrl} onChange={(url) => set("imageUrl", url)} onUpload={onUpload} />
+      <ImageGallery images={draft.images} onChange={(urls) => setDraft({ ...draft, images: urls })} onUpload={onUpload} />
       <div className="md:col-span-2 flex gap-2">
         <button className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Save</button>
         <button type="button" onClick={onCancel} className="rounded-2xl border border-hairline px-4 py-2 text-sm text-ink">Cancel</button>
@@ -305,7 +305,7 @@ function ProductForm({ draft, setDraft, onSave, onCancel, onUpload }: { draft: P
 }
 
 function ProjectForm({ draft, setDraft, onSave, onCancel, onUpload }: { draft: ProjectDraft; setDraft: (d: ProjectDraft) => void; onSave: (e: FormEvent) => void; onCancel: () => void; onUpload: (file: File) => Promise<string> }) {
-  const set = (key: keyof ProjectDraft, value: string | boolean) => setDraft({ ...draft, [key]: value });
+  const set = (key: keyof ProjectDraft, value: any) => setDraft({ ...draft, [key]: value });
   return (
     <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-2xl border border-hairline bg-white p-4 md:grid-cols-2">
       <Field label="Title" value={draft.title} onChange={(v) => set("title", v)} />
@@ -323,7 +323,7 @@ function ProjectForm({ draft, setDraft, onSave, onCancel, onUpload }: { draft: P
       <Field label="Metrics (comma separated)" value={draft.metrics} onChange={(v) => set("metrics", v)} />
       <Field label="Research (comma separated)" value={draft.research} onChange={(v) => set("research", v)} />
       <Field label="Personas (comma separated)" value={draft.personas} onChange={(v) => set("personas", v)} />
-      <ImageUpload value={draft.imageUrl} onChange={(url) => set("imageUrl", url)} onUpload={onUpload} />
+      <ImageGallery images={draft.images} onChange={(urls) => setDraft({ ...draft, images: urls })} onUpload={onUpload} />
       <div className="md:col-span-2 flex gap-2">
         <button className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Save</button>
         <button type="button" onClick={onCancel} className="rounded-2xl border border-hairline px-4 py-2 text-sm text-ink">Cancel</button>

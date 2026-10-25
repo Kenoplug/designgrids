@@ -26,8 +26,8 @@ export function ProjectCard({ project }: { project: Project }) {
     <Link href={`/projects/${project.slug}`} className="focus-ring group block rounded-3xl">
       <article className="overflow-hidden rounded-3xl bg-card transition duration-200 group-hover:-translate-y-1">
         <div className="relative h-56 border-b border-hairline bg-white/50">
-          {project.imageUrl ? (
-            <img src={project.imageUrl} alt={project.title} className="absolute inset-0 h-full w-full object-cover" />
+          {project.images[0] ? (
+            <img src={project.images[0]} alt={project.title} className="absolute inset-0 h-full w-full object-cover" />
           ) : (
             <div className="absolute inset-5 rounded-2xl border border-hairline bg-white p-4">
               <div className="flex items-center justify-between">
@@ -57,8 +57,8 @@ export function ProductCard({ product }: { product: Product }) {
     <Link href={`/marketplace/${product.slug}`} className="focus-ring group block rounded-3xl">
       <article className="overflow-hidden rounded-3xl bg-card transition duration-200 group-hover:-translate-y-1">
         <div className="h-48 border-b border-hairline bg-white/50">
-          {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.title} className="h-48 w-full object-cover" />
+          {product.images[0] ? (
+            <img src={product.images[0]} alt={product.title} className="h-48 w-full object-cover" />
           ) : (
             <div className="h-full p-5">
               <div className="h-full rounded-2xl border border-hairline bg-white p-4">

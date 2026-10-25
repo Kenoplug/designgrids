@@ -30,8 +30,8 @@ export default async function ProductPage({ params }: PageProps) {
     <>
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-24">
         <div className="min-h-[30rem] rounded-3xl bg-card p-6">
-          {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.title} className="h-full min-h-[28rem] w-full rounded-2xl border border-hairline object-cover" />
+          {product.images[0] ? (
+            <img src={product.images[0]} alt={product.title} className="h-full min-h-[28rem] w-full rounded-2xl border border-hairline object-cover" />
           ) : (
             <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
               <div className="rounded-3xl bg-black/18 p-5">
@@ -61,6 +61,15 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+      {product.images.length > 0 && (
+        <Section title="Gallery">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {product.images.map((url, i) => (
+              <img key={i} src={url} alt={`${product.title} ${i + 1}`} className="h-64 w-full rounded-2xl border border-hairline object-cover" />
+            ))}
+          </div>
+        </Section>
+      )}
       <Section title="Product details">
         <div className="grid gap-5 lg:grid-cols-3">
           <DetailList title="Included files" items={product.files} />

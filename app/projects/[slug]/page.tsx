@@ -39,8 +39,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </div>
         </div>
         <div className="min-h-96 rounded-3xl bg-card p-6">
-          {project.imageUrl ? (
-            <img src={project.imageUrl} alt={project.title} className="h-full min-h-[24rem] w-full rounded-2xl border border-hairline object-cover" />
+          {project.images[0] ? (
+            <img src={project.images[0]} alt={project.title} className="h-full min-h-[24rem] w-full rounded-2xl border border-hairline object-cover" />
           ) : (
             <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
               <div className="grid gap-4 md:grid-cols-3">
@@ -56,6 +56,15 @@ export default async function CaseStudyPage({ params }: PageProps) {
           )}
         </div>
       </section>
+      {project.images.length > 0 && (
+        <Section title="Gallery">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {project.images.map((url, i) => (
+              <img key={i} src={url} alt={`${project.title} ${i + 1}`} className="h-64 w-full rounded-2xl border border-hairline object-cover" />
+            ))}
+          </div>
+        </Section>
+      )}
       <Section title="Overview" copy={`${project.industry} client engagement focused on research, workflow clarity, and a production-ready interface system.`}>
         <div className="grid gap-5 lg:grid-cols-3">
           <InfoBlock title="Challenge" items={[project.challenge]} />

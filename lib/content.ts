@@ -173,6 +173,7 @@ export const products = [
     files: ["Figma file", "Token JSON", "Icon set", "Documentation"],
     compatibility: ["Figma", "React", "Tailwind"],
     version: "2.3.0",
+    checkoutUrl: "",
   },
   {
     slug: "mobile-fintech-template",
@@ -185,6 +186,7 @@ export const products = [
     files: ["Figma file", "Prototype", "User flow map", "Components"],
     compatibility: ["Figma", "iOS", "Android"],
     version: "1.8.2",
+    checkoutUrl: "",
   },
   {
     slug: "wireframe-starter-system",
@@ -197,6 +199,7 @@ export const products = [
     files: ["Figma file", "FigJam templates", "Workshop guide"],
     compatibility: ["Figma", "FigJam"],
     version: "3.1.0",
+    checkoutUrl: "",
   },
   {
     slug: "landing-page-lab",
@@ -209,6 +212,7 @@ export const products = [
     files: ["Figma file", "Section variants", "Copy prompts", "A/B checklist"],
     compatibility: ["Figma", "Webflow", "Next.js"],
     version: "2.0.4",
+    checkoutUrl: "",
   }
 ];
 

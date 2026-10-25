@@ -6,6 +6,15 @@ export function getBySlug<T extends { slug: string }>(items: T[], slug: string) 
   return items.find((item) => item.slug === slug);
 }
 
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type Filterable = {
   slug: string;
   title: string;

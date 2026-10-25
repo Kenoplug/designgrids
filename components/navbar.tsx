@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Sparkles, X } from "lucide-react";
 import { useState } from "react";
 import { navItems } from "@/lib/content";
@@ -9,6 +10,11 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(href + "/");
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-xl">
@@ -24,14 +30,23 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="focus-ring rounded-2xl px-3 py-2 text-sm text-mist transition hover:bg-black/5 hover:text-ink"
+              className={cn(
+                "focus-ring rounded-2xl px-3 py-2 text-sm transition hover:bg-black/5 hover:text-ink",
+                isActive(item.href) ? "bg-black/5 text-ink" : "text-mist"
+              )}
             >
               {item.label}
             </Link>
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
-          <Link href="/client-portal" className="focus-ring rounded-2xl px-3 py-2 text-sm text-mist hover:text-ink">
+          <Link
+            href="/client-portal"
+            className={cn(
+              "focus-ring rounded-2xl px-3 py-2 text-sm hover:text-ink",
+              isActive("/client-portal") ? "text-ink" : "text-mist"
+            )}
+          >
             Client Portal
           </Link>
           <Button href="/contact" className="min-h-10 px-4 py-2">Hire Us</Button>
@@ -50,7 +65,10 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="focus-ring rounded-2xl px-3 py-3 text-sm text-mist hover:bg-black/5 hover:text-ink"
+              className={cn(
+                "focus-ring rounded-2xl px-3 py-3 text-sm hover:bg-black/5 hover:text-ink",
+                isActive(item.href) ? "bg-black/5 text-ink" : "text-mist"
+              )}
               onClick={() => setOpen(false)}
             >
               {item.label}

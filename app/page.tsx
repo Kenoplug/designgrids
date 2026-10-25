@@ -4,9 +4,14 @@ import { ProjectCard, ServiceCard, ProductCard, ResourceCard } from "@/component
 import { HeroDashboard } from "@/components/hero-dashboard";
 import { NewsletterPopup } from "@/components/newsletter-popup";
 import { Section } from "@/components/section";
-import { clientLogos, metrics, process, products, projects, resources, services, testimonials } from "@/lib/content";
+import { clientLogos, metrics, process, resources, services, testimonials } from "@/lib/content";
+import { getFeaturedProjects, getProducts } from "@/lib/data";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const [featuredProjects, products] = await Promise.all([getFeaturedProjects(), getProducts()]);
+
   return (
     <>
       <section className="relative overflow-hidden">
@@ -54,7 +59,7 @@ export default function HomePage() {
 
       <Section eyebrow="Featured projects" title="Case studies with measurable product outcomes.">
         <div className="grid gap-5 lg:grid-cols-3">
-          {projects.filter((project) => project.featured).map((project) => <ProjectCard key={project.slug} project={project} />)}
+          {featuredProjects.map((project) => <ProjectCard key={project.slug} project={project} />)}
         </div>
       </Section>
 

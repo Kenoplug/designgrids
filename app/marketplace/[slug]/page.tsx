@@ -3,18 +3,16 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/button";
 import { ProductCard } from "@/components/cards";
 import { Section } from "@/components/section";
-import { products } from "@/lib/content";
-import { getBySlug } from "@/lib/utils";
+import { getProducts } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getBySlug(products, slug);
+  const products = await getProducts();
+  const product = products.find((p) => p.slug === slug);
   return {
     title: product?.title ?? "Product",
     description: product?.summary
@@ -23,14 +21,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = getBySlug(products, slug);
+  const products = await getProducts();
+  const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
   const related = products.filter((item) => item.slug !== product.slug).slice(0, 3);
 
   return (
     <>
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-24">
-        <div className={`min-h-[30rem] rounded-xl bg-neutral-100 p-6`}>
+        <div className="min-h-[30rem] rounded-xl bg-neutral-100 p-6">
           <div className="grid h-full gap-4 rounded-xl border border-black/20 bg-neutral-50/26 p-5 backdrop-blur-md">
             <div className="rounded-lg bg-black/18 p-5">
               <div className="grid h-64 grid-cols-3 gap-3">

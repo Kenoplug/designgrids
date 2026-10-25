@@ -3,18 +3,16 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/button";
 import { ProjectCard } from "@/components/cards";
 import { Section } from "@/components/section";
-import { getBySlug } from "@/lib/utils";
-import { projects } from "@/lib/content";
+import { getProjects } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getBySlug(projects, slug);
+  const projects = await getProjects();
+  const project = projects.find((p) => p.slug === slug);
   return {
     title: project?.title ?? "Case Study",
     description: project?.summary
@@ -23,7 +21,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = getBySlug(projects, slug);
+  const projects = await getProjects();
+  const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
   const nextProject = projects.find((item) => item.slug !== project.slug) ?? projects[0];
 
@@ -39,7 +38,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <Button href="/projects" variant="secondary">All Projects</Button>
           </div>
         </div>
-        <div className={`min-h-96 rounded-xl bg-neutral-100 p-6`}>
+        <div className="min-h-96 rounded-xl bg-neutral-100 p-6">
           <div className="grid h-full gap-4 rounded-xl border border-black/20 bg-neutral-50/26 p-5 backdrop-blur-md">
             <div className="grid gap-4 md:grid-cols-3">
               {project.metrics.map((metric) => <span key={metric} className="rounded-lg bg-black/14 p-4 text-sm font-medium">{metric}</span>)}

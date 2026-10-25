@@ -38,12 +38,12 @@ export default async function CaseStudyPage({ params }: PageProps) {
             <Button href="/projects" variant="secondary">All Projects</Button>
           </div>
         </div>
-        <div className="min-h-96 rounded-xl bg-neutral-100 p-6">
-          <div className="grid h-full gap-4 rounded-xl border border-black/20 bg-neutral-50/26 p-5 backdrop-blur-md">
+        <div className="min-h-96 rounded-3xl bg-card p-6">
+          <div className="grid h-full gap-4 rounded-3xl border border-hairline bg-white p-5 backdrop-blur-md">
             <div className="grid gap-4 md:grid-cols-3">
-              {project.metrics.map((metric) => <span key={metric} className="rounded-lg bg-black/14 p-4 text-sm font-medium">{metric}</span>)}
+              {project.metrics.map((metric) => <span key={metric} className="rounded-3xl bg-black/14 p-4 text-sm font-medium">{metric}</span>)}
             </div>
-            <div className="rounded-lg bg-black/16 p-5">
+            <div className="rounded-3xl bg-black/16 p-5">
               <div className="mb-4 h-3 w-1/2 rounded bg-black/60" />
               <div className="grid h-52 grid-cols-5 items-end gap-3">
                 {[38, 64, 52, 86, 74].map((height) => <span key={height} className="rounded-t bg-black/60" style={{ height: `${height}%` }} />)}
@@ -61,35 +61,35 @@ export default async function CaseStudyPage({ params }: PageProps) {
       </Section>
       <Section title="Journey, wireframes, before and after.">
         <div className="grid gap-5 lg:grid-cols-2">
-          <div className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+          <div className="rounded-3xl border border-hairline bg-card p-6">
             <h2 className="text-xl font-semibold">User journey</h2>
             <div className="mt-6 grid gap-3">
               {["Entry point", "Primary task", "Decision moment", "Success state"].map((step, index) => (
                 <div key={step} className="flex items-center gap-3">
-                  <span className="grid h-8 w-8 place-items-center rounded-md bg-electric/14 text-sm text-electric">{index + 1}</span>
+                  <span className="grid h-8 w-8 place-items-center rounded-2xl bg-electric/14 text-sm text-electric">{index + 1}</span>
                   <span className="text-mist/72">{step}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+          <div className="rounded-3xl border border-hairline bg-card p-6">
             <h2 className="text-xl font-semibold">Before vs after</h2>
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <div className="rounded-lg border border-black/10 bg-black/6 p-4 text-sm text-mist/62">Before: fragmented actions, hidden approvals, unclear priorities.</div>
-              <div className="rounded-lg border border-mint/25 bg-mint/10 p-4 text-sm text-mist/78">After: task-first hierarchy, guided actions, measurable outcomes.</div>
+              <div className="rounded-3xl border border-hairline bg-black/6 p-4 text-sm text-mist/62">Before: fragmented actions, hidden approvals, unclear priorities.</div>
+              <div className="rounded-3xl border border-mint/25 bg-mint/10 p-4 text-sm text-mist/78">After: task-first hierarchy, guided actions, measurable outcomes.</div>
             </div>
           </div>
         </div>
       </Section>
       <Section title="Design system and results.">
         <div className="grid gap-5 lg:grid-cols-2">
-          <div className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+          <div className="rounded-3xl border border-hairline bg-card p-6">
             <h2 className="text-xl font-semibold">System foundations</h2>
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {["Colors", "Typography", "Components"].map((item) => <span key={item} className="rounded-md bg-black/8 p-4 text-sm">{item}</span>)}
+              {["Colors", "Typography", "Components"].map((item) => <span key={item} className="rounded-2xl bg-black/8 p-4 text-sm">{item}</span>)}
             </div>
           </div>
-          <blockquote className="glass rounded-lg p-6">
+          <blockquote className="glass rounded-3xl p-6">
             <p className="text-xl leading-8">&quot;{project.testimonial}&quot;</p>
             <p className="mt-5 text-sm text-mist/55">{project.industry} client</p>
           </blockquote>
@@ -106,7 +106,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
 function InfoBlock({ title, items }: { title: string; items: string[] }) {
   return (
-    <article className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+    <article className="rounded-3xl border border-hairline bg-card p-6">
       <h2 className="text-lg font-semibold text-ink">{title}</h2>
       <ul className="mt-4 grid gap-3 text-sm leading-6 text-mist/68">
         {items.map((item) => <li key={item}>{item}</li>)}

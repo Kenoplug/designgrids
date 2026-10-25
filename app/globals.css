@@ -4,9 +4,8 @@
 
 :root {
   color-scheme: light;
-  --font-inter: "Inter";
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #fafafa;
+  --foreground: #171717;
 }
 
 * {
@@ -20,9 +19,16 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background: #ffffff;
-  color: var(--foreground);
-  font-family: var(--font-inter), Inter, Geist, Satoshi, sans-serif;
+  background: #fafafa;
+  color: #171717;
+  font-family: Inter, system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.025em;
 }
 
 a {
@@ -38,12 +44,11 @@ textarea {
 }
 
 ::selection {
-  background: rgba(10, 10, 10, 0.12);
+  background: rgba(23, 23, 23, 0.12);
 }
 
 .glass {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #ffffff;
+  background: #ededed;
 }
 
 .focus-ring {
@@ -52,7 +57,7 @@ textarea {
 }
 
 .focus-ring:focus-visible {
-  outline-color: #0a0a0a;
+  outline-color: #171717;
 }
 
 .line-clamp-2 {

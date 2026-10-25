@@ -17,11 +17,11 @@ export default async function HomePage() {
       <section className="relative overflow-hidden">
         <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
           <div>
-            <p className="mb-4 inline-flex rounded-md border border-electric/30 bg-electric/10 px-3 py-1 text-sm font-medium text-electric">
+            <p className="mb-4 inline-flex rounded-2xl border border-electric/30 bg-electric/10 px-3 py-1 text-sm font-medium text-electric">
               Product design for startups, founders, and software teams
             </p>
-            <h1 className="max-w-4xl text-5xl font-semibold leading-tight tracking-normal text-ink sm:text-6xl lg:text-7xl">
-              Designing Digital Products That Users Love.
+            <h1 className="max-w-4xl text-5xl font-semibold leading-tight tracking-tight text-ink sm:text-6xl lg:text-7xl">
+              Designing digital products that users <span className="font-serif italic">love.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-mist/72">
               We help startups, developers, and businesses create world-class mobile apps, web applications, and SaaS products through research-driven design.
@@ -41,7 +41,7 @@ export default async function HomePage() {
           <HeroDashboard />
         </div>
         <div className="mx-auto -mt-10 max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
-          <div className="overflow-hidden border-y border-black/8 py-5">
+          <div className="overflow-hidden border-y border-hairline py-5">
             <div className="flex w-max gap-10 text-sm font-semibold tracking-[0.18em] text-mist/42 animate-marquee">
               {[...clientLogos, ...clientLogos].map((logo, index) => (
                 <span key={`${logo}-${index}`}>{logo}</span>
@@ -68,7 +68,7 @@ export default async function HomePage() {
           {process.map((step, index) => {
             const Icon = step.icon;
             return (
-              <article key={step.title} className="rounded-lg border border-black/10 bg-black/[0.045] p-5">
+              <article key={step.title} className="rounded-3xl border border-hairline bg-card p-5">
                 <div className="flex items-center justify-between">
                   <Icon className="h-5 w-5 text-electric" />
                   <span className="text-xs text-mist/40">0{index + 1}</span>
@@ -90,7 +90,7 @@ export default async function HomePage() {
       <Section eyebrow="Results" title="Proof points clients and customers can scan fast.">
         <div className="grid gap-4 md:grid-cols-4">
           {metrics.map((metric) => (
-            <div key={metric.label} className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+            <div key={metric.label} className="rounded-3xl border border-hairline bg-card p-6">
               <p className="text-4xl font-semibold text-ink">{metric.value}</p>
               <p className="mt-2 text-sm text-mist/55">{metric.label}</p>
             </div>
@@ -101,7 +101,7 @@ export default async function HomePage() {
       <Section eyebrow="Clients" title="Sharp thinking, clean systems, calm delivery.">
         <div className="grid gap-5 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <blockquote key={testimonial.author} className="glass rounded-lg p-6">
+            <blockquote key={testimonial.author} className="glass rounded-3xl p-6">
               <p className="text-lg leading-8 text-ink">&quot;{testimonial.quote}&quot;</p>
               <footer className="mt-6 text-sm text-mist/62">
                 <strong className="block text-ink">{testimonial.author}</strong>
@@ -119,7 +119,7 @@ export default async function HomePage() {
       </Section>
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="rounded-xl border border-black/10 bg-neutral-50 p-8 lg:p-12">
+        <div className="rounded-3xl border border-hairline bg-card p-8 lg:p-12">
           <h2 className="max-w-2xl text-3xl font-semibold text-ink sm:text-4xl">Let&apos;s Build Something Great Together</h2>
           <p className="mt-4 max-w-2xl text-mist/68">Book a consultation, review the portfolio, or browse templates built to turn product clarity into momentum.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

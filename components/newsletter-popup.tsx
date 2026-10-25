@@ -41,10 +41,10 @@ export function NewsletterPopup() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm rounded-lg border border-black/10 bg-white p-4">
+    <div className="fixed bottom-4 right-4 z-50 max-w-sm rounded-3xl border border-hairline bg-white p-4">
       <button
         aria-label="Dismiss newsletter"
-        className="focus-ring absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-md text-mist hover:bg-black/5 hover:text-ink"
+        className="focus-ring absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-2xl text-mist hover:bg-black/5 hover:text-ink"
         onClick={() => setVisible(false)}
       >
         <X className="h-4 w-4" />
@@ -61,10 +61,10 @@ export function NewsletterPopup() {
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="min-w-0 flex-1 rounded-md border border-black/10 bg-white px-3 text-sm outline-none placeholder:text-neutral-400"
+              className="min-w-0 flex-1 rounded-2xl border border-hairline bg-white px-3 text-sm outline-none placeholder:text-neutral-400"
               placeholder="Email address"
             />
-            <button type="submit" disabled={status === "loading"} className="focus-ring rounded-md bg-ink px-3 text-sm font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={status === "loading"} className="focus-ring rounded-2xl bg-graphite px-3 text-sm font-semibold text-canvas disabled:opacity-60">
               {status === "loading" ? "..." : "Get it"}
             </button>
           </form>

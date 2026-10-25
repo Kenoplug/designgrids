@@ -4,11 +4,11 @@ import { navItems } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/10 bg-white">
+    <footer className="border-t border-hairline bg-white">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
         <div>
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-md bg-ink text-white">
+            <span className="grid h-9 w-9 place-items-center rounded-2xl bg-graphite text-canvas">
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="text-sm font-semibold uppercase tracking-[0.16em] text-ink">DesignGrids Studio</span>
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="border-t border-black/10 px-4 py-5 text-center text-xs text-mist">
+      <div className="border-t border-hairline px-4 py-5 text-center text-xs text-mist">
         &copy; {new Date().getFullYear()} DesignGrids Studio. Built for product teams who care about the details.
       </div>
     </footer>

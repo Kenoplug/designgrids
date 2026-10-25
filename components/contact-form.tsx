@@ -52,7 +52,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass grid gap-4 rounded-lg p-6">
+    <form onSubmit={handleSubmit} className="glass grid gap-4 rounded-3xl p-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <Input name="name" label="Name" placeholder="Your name" required />
         <Input name="email" label="Email" placeholder="you@company.com" type="email" required />
@@ -69,24 +69,24 @@ export function ContactForm() {
           name="message"
           required
           minLength={20}
-          className="min-h-36 rounded-md border border-black/10 bg-white px-3 py-3 text-sm text-ink outline-none placeholder:text-neutral-400"
+          className="min-h-36 rounded-2xl border border-hairline bg-white px-3 py-3 text-sm text-ink outline-none placeholder:text-neutral-400"
           placeholder="What are you trying to design, improve, or launch?"
         />
       </label>
       <button
         type="submit"
         disabled={status === "loading"}
-        className="focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
+        className="focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-graphite px-5 py-3 text-sm font-semibold text-canvas disabled:opacity-60"
       >
         <Send className="h-4 w-4" /> {status === "loading" ? "Sending..." : "Send Inquiry"}
       </button>
       {status === "success" && (
-        <p className="rounded-md border border-black/10 bg-black/5 px-4 py-3 text-sm text-ink">
+        <p className="rounded-2xl border border-hairline bg-black/5 px-4 py-3 text-sm text-ink">
           Thanks! Your inquiry has been sent. We&apos;ll get back to you shortly.
         </p>
       )}
       {status === "error" && (
-        <p className="rounded-md border border-black/10 bg-black/5 px-4 py-3 text-sm text-ink">
+        <p className="rounded-2xl border border-hairline bg-black/5 px-4 py-3 text-sm text-ink">
           {error || "Something went wrong. Please try again."}
         </p>
       )}
@@ -98,7 +98,7 @@ function Input({ name, label, placeholder, type = "text", required = false }: { 
   return (
     <label className="grid gap-2 text-sm font-medium text-ink">
       {label}
-      <input name={name} type={type} required={required} className="min-h-11 rounded-md border border-black/10 bg-white px-3 text-sm text-ink outline-none placeholder:text-neutral-400" placeholder={placeholder} />
+      <input name={name} type={type} required={required} className="min-h-11 rounded-2xl border border-hairline bg-white px-3 text-sm text-ink outline-none placeholder:text-neutral-400" placeholder={placeholder} />
     </label>
   );
 }
@@ -107,7 +107,7 @@ function Select({ name, label, options }: { name: string; label: string; options
   return (
     <label className="grid gap-2 text-sm font-medium text-ink">
       {label}
-      <select name={name} className="min-h-11 rounded-md border border-black/10 bg-white px-3 text-sm text-ink outline-none">
+      <select name={name} className="min-h-11 rounded-2xl border border-hairline bg-white px-3 text-sm text-ink outline-none">
         {options.map((option) => <option key={option}>{option}</option>)}
       </select>
     </label>

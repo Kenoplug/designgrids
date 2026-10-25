@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Script from "next/script";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
@@ -50,6 +50,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Instrument+Serif&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <Script id="structured-data" type="application/ld+json">
           {JSON.stringify(structuredData)}

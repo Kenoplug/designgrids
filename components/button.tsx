@@ -15,10 +15,10 @@ export function Button({ href, children, variant = "primary", icon, className }:
     <Link
       href={href}
       className={cn(
-        "focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition duration-200",
-        variant === "primary" && "bg-ink text-white hover:-translate-y-0.5 hover:bg-neutral-800",
-        variant === "secondary" && "border border-black/15 bg-white text-ink hover:-translate-y-0.5 hover:bg-black/5",
-        variant === "ghost" && "text-mist hover:text-ink",
+        "focus-ring inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-2 text-sm font-medium transition duration-200",
+        variant === "primary" && "bg-graphite text-canvas shadow-bevel hover:-translate-y-0.5 hover:bg-neutral-800",
+        variant === "secondary" && "border border-hairline bg-transparent text-ink hover:-translate-y-0.5 hover:bg-black/5",
+        variant === "ghost" && "text-pencil hover:text-ink",
         className
       )}
     >

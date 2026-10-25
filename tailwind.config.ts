@@ -9,19 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0a0a0a",
-        panel: "#f5f5f5",
-        mist: "#525252",
-        electric: "#0a0a0a",
-        pulse: "#0a0a0a",
-        mint: "#0a0a0a",
-        ember: "#0a0a0a"
+        canvas: "#fafafa",
+        card: "#ededed",
+        hairline: "#e5e7eb",
+        divider: "#dadada",
+        graphite: "#242424",
+        ink: "#171717",
+        pencil: "#5c5c5c",
+        faint: "#a3a3a3",
+        mist: "#5c5c5c",
+        panel: "#ededed",
+        electric: "#171717",
+        pulse: "#171717",
+        mint: "#171717",
+        ember: "#171717"
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "Geist", "Satoshi", "sans-serif"]
+        sans: ["Inter", "system-ui", "sans-serif"],
+        serif: ["Instrument Serif", "Georgia", "serif"]
+      },
+      boxShadow: {
+        bevel: "inset 0 4px 4px -2px rgba(255,255,255,0.25), inset 0 -4px 4px -2px rgba(0,0,0,0.25), inset -2px 0 2px -2px rgba(255,255,255,0.1)"
       },
       backgroundImage: {
-        grid: "linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px)"
+        grid: "linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px)"
       }
     }
   },

@@ -19,13 +19,13 @@ export default function ServicesPage() {
       <Section title="Deliverables and pricing">
         <div className="grid gap-5 lg:grid-cols-2">
           {services.map((service) => (
-            <article key={service.slug} className="rounded-lg border border-black/10 bg-black/[0.045] p-6">
+            <article key={service.slug} className="rounded-3xl border border-hairline bg-card p-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-xl font-semibold text-ink">{service.title}</h2>
                   <p className="mt-2 text-sm leading-6 text-mist/66">{service.summary}</p>
                 </div>
-                <span className="rounded-md bg-electric/12 px-3 py-1 text-sm font-semibold text-electric">{service.price}</span>
+                <span className="rounded-2xl bg-electric/12 px-3 py-1 text-sm font-semibold text-electric">{service.price}</span>
               </div>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div>

@@ -193,9 +193,9 @@ export function AdminDashboard() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Admin password"
-            className="min-h-11 rounded-md border border-black/10 bg-white px-3 text-sm text-ink"
+            className="min-h-11 rounded-2xl border border-hairline bg-white px-3 text-sm text-ink"
           />
-          <button className="min-h-11 rounded-md bg-ink px-5 text-sm font-semibold text-white">Unlock</button>
+          <button className="min-h-11 rounded-2xl bg-graphite px-5 text-sm font-semibold text-canvas">Unlock</button>
           {message && <p className="text-sm text-mist">{message}</p>}
         </form>
       </div>
@@ -207,32 +207,32 @@ export function AdminDashboard() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-ink">Admin</h1>
         <div className="flex gap-2">
-          <button onClick={() => setTab("products")} className={tab === "products" ? "rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white" : "rounded-md border border-black/10 px-4 py-2 text-sm text-ink"}>Products</button>
-          <button onClick={() => setTab("projects")} className={tab === "projects" ? "rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white" : "rounded-md border border-black/10 px-4 py-2 text-sm text-ink"}>Projects</button>
+          <button onClick={() => setTab("products")} className={tab === "products" ? "rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas" : "rounded-2xl border border-hairline px-4 py-2 text-sm text-ink"}>Products</button>
+          <button onClick={() => setTab("projects")} className={tab === "projects" ? "rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas" : "rounded-2xl border border-hairline px-4 py-2 text-sm text-ink"}>Projects</button>
         </div>
       </div>
 
-      {message && <p className="mt-4 rounded-md border border-black/10 bg-black/5 px-4 py-2 text-sm text-ink">{message}</p>}
+      {message && <p className="mt-4 rounded-2xl border border-hairline bg-black/5 px-4 py-2 text-sm text-ink">{message}</p>}
 
       {tab === "products" ? (
         <section className="mt-8">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-ink">Products ({products.length})</h2>
-            <button onClick={() => setProductDraft({ ...emptyProduct })} className="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white">Add product</button>
+            <button onClick={() => setProductDraft({ ...emptyProduct })} className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Add product</button>
           </div>
 
           {productDraft && <ProductForm draft={productDraft} setDraft={setProductDraft} onSave={saveProduct} onCancel={() => setProductDraft(null)} />}
 
           <ul className="mt-4 grid gap-2">
             {products.map((p) => (
-              <li key={p.id} className="flex items-center justify-between rounded-md border border-black/10 bg-white px-4 py-3">
+              <li key={p.id} className="flex items-center justify-between rounded-2xl border border-hairline bg-white px-4 py-3">
                 <div>
                   <p className="font-medium text-ink">{p.title}</p>
                   <p className="text-xs text-mist">{p.category} · {p.price}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setProductDraft({ id: p.id, title: p.title, category: p.category, price: p.price, rating: String(p.rating ?? ""), reviews: String(p.reviews ?? ""), version: p.version ?? "", checkoutUrl: p.checkout_url ?? "", summary: p.summary ?? "", files: (p.files ?? []).join(", "), compatibility: (p.compatibility ?? []).join(", ") })} className="rounded-md border border-black/10 px-3 py-1.5 text-xs text-ink">Edit</button>
-                  <button onClick={() => deleteProduct(p.id)} className="rounded-md border border-black/10 px-3 py-1.5 text-xs text-red-600">Delete</button>
+                  <button onClick={() => setProductDraft({ id: p.id, title: p.title, category: p.category, price: p.price, rating: String(p.rating ?? ""), reviews: String(p.reviews ?? ""), version: p.version ?? "", checkoutUrl: p.checkout_url ?? "", summary: p.summary ?? "", files: (p.files ?? []).join(", "), compatibility: (p.compatibility ?? []).join(", ") })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
+                  <button onClick={() => deleteProduct(p.id)} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-red-600">Delete</button>
                 </div>
               </li>
             ))}
@@ -242,21 +242,21 @@ export function AdminDashboard() {
         <section className="mt-8">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-ink">Projects ({projects.length})</h2>
-            <button onClick={() => setProjectDraft({ ...emptyProject })} className="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white">Add project</button>
+            <button onClick={() => setProjectDraft({ ...emptyProject })} className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Add project</button>
           </div>
 
           {projectDraft && <ProjectForm draft={projectDraft} setDraft={setProjectDraft} onSave={saveProject} onCancel={() => setProjectDraft(null)} />}
 
           <ul className="mt-4 grid gap-2">
             {projects.map((p) => (
-              <li key={p.id} className="flex items-center justify-between rounded-md border border-black/10 bg-white px-4 py-3">
+              <li key={p.id} className="flex items-center justify-between rounded-2xl border border-hairline bg-white px-4 py-3">
                 <div>
                   <p className="font-medium text-ink">{p.title} {p.featured ? "★" : ""}</p>
                   <p className="text-xs text-mist">{p.category} · {p.industry} · {p.year}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setProjectDraft({ id: p.id, title: p.title, industry: p.industry, category: p.category, year: p.year, featured: !!p.featured, views: String(p.views ?? ""), summary: p.summary ?? "", testimonial: p.testimonial ?? "", challenge: p.challenge ?? "", metrics: (p.metrics ?? []).join(", "), research: (p.research ?? []).join(", "), personas: (p.personas ?? []).join(", ") })} className="rounded-md border border-black/10 px-3 py-1.5 text-xs text-ink">Edit</button>
-                  <button onClick={() => deleteProject(p.id)} className="rounded-md border border-black/10 px-3 py-1.5 text-xs text-red-600">Delete</button>
+                  <button onClick={() => setProjectDraft({ id: p.id, title: p.title, industry: p.industry, category: p.category, year: p.year, featured: !!p.featured, views: String(p.views ?? ""), summary: p.summary ?? "", testimonial: p.testimonial ?? "", challenge: p.challenge ?? "", metrics: (p.metrics ?? []).join(", "), research: (p.research ?? []).join(", "), personas: (p.personas ?? []).join(", ") })} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-ink">Edit</button>
+                  <button onClick={() => deleteProject(p.id)} className="rounded-2xl border border-hairline px-3 py-1.5 text-xs text-red-600">Delete</button>
                 </div>
               </li>
             ))}
@@ -270,7 +270,7 @@ export function AdminDashboard() {
 function ProductForm({ draft, setDraft, onSave, onCancel }: { draft: ProductDraft; setDraft: (d: ProductDraft) => void; onSave: (e: FormEvent) => void; onCancel: () => void }) {
   const set = (key: keyof ProductDraft, value: string) => setDraft({ ...draft, [key]: value });
   return (
-    <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-md border border-black/10 bg-white p-4 md:grid-cols-2">
+    <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-2xl border border-hairline bg-white p-4 md:grid-cols-2">
       <Field label="Title" value={draft.title} onChange={(v) => set("title", v)} />
       <Field label="Category" value={draft.category} onChange={(v) => set("category", v)} />
       <Field label="Price" value={draft.price} onChange={(v) => set("price", v)} />
@@ -282,8 +282,8 @@ function ProductForm({ draft, setDraft, onSave, onCancel }: { draft: ProductDraf
       <Field label="Files (comma separated)" value={draft.files} onChange={(v) => set("files", v)} />
       <Field label="Compatibility (comma separated)" value={draft.compatibility} onChange={(v) => set("compatibility", v)} />
       <div className="md:col-span-2 flex gap-2">
-        <button className="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white">Save</button>
-        <button type="button" onClick={onCancel} className="rounded-md border border-black/10 px-4 py-2 text-sm text-ink">Cancel</button>
+        <button className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Save</button>
+        <button type="button" onClick={onCancel} className="rounded-2xl border border-hairline px-4 py-2 text-sm text-ink">Cancel</button>
       </div>
     </form>
   );
@@ -292,7 +292,7 @@ function ProductForm({ draft, setDraft, onSave, onCancel }: { draft: ProductDraf
 function ProjectForm({ draft, setDraft, onSave, onCancel }: { draft: ProjectDraft; setDraft: (d: ProjectDraft) => void; onSave: (e: FormEvent) => void; onCancel: () => void }) {
   const set = (key: keyof ProjectDraft, value: string | boolean) => setDraft({ ...draft, [key]: value });
   return (
-    <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-md border border-black/10 bg-white p-4 md:grid-cols-2">
+    <form onSubmit={onSave} className="mt-4 grid gap-3 rounded-2xl border border-hairline bg-white p-4 md:grid-cols-2">
       <Field label="Title" value={draft.title} onChange={(v) => set("title", v)} />
       <Field label="Category" value={draft.category} onChange={(v) => set("category", v)} />
       <Field label="Industry" value={draft.industry} onChange={(v) => set("industry", v)} />
@@ -309,8 +309,8 @@ function ProjectForm({ draft, setDraft, onSave, onCancel }: { draft: ProjectDraf
       <Field label="Research (comma separated)" value={draft.research} onChange={(v) => set("research", v)} />
       <Field label="Personas (comma separated)" value={draft.personas} onChange={(v) => set("personas", v)} />
       <div className="md:col-span-2 flex gap-2">
-        <button className="rounded-md bg-ink px-4 py-2 text-sm font-semibold text-white">Save</button>
-        <button type="button" onClick={onCancel} className="rounded-md border border-black/10 px-4 py-2 text-sm text-ink">Cancel</button>
+        <button className="rounded-2xl bg-graphite px-4 py-2 text-sm font-semibold text-canvas">Save</button>
+        <button type="button" onClick={onCancel} className="rounded-2xl border border-hairline px-4 py-2 text-sm text-ink">Cancel</button>
       </div>
     </form>
   );
@@ -320,7 +320,7 @@ function Field({ label, value, onChange }: { label: string; value: string; onCha
   return (
     <label className="grid gap-1 text-sm font-medium text-ink">
       {label}
-      <input value={value} onChange={(e) => onChange(e.target.value)} className="min-h-10 rounded-md border border-black/10 bg-white px-3 text-sm text-ink" />
+      <input value={value} onChange={(e) => onChange(e.target.value)} className="min-h-10 rounded-2xl border border-hairline bg-white px-3 text-sm text-ink" />
     </label>
   );
 }
